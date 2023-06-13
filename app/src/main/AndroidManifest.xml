@@ -12,6 +12,21 @@
         android:theme="@style/Theme.GoMommy"
         tools:targetApi="31">
         <activity
+            android:name=".WelcomeUser"
+            android:exported="false"
+            android:label="@string/title_activity_welcome_user"
+            android:theme="@style/Theme.GoMommy" />
+        <activity
+            android:name=".activity_splash_Screen"
+            android:exported="false"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/Theme.GoMommy" />
+        <activity
+            android:name=".activity_splash_screen"
+            android:exported="false"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/Theme.GoMommy" />
+        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>

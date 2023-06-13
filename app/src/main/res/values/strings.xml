@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Go Mommy</string>
+    <string name="title_activity_welcome_user">WelcomeUser</string>
+    <string name="title_activity_splash_screen">activity_splash_screen</string>
 </resources>
