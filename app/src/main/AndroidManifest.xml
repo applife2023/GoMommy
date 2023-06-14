@@ -12,17 +12,42 @@
         android:theme="@style/Theme.GoMommy"
         tools:targetApi="31">
         <activity
+            android:name=".MomExperience"
+            android:exported="false"
+            android:theme="@style/MomExperience"/>
+        <activity
+            android:name=".CreateAccount"
+            android:exported="false"
+            android:theme="@style/CreateAccount" />
+        <activity
+            android:name=".LoginAccount"
+            android:exported="false"
+            android:theme="@style/LoginAccount" />
+        <activity
+            android:name=".TermsAndConditions"
+            android:exported="false"
+            android:theme="@style/WelcomeUser" />
+        <activity
             android:name=".WelcomeUser"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/WelcomeUser" />
         <activity
             android:name=".SplashScreen"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
