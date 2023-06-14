@@ -3,4 +3,5 @@
     <string name="title_activity_welcome_user">WelcomeUser</string>
     <string name="title_activity_splash_screen">activity_splash_screen</string>
     <string name="title_activity_terms_and_conditions">TermsAndConditions</string>
+    <string name="title_activity_mom_experience">MomExperience</string>
 </resources>

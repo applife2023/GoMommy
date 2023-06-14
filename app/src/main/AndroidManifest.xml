@@ -12,6 +12,11 @@
         android:theme="@style/Theme.GoMommy"
         tools:targetApi="31">
         <activity
+            android:name=".MomExperience"
+            android:exported="false"
+            android:label="@string/title_activity_mom_experience"
+            android:theme="@style/Theme.GoMommy" />
+        <activity
             android:name=".TermsAndConditions"
             android:exported="false"
             android:label="@string/title_activity_terms_and_conditions"
