@@ -8,10 +8,14 @@ import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.core.widget.addTextChangedListener
+import com.google.firebase.auth.FirebaseAuth
 
 class CreateAccount : AppCompatActivity() {
+
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var createAccountButton: Button
@@ -22,6 +26,7 @@ class CreateAccount : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
+        firebaseAuth = FirebaseAuth.getInstance()
 
         usernameEditText = findViewById(R.id.createUsernameEditText)
         passwordEditText = findViewById(R.id.createPasswordEditText)
@@ -44,11 +49,22 @@ class CreateAccount : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             // Perform sign-up logic here
+            if (username.isNotEmpty() && password.isNotEmpty()){
+                firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener {
+                    if (it.isSuccessful){
+                        // Redirect to the desired activity
+                        val intent = Intent(this, MomExperience::class.java)
+                        startActivity(intent)
+                        finish()
+                    }else{
+                        Toast.makeText(this,it.exception.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }else{
+                Toast.makeText(this,"Please fill the fields", Toast.LENGTH_SHORT).show()
+            }
 
-            // Redirect to the desired activity
-            val intent = Intent(this, MomExperience::class.java)
-            startActivity(intent)
-            finish()
+
         }
 
         logInTextView.setOnClickListener{
