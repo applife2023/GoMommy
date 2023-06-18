@@ -52,8 +52,10 @@ class CreateAccount : AppCompatActivity() {
             if (username.isNotEmpty() && password.isNotEmpty()){
                 firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener{
                     if (it.isSuccessful){
+                        // Redirect to the desired activity
                         val intent = Intent(this, LoginAccount::class.java)
                         startActivity(intent)
+                        finish()
                     }else{
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
@@ -63,10 +65,7 @@ class CreateAccount : AppCompatActivity() {
             }
 
 
-            // Redirect to the desired activity
-            val intent = Intent(this, MomExperience::class.java)
-            startActivity(intent)
-            finish()
+
         }
 
         logInTextView.setOnClickListener{
