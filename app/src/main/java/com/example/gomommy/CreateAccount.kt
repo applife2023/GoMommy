@@ -7,14 +7,15 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.core.widget.addTextChangedListener
 
 class CreateAccount : AppCompatActivity() {
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
-    private lateinit var loginButton: Button
     private lateinit var createAccountButton: Button
+    private lateinit var logInTextView: TextView
     //private lateinit var forgotPasswordTextView: Button
 
 
@@ -25,29 +26,20 @@ class CreateAccount : AppCompatActivity() {
         usernameEditText = findViewById(R.id.createUsernameEditText)
         passwordEditText = findViewById(R.id.createPasswordEditText)
         //forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView)
-        loginButton = findViewById(R.id.loginButton)
+        logInTextView = findViewById(R.id.logInTextView)
         createAccountButton = findViewById(R.id.createAccountButton)
         createAccountButton.isEnabled = false // Initially disable the sign-up yesButton
 
         // Add text change listeners to the username and password EditText fields
         usernameEditText.addTextChangedListener { text ->
-            updateCreateButtonState()
+            updateSignUpButtonState()
         }
 
         passwordEditText.addTextChangedListener { text ->
-            updateCreateButtonState()
+            updateSignUpButtonState()
         }
 
-        loginButton.setOnClickListener {
-            val username = usernameEditText.text.toString()
-            val password = passwordEditText.text.toString()
-
-            val intent = Intent(this, LoginAccount::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        createAccountButton.setOnClickListener{
+        createAccountButton.setOnClickListener {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
 
@@ -58,9 +50,18 @@ class CreateAccount : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        logInTextView.setOnClickListener{
+            val username = usernameEditText.text.toString()
+            val password = passwordEditText.text.toString()
+
+            val intent = Intent(this, LoginAccount::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
-    private fun updateCreateButtonState() {
+    private fun updateSignUpButtonState() {
         val isUsernameFilled = usernameEditText.text.isNotEmpty()
         val isPasswordFilled = passwordEditText.text.isNotEmpty()
         this.createAccountButton.isEnabled = isUsernameFilled && isPasswordFilled
