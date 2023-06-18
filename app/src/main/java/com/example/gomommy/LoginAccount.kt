@@ -8,10 +8,13 @@ import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.core.widget.addTextChangedListener
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginAccount : AppCompatActivity() {
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
@@ -22,6 +25,7 @@ class LoginAccount : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_account)
+        firebaseAuth = FirebaseAuth.getInstance()
 
         usernameEditText = findViewById(R.id.loginUsernameEditText)
         passwordEditText = findViewById(R.id.loginPasswordEditText)
@@ -44,11 +48,21 @@ class LoginAccount : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             // Perform sign-up logic here
+            if (username.isNotEmpty() && password.isNotEmpty()){
+                firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener {
+                    if (it.isSuccessful){
+                        // Redirect to the desired activity
+                        val intent = Intent(this, MomExperience::class.java)
+                        startActivity(intent)
+                        finish()
+                    }else{
+                        Toast.makeText(this,it.exception.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }else{
+                Toast.makeText(this,"Please fill the fields", Toast.LENGTH_SHORT).show()
+            }
 
-            // Redirect to the desired activity
-            val intent = Intent(this, MomExperience::class.java)
-            startActivity(intent)
-            finish()
         }
 
         createAccountTextView.setOnClickListener{
@@ -61,6 +75,14 @@ class LoginAccount : AppCompatActivity() {
         }
     }
 
+//    override fun onStart() {
+//        super.onStart()
+//
+//        if(firebaseAuth.currentUser != null){
+//            val intent = Intent(this, MomExperience::class.java)
+//            startActivity(intent)
+//        }
+//    }
     private fun updateSignUpButtonState() {
         val isUsernameFilled = usernameEditText.text.isNotEmpty()
         val isPasswordFilled = passwordEditText.text.isNotEmpty()
