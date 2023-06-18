@@ -9,4 +9,11 @@
     <string name="i_agree_to_privacy_policy_and_terms_of_use">I agree to Privacy Policy and Terms of Use.</string>
     <string name="i_agree_to_processing_of_my_personal_health_data_for_providing_me_go_mommy_functions_see_more_in_privacy_policy">I agree to processing of my personal health data for providing me Go Mommy functions. See more in Privacy Policy.</string>
     <string name="next">Next</string>
+    <string name="next_birth_year">Next</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="create_an_account_and_dive_in">Create an account and dive in</string>
+    <string name="create_with_google">Create with Google</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="or">or</string>
+    <string name="what_s_your_birth_year">What\'s your birth year?</string>
 </resources>

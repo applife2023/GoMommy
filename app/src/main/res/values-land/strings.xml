@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="next_birth_year">Next</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="create_an_account_and_dive_in">Create an account and dive in</string>
+    <string name="create_with_google">Create with Google</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="or">or</string>
+    <string name="what_s_your_birth_year">What\'s your birth year?</string>
+</resources>
