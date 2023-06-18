@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.core.widget.addTextChangedListener
 
@@ -14,7 +15,7 @@ class LoginAccount : AppCompatActivity() {
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
-    private lateinit var createAccountButton: Button
+    private lateinit var createAccountTextView: TextView
     //private lateinit var forgotPasswordTextView: Button
 
 
@@ -22,11 +23,11 @@ class LoginAccount : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_account)
 
-        usernameEditText = findViewById(R.id.createUsernameEditText)
-        passwordEditText = findViewById(R.id.createPasswordEditText)
+        usernameEditText = findViewById(R.id.loginUsernameEditText)
+        passwordEditText = findViewById(R.id.loginPasswordEditText)
         //forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView)
-        createAccountButton = findViewById(R.id.loginButton)
-        loginButton = findViewById(R.id.createAccountButton)
+        createAccountTextView = findViewById(R.id.createAccountTextView)
+        loginButton = findViewById(R.id.loginButton)
         loginButton.isEnabled = false // Initially disable the sign-up yesButton
 
         // Add text change listeners to the username and password EditText fields
@@ -50,7 +51,7 @@ class LoginAccount : AppCompatActivity() {
             finish()
         }
 
-        createAccountButton.setOnClickListener{
+        createAccountTextView.setOnClickListener{
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
 
@@ -72,7 +73,7 @@ class LoginAccount : AppCompatActivity() {
             this.loginButton.setTextColor(Color.parseColor("#D2D1D1"))
         }
         val showPasswordToggleButton = findViewById<ToggleButton>(R.id.showPasswordToggleButton)
-        val passwordEditText = findViewById<EditText>(R.id.createPasswordEditText)
+        val passwordEditText = findViewById<EditText>(R.id.loginPasswordEditText)
 
         showPasswordToggleButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
