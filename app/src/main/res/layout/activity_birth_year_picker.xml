@@ -7,35 +7,80 @@
     android:layout_height="match_parent"
     tools:context=".BirthYearPicker">
 
+  <TextView
+      android:id="@+id/birthYearExp"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="50dp"
+      android:layout_marginEnd="50dp"
+      android:fontFamily="@font/poppins_semibold"
+      android:text="@string/birthyear_exp"
+      android:textAlignment="center"
+      android:textColor="#9F9F9F"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/whatIsYourBirthYear"
+      app:layout_constraintVertical_bias="0.005" />
+
+  <TextView
+      android:id="@+id/whatIsYourBirthYear"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="40dp"
+      android:layout_marginEnd="35dp"
+      android:fontFamily="@font/poppins_bold"
+      android:paddingTop="0dp"
+      android:text="@string/what_s_your_birth_year"
+      android:textAlignment="center"
+      android:textColor="#000000"
+      android:textSize="25sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.149" />
+
   <Button
       android:id="@+id/btnSelectYear"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:background="@drawable/gradient_bg"
-      android:text="@string/next_birth_year"
+      android:layout_height="60dp"
+      android:layout_margin="0dp"
+      android:enabled="false"
+      android:fontFamily="@font/poppins_semibold"
+      android:text="@string/next"
+      android:textAllCaps="false"
+      android:textColor="@color/white"
+      android:textSize="16sp"
+      app:cornerRadius="0dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/npYear"
-      app:layout_constraintVertical_bias="1.0" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="1.0"
+      app:rippleColor="@color/gomommy_secondary" />
 
   <NumberPicker
       android:id="@+id/npYear"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:layout_marginStart="50dp"
+      android:layout_marginEnd="50dp"
+      android:divider="@drawable/btn_gradientbg"
+      android:fadeScrollbars="true"
+      android:fadingEdge="vertical"
+      android:fontFamily="@font/poppins_bold"
+      android:textColor="@color/black"
+      android:textSize="16sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
-
-  <TextView
-      android:id="@+id/tvSelectedYear"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Selected Year: "
-      app:layout_constraintBottom_toTopOf="@+id/npYear"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.582" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
