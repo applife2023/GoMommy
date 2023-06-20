@@ -78,4 +78,12 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
+    <!-- OfficialWelcome -->
+    <style name="OfficialWelcome" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="l">#FFFFFF</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">#FFFFFF</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
 </resources>
