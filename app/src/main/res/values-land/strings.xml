@@ -9,4 +9,5 @@
     <string name="what_s_your_birth_year">What\'s your birth year?</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="email">Email</string>
+    <string name="creating_your_profile">Creating your profile...</string>
 </resources>

@@ -39,4 +39,5 @@
     <string name="birthyear_exp">To better understand your needs and offer you personalized assistance, Go Mommy kindly requests you to share your birthdate with us.</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="email">Email</string>
+    <string name="creating_your_profile">Creating your profile...</string>
 </resources>
