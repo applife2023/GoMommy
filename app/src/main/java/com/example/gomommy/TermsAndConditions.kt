@@ -42,10 +42,6 @@ class TermsAndConditions : AppCompatActivity() {
                 startActivity(intent)
 
                 finish()
-            } else {
-                // Button is disabled, display a message
-                println("TermsAndConditions, Button is disabled. Showing toast.")
-                Toast.makeText(this, "Please accept the terms and conditions", Toast.LENGTH_SHORT).show()
             }
         }
     }
