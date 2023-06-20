@@ -85,5 +85,19 @@ class CreateAccount : AppCompatActivity() {
             this.createAccountButton.setBackgroundResource(R.drawable.disable_button)
             this.createAccountButton.setTextColor(Color.parseColor("#D2D1D1"))
         }
+        val showPasswordToggleButton = findViewById<ToggleButton>(R.id.showPasswordToggleButton)
+        val passwordEditText = findViewById<EditText>(R.id.createPasswordEditText)
+
+        showPasswordToggleButton.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Show password
+                passwordEditText.transformationMethod = null
+            } else {
+                // Hide password
+                passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+        }
+        // Set cursor position to the end of the password field
+        passwordEditText.setSelection(passwordEditText.text.length)
     }
 }
