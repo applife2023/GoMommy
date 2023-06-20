@@ -1,5 +1,6 @@
 package com.example.gomommy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -39,6 +40,10 @@ class ProfileCreation: AppCompatActivity() {
                     e.printStackTrace()
                 }
             }
+            // Progress reached 100%, start the new activity
+            val intent = Intent(this, OfficialWelcome::class.java)
+            startActivity(intent)
+            finish()
         }).start()
     }
 }
