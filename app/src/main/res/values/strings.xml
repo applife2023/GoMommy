@@ -37,4 +37,6 @@
     <string name="or">or</string>
     <string name="what_s_your_birth_year">What\'s your birth year?</string>
     <string name="birthyear_exp">To better understand your needs and offer you personalized assistance, Go Mommy kindly requests you to share your birthdate with us.</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="email">Email</string>
 </resources>
