@@ -45,7 +45,6 @@
 
   <Button
       android:id="@+id/btnSelectYear"
-      android:layout_width="0dp"
       android:layout_height="60dp"
       android:enabled="false"
       android:fontFamily="@font/poppins_semibold"
