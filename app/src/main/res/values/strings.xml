@@ -39,4 +39,8 @@
     <string name="birthyear_exp">To better understand your needs and offer you personalized assistance, Go Mommy kindly requests you to share your birthdate with us.</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="email">Email</string>
+    <string name="creating_your_profile">Creating your profile...</string>
+    <string name="hi_there_mommy">Hi there, Mommy!</string>
+    <string name="welcome_message">Welcome to Go Mommy, the ultimate app for soon-to-be mothers, for wonder mothers, and for all amazing women like you! 🎉 We\'re thrilled to have you join our community of amazing women who are embarking on the beautiful journey of motherhood.</string>
+    <string name="continue_btn">Continue</string>
 </resources>
