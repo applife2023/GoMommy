@@ -12,9 +12,12 @@
         android:theme="@style/Theme.GoMommy"
         tools:targetApi="31">
         <activity
+            android:name=".Homepage"
+            android:exported="false" />
+        <activity
             android:name=".OfficialWelcome"
             android:exported="false"
-            android:theme="@style/OfficialWelcome"/>
+            android:theme="@style/OfficialWelcome" />
         <activity
             android:name=".ProfileCreation"
             android:exported="false"
@@ -49,7 +52,6 @@
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
