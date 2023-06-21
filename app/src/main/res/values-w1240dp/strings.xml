@@ -13,4 +13,8 @@
     <string name="hi_there_mommy">Hi there, Mommy!</string>
     <string name="welcome_message">Welcome to Go Mommy, the ultimate app for soon-to-be mothers, for wonder mothers, and for all amazing women like you! 🎉 We\'re thrilled to have you join our community of amazing women who are embarking on the beautiful journey of motherhood.</string>
     <string name="continue_btn">Continue</string>
+    <string name="home">Home</string>
+    <string name="calendar">Calendar</string>
+    <string name="nearest_hospital">Nearest Hospital</string>
+    <string name="tips_and_advice">Tips and Advice</string>
 </resources>
