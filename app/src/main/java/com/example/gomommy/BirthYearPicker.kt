@@ -9,17 +9,22 @@ import android.widget.Button
 import android.widget.NumberPicker
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.time.Year
 
 class BirthYearPicker : AppCompatActivity() {
     private lateinit var btnSelectYear: Button
     //private lateinit var tvSelectedYear: TextView
     private lateinit var npYear: NumberPicker
+    private lateinit var dbRef: DatabaseReference
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_birth_year_picker)
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Users")
 
         btnSelectYear = findViewById(R.id.btnSelectYear)
         btnSelectYear.isEnabled = false
