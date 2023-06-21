@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "413281056409",
+    "firebase_url": "https://go-mommy-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "go-mommy",
     "storage_bucket": "go-mommy.appspot.com"
   },
@@ -14,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "413281056409-h33gs8b61dmlik18hrc4le8q84c60e1m.apps.googleusercontent.com",
+          "client_id": "413281056409-jdcdup0fuc4kp8rtt2qkk00kbqmc2t9d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
