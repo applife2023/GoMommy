@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.NumberPicker
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import com.google.firebase.database.DatabaseReference
@@ -55,6 +56,10 @@ class BirthYearPicker : AppCompatActivity() {
 
             // Update the selected year in the TextView
             //tvSelectedYear.text = "Selected Year: ${selectedYear ?: "Not selected"}"
+            dbRef.setValue("Hello again")
+                .addOnCompleteListener{
+                    Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+                }
             val intent = Intent(this, ProfileCreation::class.java)
             startActivity(intent)
         }
