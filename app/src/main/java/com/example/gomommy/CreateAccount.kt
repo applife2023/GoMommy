@@ -5,11 +5,13 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.ToggleButton
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.google.firebase.auth.FirebaseAuth
 
@@ -43,21 +45,30 @@ class CreateAccount : AppCompatActivity() {
             updateSignUpButtonState()
         }
 
+        confirmPasswordEditText.addTextChangedListener { text ->
+            updateSignUpButtonState()
+        }
+
         createAccountButton.setOnClickListener {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
+            val confirmPassword = confirmPasswordEditText.text.toString()
 
             // Perform sign-up logic here
-            if (username.isNotEmpty() && password.isNotEmpty()){
-                firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener {
-                    if (it.isSuccessful){
-                        // Redirect to the desired activity
-                        val intent = Intent(this, MomExperience::class.java)
-                        startActivity(intent)
-                        finish()
-                    }else{
-                        Toast.makeText(this,it.exception.toString(), Toast.LENGTH_SHORT).show()
+            if (username.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
+                if(password ==  confirmPassword){
+                    firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            // Redirect to the desired activity
+                            val intent = Intent(this, MomExperience::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                        }
                     }
+                }else{
+                    Toast.makeText(this, "The password does not match!", Toast.LENGTH_SHORT).show()
                 }
             }else{
                 Toast.makeText(this,"Please fill the fields", Toast.LENGTH_SHORT).show()
@@ -87,6 +98,20 @@ class CreateAccount : AppCompatActivity() {
         }
         val showPasswordToggleButton = findViewById<ToggleButton>(R.id.showPasswordToggleButton)
         val passwordEditText = findViewById<EditText>(R.id.createPasswordEditText)
+        val confirmShowPasswordToggleButton = findViewById<ToggleButton>(R.id.confirmShowPasswordToggleButton)
+        val confirmPasswordEditText = findViewById<EditText>(R.id.confirmPasswordEditText)
+        val passwordMismatchTextView = findViewById<TextView>(R.id.passwordMismatchTextView)
+
+        passwordMismatchTextView.isVisible = !isPasswordMatched
+
+        this.confirmPasswordEditText.isEnabled = isPasswordFilled
+        if (this.confirmPasswordEditText.isEnabled) {
+            this.confirmPasswordEditText.setBackgroundResource(R.drawable.custom_edit_text)
+            this.confirmPasswordEditText.setTextColor(Color.parseColor("#FF000000"))
+        } else {
+            this.confirmPasswordEditText.setBackgroundResource(R.drawable.custom_edit_text_disabled)
+            this.confirmPasswordEditText.setTextColor(Color.parseColor("#D2D1D1"))
+        }
 
         showPasswordToggleButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -97,7 +122,20 @@ class CreateAccount : AppCompatActivity() {
                 passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
             }
         }
+
+        confirmShowPasswordToggleButton.isEnabled = isConfirmPasswordFilled
+        confirmShowPasswordToggleButton.setOnCheckedChangeListener{ _, isChecked ->
+            if (isChecked) {
+                // Show password
+                confirmPasswordEditText.transformationMethod = null
+            } else {
+                // Hide password
+                confirmPasswordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+        }
+
         // Set cursor position to the end of the password field
         passwordEditText.setSelection(passwordEditText.text.length)
+        confirmPasswordEditText.setSelection(confirmPasswordEditText.text.length)
     }
 }
