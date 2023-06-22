@@ -52,7 +52,7 @@ class LoginAccount : AppCompatActivity() {
                 firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener {
                     if (it.isSuccessful){
                         // Redirect to the desired activity
-                        val intent = Intent(this, MomExperience::class.java)
+                        val intent = Intent(this, Homepage::class.java)
                         startActivity(intent)
                         finish()
                     }else{
