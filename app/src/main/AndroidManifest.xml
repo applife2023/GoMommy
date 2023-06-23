@@ -22,7 +22,7 @@
         <activity
             android:name=".ForgotPassword"
             android:exported="false"
-            android:theme="@style/LoginAccount" />
+            android:theme="@style/ForgotPassword" />
         <activity
             android:name=".LoginAccount"
             android:exported="false"
