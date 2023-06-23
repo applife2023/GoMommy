@@ -35,6 +35,10 @@
             android:exported="false"
             android:theme="@style/CreateAccount" />
         <activity
+            android:name=".ForgotPassword"
+            android:exported="false"
+            android:theme="@style/LoginAccount" />
+        <activity
             android:name=".LoginAccount"
             android:exported="false"
             android:theme="@style/LoginAccount" />
