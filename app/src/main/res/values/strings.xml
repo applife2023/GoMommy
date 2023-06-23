@@ -11,6 +11,9 @@
     <string name="google_logo">Google Logo</string>
     <string name="sign_in_to_continue">Sign in to continue.</string>
     <string name="welcome">Welcome!</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_password_button">Reset</string>
+    <string name="type_your_email_to_reset_password">Type your email to reset password</string>
     <string name="let_s_get_started">Let\'s get started!</string>
     <string name="yes_i_am_a_first_time_mom">Yes, I am a first time mom</string>
     <string name="no_i_have_had_children_before">No, I have had children before</string>
