@@ -14,6 +14,8 @@ import android.widget.ToggleButton
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class CreateAccount : AppCompatActivity() {
 
@@ -24,6 +26,7 @@ class CreateAccount : AppCompatActivity() {
     private lateinit var createAccountButton: Button
     private lateinit var logInTextView: TextView
     //private lateinit var forgotPasswordTextView: Button
+    private lateinit var dbRef: DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +38,8 @@ class CreateAccount : AppCompatActivity() {
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText)
         logInTextView = findViewById(R.id.logInTextView)
         createAccountButton = findViewById(R.id.createAccountButton)
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Users")
 
         // Add text change listeners to the username and password EditText fields
         usernameEditText.addTextChangedListener { text ->
@@ -61,6 +66,7 @@ class CreateAccount : AppCompatActivity() {
                         if (it.isSuccessful) {
                             // Redirect to the desired activity
                             val intent = Intent(this, MomExperience::class.java)
+                            saveUserEmailPassword(username,password)
                             startActivity(intent)
                             finish()
                         } else {
@@ -79,6 +85,20 @@ class CreateAccount : AppCompatActivity() {
             val intent = Intent(this, LoginAccount::class.java)
             startActivity(intent)
             finish()
+        }
+    }
+
+    private fun saveUserEmailPassword(userEmail: String, userPassword: String){
+        val userId = dbRef.push().key!!
+        val user = userMommyModel( userId,userEmail,userPassword)
+
+        val firebaseUser = firebaseAuth.currentUser?.uid
+        println("User UID: $firebaseUser")
+
+        if (firebaseUser != null) {
+            dbRef.child(firebaseUser).setValue(user)
+                .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+                }
         }
     }
 
