@@ -10,22 +10,29 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.time.Year
 
 class BirthYearPicker : AppCompatActivity() {
     private lateinit var btnSelectYear: Button
+    private lateinit var firebaseAuth: FirebaseAuth
     //private lateinit var tvSelectedYear: TextView
     private lateinit var npYear: NumberPicker
     private lateinit var dbRef: DatabaseReference
+
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_birth_year_picker)
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Users")
+        val firebaseUser = FirebaseAuth.getInstance().currentUser?.uid
+        dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
+        firebaseAuth = FirebaseAuth.getInstance()
+
+
 
         btnSelectYear = findViewById(R.id.btnSelectYear)
         btnSelectYear.isEnabled = false
@@ -56,13 +63,29 @@ class BirthYearPicker : AppCompatActivity() {
 
             // Update the selected year in the TextView
             //tvSelectedYear.text = "Selected Year: ${selectedYear ?: "Not selected"}"
-            dbRef.setValue("Hello again")
-                .addOnCompleteListener{
-                    Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
-                }
+
+//            dbRef.setValue("Hello again")
+//                .addOnCompleteListener{
+//                    Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+//                }
+
+            saveUserBirthYear()
             val intent = Intent(this, ProfileCreation::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun saveUserBirthYear(){
+        val userBirthYear = npYear.displayedValues[npYear.value]
+
+        val newKeyValuePair = HashMap<String, Any>()
+
+        newKeyValuePair["birthYear"] = "$userBirthYear"
+
+        dbRef.updateChildren(newKeyValuePair)
+                .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+                }
+
     }
     private fun buildDisplayValues(startYear: Int, endYear: Int): Array<String> {
         val yearRange = ArrayList<String>()
