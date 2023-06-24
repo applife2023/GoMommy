@@ -1,5 +1,6 @@
 package com.example.gomommy
 
+import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,17 +11,37 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import com.example.gomommy.databinding.ActivityHomepageBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
 class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var binding: ActivityHomepageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_homepage)
+        binding = ActivityHomepageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        replaceFragment(HomeFragment())
+
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.home -> replaceFragment(HomeFragment())
+                R.id.calendar -> replaceFragment(CalendarFragment())
+                R.id.nearest_hospital -> replaceFragment(NearestHospitalFragment())
+                R.id.tipsnadvice -> replaceFragment(TipsAndAdviceFragment())
+
+                else -> {
+
+                }
+            }
+            true
+
+        }
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -36,11 +57,11 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment()).commit()
-            navigationView.setCheckedItem(R.id.nav_home)
-        }
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, HomeFragment()).commit()
+//            navigationView.setCheckedItem(R.id.nav_home)
+//        }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         // Loop through each menu item and set only icons to be displayed
@@ -50,10 +71,16 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
     }
 
+    private fun replaceFragment(fragment: Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+        fragmentTransaction.commit()
+    }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_home -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment()).commit()
+            R.id.nav_profile -> supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ProfileFragment()).commit()
             R.id.nav_settings -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, SettingsFragment()).commit()
             R.id.nav_about -> supportFragmentManager.beginTransaction()
