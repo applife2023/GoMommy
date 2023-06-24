@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "413281056409",
+    "firebase_url": "https://go-mommy-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "go-mommy",
+    "storage_bucket": "go-mommy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:413281056409:android:586b82592c427464b1aa08",
+        "android_client_info": {
+          "package_name": "com.example.gomommy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "413281056409-iejpv5e8fvip3jbhba9jv7o1aoup7qgu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gomommy",
+            "certificate_hash": "f3840639d06c91dade3129f4738b036504361776"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNS5KsK8lBN2C3oiCCT4lnMCpuiFiuqEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "413281056409-h33gs8b61dmlik18hrc4le8q84c60e1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
