@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.Toast
@@ -70,8 +71,17 @@ class BirthYearPicker : AppCompatActivity() {
 //                }
 
             saveUserBirthYear()
+            readUserBirthYear()
             val intent = Intent(this, ProfileCreation::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun readUserBirthYear() {
+        dbRef.child("User-Profile").child("birthYear").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
         }
     }
 
@@ -85,8 +95,9 @@ class BirthYearPicker : AppCompatActivity() {
         dbRef.child("User-Profile").updateChildren(newKeyValuePair)
                 .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
                 }
-
     }
+
+
     private fun buildDisplayValues(startYear: Int, endYear: Int): Array<String> {
         val yearRange = ArrayList<String>()
         val selectOption = "Select"
