@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Go Mommy</string>
+    <string name="web_client_id">413281056409-jdcdup0fuc4kp8rtt2qkk00kbqmc2t9d.apps.googleusercontent.com</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="log_in">Log in</string>
     <string name="username">Username</string>
@@ -11,6 +12,9 @@
     <string name="google_logo">Google Logo</string>
     <string name="sign_in_to_continue">Sign in to continue.</string>
     <string name="welcome">Welcome!</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_password_button">Reset</string>
+    <string name="type_your_email_to_reset_password">Type your email to reset password</string>
     <string name="let_s_get_started">Let\'s get started!</string>
     <string name="yes_i_am_a_first_time_mom">Yes, I am a first time mom</string>
     <string name="no_i_have_had_children_before">No, I have had children before</string>
@@ -43,4 +47,10 @@
     <string name="hi_there_mommy">Hi there, Mommy!</string>
     <string name="welcome_message">Welcome to Go Mommy, the ultimate app for soon-to-be mothers, for wonder mothers, and for all amazing women like you! 🎉 We\'re thrilled to have you join our community of amazing women who are embarking on the beautiful journey of motherhood.</string>
     <string name="continue_btn">Continue</string>
+    <string name="home">Home</string>
+    <string name="calendar">Calendar</string>
+    <string name="nearest_hospital">Nearest Hospital</string>
+    <string name="tips_and_advice">Tips and Advice</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
 </resources>
