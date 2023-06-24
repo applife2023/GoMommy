@@ -82,7 +82,7 @@ class BirthYearPicker : AppCompatActivity() {
 
         newKeyValuePair["birthYear"] = "$userBirthYear"
 
-        dbRef.updateChildren(newKeyValuePair)
+        dbRef.child("User-Profile").updateChildren(newKeyValuePair)
                 .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
                 }
 
