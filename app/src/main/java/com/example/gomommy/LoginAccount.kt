@@ -27,6 +27,7 @@ class LoginAccount : AppCompatActivity() {
         setContentView(R.layout.activity_login_account)
         firebaseAuth = FirebaseAuth.getInstance()
 
+
         usernameEditText = findViewById(R.id.loginUsernameEditText)
         passwordEditText = findViewById(R.id.loginPasswordEditText)
         //forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView)
