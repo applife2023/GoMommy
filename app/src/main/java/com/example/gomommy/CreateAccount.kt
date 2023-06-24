@@ -96,7 +96,7 @@ class CreateAccount : AppCompatActivity() {
         println("User UID: $firebaseUser")
 
         if (firebaseUser != null) {
-            dbRef.child(firebaseUser).setValue(user)
+            dbRef.child(firebaseUser).child("Login-Credentials").setValue(user)
                 .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
                 }
         }
