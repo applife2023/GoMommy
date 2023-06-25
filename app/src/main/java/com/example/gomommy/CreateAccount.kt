@@ -35,11 +35,11 @@ class CreateAccount : AppCompatActivity() {
         createAccountButton = findViewById(R.id.createAccountButton)
 
         // Add text change listeners to the username and password EditText fields
-        usernameEditText.addTextChangedListener { text ->
+        usernameEditText.addTextChangedListener {
             updateSignUpButtonState()
         }
 
-        passwordEditText.addTextChangedListener { text ->
+        passwordEditText.addTextChangedListener {
             updateSignUpButtonState()
         }
 
