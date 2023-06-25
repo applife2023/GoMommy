@@ -19,9 +19,11 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
+
     <style name="NavigationViewStyle" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/poppins_semibold</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">2dp</item>
     </style>
 
     <!-- SplashScreen -->
