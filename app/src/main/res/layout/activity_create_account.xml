@@ -76,7 +76,7 @@
         android:background="@drawable/custom_edit_text"
         android:fontFamily="@font/poppins_medium"
         android:hint="@string/email"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:paddingStart="5dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
