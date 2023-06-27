@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 class CreateAccount : AppCompatActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var emailEditText: EditText
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var confirmPasswordEditText:EditText
@@ -28,6 +29,7 @@ class CreateAccount : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
         firebaseAuth = FirebaseAuth.getInstance()
+        emailEditText = findViewById(R.id.createEmailEditText)
         usernameEditText = findViewById(R.id.createUsernameEditText)
         passwordEditText = findViewById(R.id.createPasswordEditText)
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText)
@@ -39,15 +41,21 @@ class CreateAccount : AppCompatActivity() {
             updateSignUpButtonState()
         }
 
+        emailEditText.addTextChangedListener {
+            updateSignUpButtonState()
+        }
+
         passwordEditText.addTextChangedListener {
             updateSignUpButtonState()
         }
 
         createAccountButton.setOnClickListener {
             val username = usernameEditText.text.toString()
+            val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
             // Perform sign-up logic here
+<<<<<<< Updated upstream
             if (username.isNotEmpty() && password.isNotEmpty()){
                 firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener {
                     if (it.isSuccessful){
@@ -57,6 +65,20 @@ class CreateAccount : AppCompatActivity() {
                         finish()
                     }else{
                         Toast.makeText(this,it.exception.toString(), Toast.LENGTH_SHORT).show()
+=======
+            if (email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
+                if(password ==  confirmPassword){
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            // Redirect to the desired activity
+                            val intent = Intent(this, MomExperience::class.java)
+                            saveUserEmailPassword(email,password)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                        }
+>>>>>>> Stashed changes
                     }
                 }
             }else{
@@ -73,11 +95,12 @@ class CreateAccount : AppCompatActivity() {
 
     private fun updateSignUpButtonState() {
         val isUsernameFilled = usernameEditText.text.isNotEmpty()
+        val isEmailFilled = emailEditText.text.isNotEmpty()
         val isPasswordFilled = passwordEditText.text.isNotEmpty()
         val isConfirmPasswordFilled = confirmPasswordEditText.text.isNotEmpty()
         val isPasswordMatched = passwordEditText.text.toString() == confirmPasswordEditText.text.toString()
 
-        this.createAccountButton.isEnabled = isUsernameFilled && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatched
+        this.createAccountButton.isEnabled = isUsernameFilled && isEmailFilled && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatched
         if (this.createAccountButton.isEnabled) {
             this.createAccountButton.setBackgroundResource(R.drawable.log_button)
             this.createAccountButton.setTextColor(Color.parseColor("#FE5065"))
