@@ -109,17 +109,30 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:orientation="horizontal"
-                    android:background="@drawable/layout_bg"
+                    android:background="@drawable/layout_bg_wgradient"
                     android:layout_gravity="center">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="View your calendar"
                         android:textSize="16sp"
+                        android:layout_gravity="start|center"
                         android:textColor="@color/black"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="20dp"
                         android:fontFamily="@font/poppins"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/img_calendar"
+                        android:layout_margin="10dp" />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -135,16 +148,29 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:orientation="horizontal"
-                    android:background="@drawable/layout_bg"
+                    android:background="@drawable/layout_bg_wgradient"
                     android:layout_gravity="center">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Know the hospitals near you!"
+                        android:textSize="16sp"
+                        android:text="Know the hospitals\nnear you!"
+                        android:layout_gravity="start|center"
                         android:textColor="@color/black"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="20dp"
                         android:fontFamily="@font/poppins"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/img_hospital"
+                        android:layout_margin="10dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -162,16 +188,29 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:orientation="horizontal"
-                    android:background="@drawable/layout_bg"
+                    android:background="@drawable/layout_bg_wgradient"
                     android:layout_gravity="center">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Learn from the Tips and Advice\njust for you!"
+                        android:textSize="16sp"
+                        android:text="Learn from the Tips \nand Advice just for you!"
+                        android:layout_gravity="start|center"
                         android:textColor="@color/black"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="20dp"
                         android:fontFamily="@font/poppins"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/img_tips"
+                        android:layout_margin="10dp" />
                 </LinearLayout>
 
             </LinearLayout>
