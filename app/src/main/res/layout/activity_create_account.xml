@@ -104,7 +104,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.669" />
+        app:layout_constraintVertical_bias="0.682" />
 
     <TextView
         android:id="@+id/orTextView"
@@ -120,7 +120,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.968" />
+        app:layout_constraintVertical_bias="0.975" />
 
     <ToggleButton
         android:id="@+id/showPasswordToggleButton"
@@ -179,15 +179,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
         android:gravity="center"
-<<<<<<< Updated upstream
-        android:text="hello world"
-        android:fontFamily="@font/poppins"
-        android:visibility="invisible"
-=======
-        android:text="Password does not match!"
->>>>>>> Stashed changes
+        android:text="@string/password_does_not_match"
         android:textColor="#FF0000"
-        android:visibility="invisible"
+        android:textSize="12sp"
+        android:visibility="visible"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
