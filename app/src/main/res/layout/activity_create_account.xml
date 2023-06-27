@@ -32,18 +32,59 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:autofillHints="username"
-        android:fontFamily="@font/poppins_medium"
-        android:hint="@string/email"
-        android:inputType="text"
-        android:textSize="16sp"
-        android:paddingStart="5dp"
         android:background="@drawable/custom_edit_text"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/username"
+        android:inputType="text"
+        android:paddingStart="5dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.308" />
+        app:layout_constraintVertical_bias="0.273" />
+
+    <EditText
+        android:id="@+id/createPasswordEditText"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
+        android:autofillHints="password"
+        android:background="@drawable/custom_edit_text"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingStart="5dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.434" />
+
+    <EditText
+        android:id="@+id/createEmailEditText"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:autofillHints="username"
+        android:background="@drawable/custom_edit_text"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/email"
+        android:inputType="text"
+        android:paddingStart="5dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.361" />
 
     <Button
         android:id="@+id/createAccountButton"
@@ -63,7 +104,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65" />
+        app:layout_constraintVertical_bias="0.669" />
 
     <TextView
         android:id="@+id/orTextView"
@@ -79,7 +120,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.951" />
+        app:layout_constraintVertical_bias="0.968" />
 
     <ToggleButton
         android:id="@+id/showPasswordToggleButton"
@@ -94,27 +135,6 @@
         app:layout_constraintStart_toStartOf="@+id/createPasswordEditText"
         app:layout_constraintTop_toTopOf="@+id/createPasswordEditText"
         app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/createPasswordEditText"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:autofillHints="password"
-        android:fontFamily="@font/poppins_medium"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:textSize="16sp"
-        android:background="@drawable/custom_edit_text"
-        android:paddingStart="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.396" />
 
     <ToggleButton
         android:id="@+id/confirmShowPasswordToggleButton"
@@ -138,30 +158,36 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="25dp"
         android:autofillHints="password"
+        android:background="@drawable/custom_edit_text_disabled"
+        android:enabled="false"
         android:fontFamily="@font/poppins_medium"
         android:hint="@string/confirm_password"
         android:inputType="textPassword"
-        android:textSize="16sp"
-        android:enabled="false"
-        android:textColor="@color/disabled_btn"
-        android:background="@drawable/custom_edit_text_disabled"
         android:paddingStart="5dp"
+        android:textColor="@color/disabled_btn"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503" />
+        app:layout_constraintVertical_bias="0.532" />
 
     <TextView
         android:id="@+id/passwordMismatchTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
+<<<<<<< Updated upstream
         android:text="hello world"
         android:fontFamily="@font/poppins"
         android:visibility="invisible"
+=======
+        android:text="Password does not match!"
+>>>>>>> Stashed changes
         android:textColor="#FF0000"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -196,7 +222,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/already_have_an_account"
         android:textSize="14sp"
@@ -213,6 +239,8 @@
         android:fontFamily="@font/poppins_medium"
         android:text="@string/log_in"
         android:textColor="@color/gomommy_primary"
+        android:textSize="15sp"
+        android:padding="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
