@@ -11,72 +11,75 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
+import com.example.gomommy.databinding.ActivityBirthYearPickerBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.time.Year
 
 class BirthYearPicker : AppCompatActivity() {
-    private lateinit var btnSelectYear: Button
+    private lateinit var binding: ActivityBirthYearPickerBinding
+//    private lateinit var btnSelectYear: Button
     private lateinit var firebaseAuth: FirebaseAuth
     //private lateinit var tvSelectedYear: TextView
-    private lateinit var npYear: NumberPicker
+//    private lateinit var npYear: NumberPicker
     private lateinit var dbRef: DatabaseReference
 
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_birth_year_picker)
+        binding = ActivityBirthYearPickerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val firebaseUser = FirebaseAuth.getInstance().currentUser?.uid
         dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
         firebaseAuth = FirebaseAuth.getInstance()
 
 
+//        btnSelectYear = findViewById(R.id.btnSelectYear)
+        with(binding) {
+            btnSelectYear.isEnabled = false
+            //tvSelectedYear = findViewById(R.id.tvSelectedYear)
+//            npYear = findViewById(R.id.npYear)
 
-        btnSelectYear = findViewById(R.id.btnSelectYear)
-        btnSelectYear.isEnabled = false
-        //tvSelectedYear = findViewById(R.id.tvSelectedYear)
-        npYear = findViewById(R.id.npYear)
+            val currentYear = Year.now().value
+            println(currentYear)
+            val startYear = 1980
+            val endYear = currentYear - 13
 
-        val currentYear = Year.now().value
-        println(currentYear)
-        val startYear = 1980
-        val endYear = currentYear - 13
+            npYear.minValue = 0
+            npYear.maxValue = endYear - startYear + 1
+            npYear.displayedValues = buildDisplayValues(startYear, endYear)
+            npYear.value = npYear.maxValue / 2 // Set initial value to the middle index
+            npYear.wrapSelectorWheel = false
+            npYear.textSize = 55f
 
-        npYear.minValue = 0
-        npYear.maxValue = endYear - startYear + 1
-        npYear.displayedValues = buildDisplayValues(startYear, endYear)
-        npYear.value = npYear.maxValue / 2 // Set initial value to the middle index
-        npYear.wrapSelectorWheel = false
-        npYear.textSize = 55f
-
-        npYear.setOnScrollListener { _, _ ->
-            // Enable the Next button when the NumberPicker is scrolled
+            npYear.setOnScrollListener { _, _ ->
+                // Enable the Next button when the NumberPicker is scrolled
+                updateButtonEnabledState()
+            }
             updateButtonEnabledState()
-        }
-        updateButtonEnabledState()
 
-        btnSelectYear.setOnClickListener {
-            // Get the selected year from the NumberPicker
-            //val selectedYear = if (npYear.value == 0) null else yearRange[npYear.value].toInt()
+            btnSelectYear.setOnClickListener {
+                // Get the selected year from the NumberPicker
+                //val selectedYear = if (npYear.value == 0) null else yearRange[npYear.value].toInt()
 
-            // Update the selected year in the TextView
-            //tvSelectedYear.text = "Selected Year: ${selectedYear ?: "Not selected"}"
+                // Update the selected year in the TextView
+                //tvSelectedYear.text = "Selected Year: ${selectedYear ?: "Not selected"}"
 
 //            dbRef.setValue("Hello again")
 //                .addOnCompleteListener{
 //                    Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
 //                }
 
-            saveUserBirthYear()
-            readUserBirthYear()
-            val intent = Intent(this, ProfileCreation::class.java)
-            startActivity(intent)
+                saveUserBirthYear()
+                readUserBirthYear()
+                val intent = Intent(this@BirthYearPicker, ProfileCreation::class.java)
+                startActivity(intent)
+            }
         }
     }
-
     private fun readUserBirthYear() {
         dbRef.child("userProfile").child("birthYear").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
@@ -86,7 +89,7 @@ class BirthYearPicker : AppCompatActivity() {
     }
 
     private fun saveUserBirthYear(){
-        val userBirthYear = npYear.displayedValues[npYear.value]
+        val userBirthYear = binding.npYear.displayedValues[binding.npYear.value]
 
         val newKeyValuePair = HashMap<String, Any>()
 
@@ -112,15 +115,15 @@ class BirthYearPicker : AppCompatActivity() {
     }
 
     private fun updateButtonEnabledState() {
-        val selectedValue = npYear.displayedValues[npYear.value]
+        val selectedValue = binding.npYear.displayedValues[binding.npYear.value]
         if (selectedValue == "Select") {
             // Disable the button and set the background color for disabled state
-            btnSelectYear.isEnabled = false
-            btnSelectYear.setBackgroundResource(R.color.disabled_btn)
+            binding.btnSelectYear.isEnabled = false
+            binding.btnSelectYear.setBackgroundResource(R.color.disabled_btn)
         } else {
             // Enable the button and set the background color for enabled state
-            btnSelectYear.isEnabled = true
-            btnSelectYear.setBackgroundResource(R.drawable.gradient_bg)
+            binding.btnSelectYear.isEnabled = true
+            binding.btnSelectYear.setBackgroundResource(R.drawable.gradient_bg)
         }
     }
 }
