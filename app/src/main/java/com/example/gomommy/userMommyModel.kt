@@ -10,7 +10,8 @@ data class userMommyModel(
     )
 
     data class UserProfile(
-        val userId: String?
+        val userId: String?,
+        val userName: String?
     )
 }
 
