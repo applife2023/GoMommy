@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -19,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase
 class CreateAccount : AppCompatActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var emailEditText: EditText
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var confirmPasswordEditText:EditText
@@ -33,7 +33,6 @@ class CreateAccount : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
         firebaseAuth = FirebaseAuth.getInstance()
-        emailEditText = findViewById(R.id.createEmailEditText)
         usernameEditText = findViewById(R.id.createUsernameEditText)
         passwordEditText = findViewById(R.id.createPasswordEditText)
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText)
@@ -43,15 +42,11 @@ class CreateAccount : AppCompatActivity() {
         dbRef = FirebaseDatabase.getInstance().getReference("Users")
 
         // Add text change listeners to the username and password EditText fields
-        usernameEditText.addTextChangedListener {
+        usernameEditText.addTextChangedListener { text ->
             updateSignUpButtonState()
         }
 
-        emailEditText.addTextChangedListener {
-            updateSignUpButtonState()
-        }
-
-        passwordEditText.addTextChangedListener {
+        passwordEditText.addTextChangedListener { text ->
             updateSignUpButtonState()
         }
 
@@ -61,17 +56,17 @@ class CreateAccount : AppCompatActivity() {
 
         createAccountButton.setOnClickListener {
             val username = usernameEditText.text.toString()
-            val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
             val confirmPassword = confirmPasswordEditText.text.toString()
 
             // Perform sign-up logic here
-            if (email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
+            if (username.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
                 if(password ==  confirmPassword){
-                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                    firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener {
                         if (it.isSuccessful) {
                             // Redirect to the desired activity
                             val intent = Intent(this, MomExperience::class.java)
+                            saveUserEmailPassword(username,password)
                             startActivity(intent)
                             finish()
                         } else {
@@ -93,14 +88,27 @@ class CreateAccount : AppCompatActivity() {
         }
     }
 
+    private fun saveUserEmailPassword(userEmail: String, userPassword: String){
+        val userId = dbRef.push().key!!
+        val user = userMommyModel( userId,userEmail,userPassword)
+
+        val firebaseUser = firebaseAuth.currentUser?.uid
+        println("User UID: $firebaseUser")
+
+        if (firebaseUser != null) {
+            dbRef.child(firebaseUser).child("Login-Credentials").setValue(user)
+                .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+                }
+        }
+    }
+
     private fun updateSignUpButtonState() {
         val isUsernameFilled = usernameEditText.text.isNotEmpty()
-        val isEmailFilled = emailEditText.text.isNotEmpty()
         val isPasswordFilled = passwordEditText.text.isNotEmpty()
         val isConfirmPasswordFilled = confirmPasswordEditText.text.isNotEmpty()
         val isPasswordMatched = passwordEditText.text.toString() == confirmPasswordEditText.text.toString()
 
-        this.createAccountButton.isEnabled = isUsernameFilled && isEmailFilled && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatched
+        this.createAccountButton.isEnabled = isUsernameFilled && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatched
         if (this.createAccountButton.isEnabled) {
             this.createAccountButton.setBackgroundResource(R.drawable.log_button)
             this.createAccountButton.setTextColor(Color.parseColor("#FE5065"))

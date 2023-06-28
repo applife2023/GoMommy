@@ -17,7 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Go Mommy"
-        android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/gomommy_primary"
         android:textStyle="bold"/>
 
@@ -25,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="contact@gomommy.com"
-        android:fontFamily="@font/poppins"
         android:textColor="@color/gomommy_primary"
         android:textSize="14sp"
         android:layout_marginBottom="16dp"/>

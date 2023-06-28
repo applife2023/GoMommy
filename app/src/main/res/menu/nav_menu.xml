@@ -8,27 +8,24 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="@string/profile"/>
+            android:id="@+id/nav_home"
+            android:icon="@color/gomommy_primary"
+            android:title="Home"/>
 
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/settings"/>
+            android:title="Settings"/>
 
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/ic_info"
-            android:title="@string/about_us"/>
+            android:title="About Us"/>
     </group>
     <item
         android:title="">
         <menu>
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_logout"
-                android:title="@string/logout"/>
+                android:title="Logout"/>
         </menu>
     </item>
 </menu>
