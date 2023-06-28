@@ -72,7 +72,7 @@ class CreateAccount : AppCompatActivity() {
                         if (it.isSuccessful) {
                             // Redirect to the desired activity
                             val intent = Intent(this, MomExperience::class.java)
-                            saveUserEmailPassword(email,password)
+                            saveUserEmailPassword(email,password,username)
                             startActivity(intent)
                             finish()
                         } else {
@@ -94,7 +94,7 @@ class CreateAccount : AppCompatActivity() {
         }
     }
 
-    private fun saveUserEmailPassword(userEmail: String, userPassword: String){
+    private fun saveUserEmailPassword(userEmail: String, userPassword: String, userName: String){
         val firebaseUser = firebaseAuth.currentUser?.uid
         val user = userMommyModel(
             loginCredentials = userMommyModel.LoginCredentials(
@@ -102,7 +102,8 @@ class CreateAccount : AppCompatActivity() {
                 password = userPassword,
             ),
             userProfile = userMommyModel.UserProfile(
-                userId = firebaseUser
+                userId = firebaseUser,
+                userName = userName
             )
         )
 
