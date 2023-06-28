@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.example.gomommy.databinding.ActivityProfileCreationBinding
 
 class ProfileCreation: AppCompatActivity() {
 
+    private lateinit var binding: ActivityProfileCreationBinding
     private lateinit var progressBar: ProgressBar
     private lateinit var percentageText: TextView
     private var progressStatus = 0
@@ -16,7 +18,8 @@ class ProfileCreation: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_creation)
+        binding = ActivityProfileCreationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         progressBar = findViewById(R.id.progressBar)
         percentageText = findViewById(R.id.percentageText)
@@ -30,8 +33,8 @@ class ProfileCreation: AppCompatActivity() {
             while (progressStatus < 100) {
                 progressStatus++
                 handler.post {
-                    progressBar.progress = progressStatus
-                    percentageText.text = "$progressStatus%"
+                    binding.progressBar.progress = progressStatus
+                    binding.percentageText.text = "$progressStatus%"
                 }
                 try {
                     // Delay to simulate progress update
@@ -41,7 +44,7 @@ class ProfileCreation: AppCompatActivity() {
                 }
             }
             // Progress reached 100%, start the new activity
-            val intent = Intent(this, OfficialWelcome::class.java)
+            val intent = Intent(this@ProfileCreation, OfficialWelcome::class.java)
             startActivity(intent)
             finish()
         }).start()
