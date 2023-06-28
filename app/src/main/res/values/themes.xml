@@ -19,6 +19,13 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
+    <style name="CustomDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Customize dialog appearance -->
+        <item name="android:windowBackground">@drawable/layout_bg</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:gravity">center</item>
+        <item name="android:radius">10dp</item>
+    </style>
 
     <style name="NavigationViewStyle" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/poppins_semibold</item>
