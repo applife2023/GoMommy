@@ -4,26 +4,27 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.example.gomommy.databinding.ActivityMomExperienceBinding
 
 class MomExperience : AppCompatActivity() {
-    private lateinit var yesButton: Button
-    private lateinit var noButton: Button
+    private lateinit var binding: ActivityMomExperienceBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mom_experience)
+        binding = ActivityMomExperienceBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        yesButton = findViewById(R.id.yesButton)
-        noButton = findViewById(R.id.noButton)
+        with(binding) {
+            yesButton.setOnClickListener {
+                val intent = Intent(this@MomExperience, BirthYearPicker::class.java)
+                startActivity(intent)
+            }
 
-        yesButton.setOnClickListener{
-            val intent = Intent(this, BirthYearPicker::class.java)
-            startActivity(intent)
-        }
-
-        noButton.setOnClickListener{
-            val intent = Intent(this, BirthYearPicker::class.java)
-            startActivity(intent)
+            noButton.setOnClickListener {
+                val intent = Intent(this@MomExperience, BirthYearPicker::class.java)
+                startActivity(intent)
+            }
         }
     }
 }
