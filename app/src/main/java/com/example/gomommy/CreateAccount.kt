@@ -72,6 +72,7 @@ class CreateAccount : AppCompatActivity() {
                         if (it.isSuccessful) {
                             // Redirect to the desired activity
                             val intent = Intent(this, MomExperience::class.java)
+                            saveUserEmailPassword(email,password)
                             startActivity(intent)
                             finish()
                         } else {
@@ -90,6 +91,26 @@ class CreateAccount : AppCompatActivity() {
             val intent = Intent(this, LoginAccount::class.java)
             startActivity(intent)
             finish()
+        }
+    }
+
+    private fun saveUserEmailPassword(userEmail: String, userPassword: String){
+        val firebaseUser = firebaseAuth.currentUser?.uid
+        val user = userMommyModel(
+            loginCredentials = userMommyModel.LoginCredentials(
+                email = userEmail,
+                password = userPassword,
+            ),
+            userProfile = userMommyModel.UserProfile(
+                userId = firebaseUser
+            )
+        )
+
+
+        if (firebaseUser != null) {
+            dbRef.child(firebaseUser).setValue(user)
+                .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+                }
         }
     }
 
