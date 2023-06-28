@@ -1,8 +1,17 @@
 package com.example.gomommy
 
 data class userMommyModel(
-    var userId: String? = null,
-    var email: String? = null,
-    var password: String? = null
+    val loginCredentials: LoginCredentials,
+    val userProfile: UserProfile
+) {
+    data class LoginCredentials(
+        val email: String?,
+        val password: String?
+    )
 
-)
+    data class UserProfile(
+        val userId: String?
+    )
+}
+
+
