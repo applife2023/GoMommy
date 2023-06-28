@@ -7,72 +7,123 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import android.widget.ToggleButton
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class CreateAccount : AppCompatActivity() {
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var emailEditText: EditText
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
-    private lateinit var loginButton: Button
+    private lateinit var confirmPasswordEditText:EditText
     private lateinit var createAccountButton: Button
+    private lateinit var logInTextView: TextView
     //private lateinit var forgotPasswordTextView: Button
+    private lateinit var dbRef: DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
-
+        firebaseAuth = FirebaseAuth.getInstance()
+        emailEditText = findViewById(R.id.createEmailEditText)
         usernameEditText = findViewById(R.id.createUsernameEditText)
         passwordEditText = findViewById(R.id.createPasswordEditText)
-        //forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView)
-        loginButton = findViewById(R.id.loginButton)
+        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText)
+        logInTextView = findViewById(R.id.logInTextView)
         createAccountButton = findViewById(R.id.createAccountButton)
-        createAccountButton.isEnabled = false // Initially disable the sign-up yesButton
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Users")
 
         // Add text change listeners to the username and password EditText fields
-        usernameEditText.addTextChangedListener { text ->
-            updateCreateButtonState()
+        usernameEditText.addTextChangedListener {
+            updateSignUpButtonState()
         }
 
-        passwordEditText.addTextChangedListener { text ->
-            updateCreateButtonState()
+        emailEditText.addTextChangedListener {
+            updateSignUpButtonState()
         }
 
-        loginButton.setOnClickListener {
+        passwordEditText.addTextChangedListener {
+            updateSignUpButtonState()
+        }
+
+        confirmPasswordEditText.addTextChangedListener { text ->
+            updateSignUpButtonState()
+        }
+
+        createAccountButton.setOnClickListener {
             val username = usernameEditText.text.toString()
+            val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
-
-            val intent = Intent(this, LoginAccount::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        createAccountButton.setOnClickListener{
-            val username = usernameEditText.text.toString()
-            val password = passwordEditText.text.toString()
+            val confirmPassword = confirmPasswordEditText.text.toString()
 
             // Perform sign-up logic here
+            if (email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
+                if(password ==  confirmPassword){
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            // Redirect to the desired activity
+                            val intent = Intent(this, MomExperience::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }else{
+                    Toast.makeText(this, "The password does not match!", Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                Toast.makeText(this,"Please fill the fields", Toast.LENGTH_SHORT).show()
+            }
+        }
 
-            // Redirect to the desired activity
-            val intent = Intent(this, MomExperience::class.java)
+        logInTextView.setOnClickListener{
+            val intent = Intent(this, LoginAccount::class.java)
             startActivity(intent)
             finish()
         }
     }
 
-    private fun updateCreateButtonState() {
+    private fun updateSignUpButtonState() {
         val isUsernameFilled = usernameEditText.text.isNotEmpty()
+        val isEmailFilled = emailEditText.text.isNotEmpty()
         val isPasswordFilled = passwordEditText.text.isNotEmpty()
-        this.createAccountButton.isEnabled = isUsernameFilled && isPasswordFilled
-        if(this.createAccountButton.isEnabled){
+        val isConfirmPasswordFilled = confirmPasswordEditText.text.isNotEmpty()
+        val isPasswordMatched = passwordEditText.text.toString() == confirmPasswordEditText.text.toString()
+
+        this.createAccountButton.isEnabled = isUsernameFilled && isEmailFilled && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatched
+        if (this.createAccountButton.isEnabled) {
             this.createAccountButton.setBackgroundResource(R.drawable.log_button)
             this.createAccountButton.setTextColor(Color.parseColor("#FE5065"))
-        }else {
+        } else {
             this.createAccountButton.setBackgroundResource(R.drawable.disable_button)
             this.createAccountButton.setTextColor(Color.parseColor("#D2D1D1"))
         }
         val showPasswordToggleButton = findViewById<ToggleButton>(R.id.showPasswordToggleButton)
         val passwordEditText = findViewById<EditText>(R.id.createPasswordEditText)
+        val confirmShowPasswordToggleButton = findViewById<ToggleButton>(R.id.confirmShowPasswordToggleButton)
+        val confirmPasswordEditText = findViewById<EditText>(R.id.confirmPasswordEditText)
+        val passwordMismatchTextView = findViewById<TextView>(R.id.passwordMismatchTextView)
+
+        passwordMismatchTextView.isVisible = !isPasswordMatched
+
+        this.confirmPasswordEditText.isEnabled = isPasswordFilled
+        if (this.confirmPasswordEditText.isEnabled) {
+            this.confirmPasswordEditText.setBackgroundResource(R.drawable.custom_edit_text)
+            this.confirmPasswordEditText.setTextColor(Color.parseColor("#FF000000"))
+        } else {
+            this.confirmPasswordEditText.setBackgroundResource(R.drawable.custom_edit_text_disabled)
+            this.confirmPasswordEditText.setTextColor(Color.parseColor("#D2D1D1"))
+        }
 
         showPasswordToggleButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -83,7 +134,20 @@ class CreateAccount : AppCompatActivity() {
                 passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
             }
         }
+
+        confirmShowPasswordToggleButton.isEnabled = isConfirmPasswordFilled
+        confirmShowPasswordToggleButton.setOnCheckedChangeListener{ _, isChecked ->
+            if (isChecked) {
+                // Show password
+                confirmPasswordEditText.transformationMethod = null
+            } else {
+                // Hide password
+                confirmPasswordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+        }
+
         // Set cursor position to the end of the password field
         passwordEditText.setSelection(passwordEditText.text.length)
+        confirmPasswordEditText.setSelection(confirmPasswordEditText.text.length)
     }
 }

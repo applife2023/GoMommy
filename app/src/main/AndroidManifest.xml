@@ -12,9 +12,24 @@
         android:theme="@style/Theme.GoMommy"
         tools:targetApi="31">
         <activity
+            android:name=".Homepage"
+            android:exported="false" />
+        <activity
+            android:name=".OfficialWelcome"
+            android:exported="false"
+            android:theme="@style/OfficialWelcome" />
+        <activity
+            android:name=".ProfileCreation"
+            android:exported="false"
+            android:theme="@style/ProfileCreation" />
+        <activity
+            android:name=".BirthYearPicker"
+            android:exported="false"
+            android:theme="@style/BirthYearPicker" />
+        <activity
             android:name=".MomExperience"
             android:exported="false"
-            android:theme="@style/MomExperience"/>
+            android:theme="@style/MomExperience" />
         <activity
             android:name=".CreateAccount"
             android:exported="false"
@@ -41,7 +56,6 @@
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -52,6 +66,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
     </application>
 
 </manifest>

@@ -15,12 +15,8 @@
       },
       "oauth_client": [
         {
-          "client_id": "413281056409-iejpv5e8fvip3jbhba9jv7o1aoup7qgu.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.gomommy",
-            "certificate_hash": "f3840639d06c91dade3129f4738b036504361776"
-          }
+          "client_id": "413281056409-jdcdup0fuc4kp8rtt2qkk00kbqmc2t9d.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [

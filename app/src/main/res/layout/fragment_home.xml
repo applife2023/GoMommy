@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="Scrollable content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="65dp">
+
+                <FrameLayout
+                    android:id="@+id/statusLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp">
+
+                    <ImageView
+                        android:id="@+id/statusContainerImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/status_container" />
+
+                    <TextView
+                        android:id="@+id/statusContainerTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center"
+                        android:gravity="center"
+                        android:text="Your baby"
+                        android:layout_margin="10dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/descriptionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/descriptionBackgroundImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/layout_bg" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/babyGrowthTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Baby's growth:"
+                            android:fontFamily="@font/poppins"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/momHealthTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="10dp"
+                            android:text="Mommy's changes:"
+                            android:fontFamily="@font/poppins"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/layout_bg_wgradient"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View your calendar"
+                        android:textSize="16sp"
+                        android:layout_gravity="start|center"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/poppins"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/img_calendar"
+                        android:layout_margin="10dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/layout_bg_wgradient"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="Know the hospitals\nnear you!"
+                        android:layout_gravity="start|center"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/poppins"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/img_hospital"
+                        android:layout_margin="10dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/layout_bg_wgradient"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="Learn from the Tips \nand Advice just for you!"
+                        android:layout_gravity="start|center"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/poppins"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/img_tips"
+                        android:layout_margin="10dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
