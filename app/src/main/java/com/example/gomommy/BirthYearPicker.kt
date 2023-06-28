@@ -78,7 +78,7 @@ class BirthYearPicker : AppCompatActivity() {
     }
 
     private fun readUserBirthYear() {
-        dbRef.child("User-Profile").child("birthYear").get().addOnSuccessListener {
+        dbRef.child("userProfile").child("birthYear").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
@@ -92,7 +92,7 @@ class BirthYearPicker : AppCompatActivity() {
 
         newKeyValuePair["birthYear"] = "$userBirthYear"
 
-        dbRef.child("User-Profile").updateChildren(newKeyValuePair)
+        dbRef.child("userProfile").updateChildren(newKeyValuePair)
                 .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
                 }
     }
