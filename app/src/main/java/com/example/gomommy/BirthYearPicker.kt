@@ -1,14 +1,12 @@
 package com.example.gomommy
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.NumberPicker
 import androidx.annotation.RequiresApi
-import androidx.core.content.res.ResourcesCompat
 import java.time.Year
 
 class BirthYearPicker : AppCompatActivity() {
@@ -50,7 +48,7 @@ class BirthYearPicker : AppCompatActivity() {
 
             // Update the selected year in the TextView
             //tvSelectedYear.text = "Selected Year: ${selectedYear ?: "Not selected"}"
-            val intent = Intent(this, ProfileCreation::class.java)
+            val intent = Intent(this, UserDueDate::class.java)
             startActivity(intent)
         }
     }
