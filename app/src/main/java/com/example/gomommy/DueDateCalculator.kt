@@ -50,6 +50,7 @@ class DueDateCalculator: AppCompatActivity() {
             val intent = Intent(this, ProfileCreation::class.java)
             intent.putExtra("due_date", dueDate)
             startActivity(intent)
+            finish()
         }
     }
 
