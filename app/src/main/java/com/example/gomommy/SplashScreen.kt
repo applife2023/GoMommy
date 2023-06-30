@@ -1,9 +1,10 @@
 package com.example.gomommy
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import com.example.gomommy.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
@@ -15,16 +16,26 @@ class SplashScreen : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Delay using Handler
-        Handler().postDelayed(
-            {
-                // Start the main activity
-                startActivity(Intent(this@SplashScreen, WelcomeUser::class.java))
+        // Check if the user is logged in or has created an account
+        val sharedPrefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false)
 
-                // Close the splash activity
-                finish()
-            },
-            splashDuration
-        )
+        // If the user is logged in, start the homepage activity
+        if (isLoggedIn) {
+            startActivity(Intent(this@SplashScreen, Homepage::class.java))
+            finish()
+        } else {
+            // Delay using Handler
+            Handler().postDelayed(
+                {
+                    // Start the login activity
+                    startActivity(Intent(this@SplashScreen, LoginAccount::class.java))
+
+                    // Close the splash activity
+                    finish()
+                },
+                splashDuration
+            )
+        }
     }
 }
