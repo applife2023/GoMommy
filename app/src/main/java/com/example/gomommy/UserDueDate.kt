@@ -32,10 +32,6 @@ class UserDueDate : AppCompatActivity() {
         yearPicker.minValue = currentYear
         yearPicker.maxValue = currentYear + 1
 
-        // Disable the button initially and set its background to the disabled state
-        btnSelectDate.isEnabled = false
-        btnSelectDate.setBackgroundResource(R.drawable.disabled_btn)
-
         // Set a custom formatter for the month picker
         val monthNames = arrayOf(
             "January", "February", "March", "April", "May", "June",
@@ -43,13 +39,18 @@ class UserDueDate : AppCompatActivity() {
         )
         monthPicker.displayedValues = monthNames
 
-        // Set a listener for the pickers
-        val pickerListener = NumberPicker.OnValueChangeListener { _, _, _ ->
+        // Set a scroll listener for the pickers
+        val pickerScrollListener = NumberPicker.OnScrollListener { _, _ ->
             btnSelectDate.isEnabled = true
+            btnSelectDate.setBackgroundResource(R.drawable.gradient_bg)
         }
-        dayPicker.setOnValueChangedListener(pickerListener)
-        monthPicker.setOnValueChangedListener(pickerListener)
-        yearPicker.setOnValueChangedListener(pickerListener)
+        dayPicker.setOnScrollListener(pickerScrollListener)
+        monthPicker.setOnScrollListener(pickerScrollListener)
+        yearPicker.setOnScrollListener(pickerScrollListener)
+
+        // Disable the button initially
+        btnSelectDate.isEnabled = false
+        btnSelectDate.setBackgroundResource(R.drawable.disabled_btn)
 
         // Set a click listener for the "Next" button
         btnSelectDate.setOnClickListener {
