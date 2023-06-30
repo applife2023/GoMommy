@@ -8,20 +8,16 @@ import android.widget.ProgressBar
 import com.example.gomommy.databinding.ActivityOfficialWelcomeBinding
 
 class OfficialWelcome : AppCompatActivity() {
-    private lateinit var binding: ActivityOfficialWelcomeBinding
     private lateinit var btnContinue: Button
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityOfficialWelcomeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_official_welcome)
 
-        with(binding) {
-            continueButton.setOnClickListener {
-                val intent = Intent(this@OfficialWelcome, Homepage::class.java)
-                startActivity(intent)
-                finish()
-            }
+        btnContinue = findViewById(R.id.continueButton)
+        btnContinue.setOnClickListener {
+            val intent = Intent(this, Homepage::class.java)
+            startActivity(intent)
+            finish()
         }
     }
-
 }
