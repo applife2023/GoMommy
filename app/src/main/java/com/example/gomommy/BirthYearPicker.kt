@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.NumberPicker
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.gomommy.databinding.ActivityBirthYearPickerBinding
 import com.example.gomommy.databinding.ActivityUserDueDateBinding
@@ -55,11 +57,31 @@ class BirthYearPicker : AppCompatActivity() {
 
                 // Update the selected year in the TextView
                 //tvSelectedYear.text = "Selected Year: ${selectedYear ?: "Not selected"}"
+                val birthYear = binding.npYear.displayedValues[binding.npYear.value]
+                saveUserBirthYear(birthYear)
+                readUserBirthYear()
                 val intent = Intent(this@BirthYearPicker, UserDueDate::class.java)
                 startActivity(intent)
             }
         }
     }
+
+    private fun readUserBirthYear(){
+        dbRef.child("userProfile").child("birthYear").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
+        }
+
+    }
+    private fun saveUserBirthYear(birthYear: String) {
+        val newKeyValuePair = HashMap<String, Any>()
+        newKeyValuePair["birthYear"] = birthYear
+        dbRef.child("userProfile").updateChildren(newKeyValuePair)
+            .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+            }
+    }
+
     private fun buildDisplayValues(startYear: Int, endYear: Int): Array<String> {
         val yearRange = ArrayList<String>()
         val selectOption = "Select"
