@@ -1,10 +1,13 @@
 package com.example.gomommy
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.NumberPicker
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 
 class UserDueDate : AppCompatActivity() {
@@ -13,7 +16,9 @@ class UserDueDate : AppCompatActivity() {
     private lateinit var monthPicker: NumberPicker
     private lateinit var yearPicker: NumberPicker
     private lateinit var btnSelectDate: Button
+    private lateinit var idkBtn: Button
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_due_date)
@@ -22,6 +27,7 @@ class UserDueDate : AppCompatActivity() {
         monthPicker = findViewById(R.id.monthPicker)
         yearPicker = findViewById(R.id.yearPicker)
         btnSelectDate = findViewById(R.id.btnSelectDate)
+        idkBtn = findViewById(R.id.idkBtn)
 
         // Set the minimum and maximum values for the pickers
         val currentYear = getCurrentYear()
@@ -48,6 +54,10 @@ class UserDueDate : AppCompatActivity() {
         monthPicker.setOnScrollListener(pickerScrollListener)
         yearPicker.setOnScrollListener(pickerScrollListener)
 
+        dayPicker.textSize = 25f
+        monthPicker.textSize = 25f
+        yearPicker.textSize = 25f
+
         // Disable the button initially
         btnSelectDate.isEnabled = false
         btnSelectDate.setBackgroundResource(R.drawable.disabled_btn)
@@ -67,8 +77,13 @@ class UserDueDate : AppCompatActivity() {
             Toast.makeText(this, "Selected Due Date: $dueDate", Toast.LENGTH_SHORT).show()
             // Add your desired logic for handling the selected due date here
         }
-    }
 
+        idkBtn.setOnClickListener{
+            val intent = Intent(this, DueDateCalculator::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
     private fun getCurrentYear(): Int {
         val calendar = java.util.Calendar.getInstance()
         return calendar.get(java.util.Calendar.YEAR)

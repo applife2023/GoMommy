@@ -24,4 +24,6 @@
     <string name="password_does_not_match">Password does not match!</string>
     <string name="the_expected_due_date_is_an_important_milestone_that_marks_the_approximate_time_when_your_baby_is_expected_to_arrive">The expected due date is an important milestone that marks the approximate time when your baby is expected to arrive.</string>
     <string name="when_is_your_expected_due_date">When is your expected due date?</string>
+    <string name="i_don_t_know_when_is_my_due_date">I don\'t know when is my due date</string>
+    <string name="i_don_t_know_when_is_nmy_due_date">I don\'t know when is\nmy due date</string>
 </resources>
