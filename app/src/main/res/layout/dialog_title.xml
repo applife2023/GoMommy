@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
-
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/titleTextView"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textColor="#000"
         android:textStyle="bold"
+        android:layout_margin="15dp"
         android:fontFamily="@font/poppins_semibold"/>
 
 </LinearLayout>
