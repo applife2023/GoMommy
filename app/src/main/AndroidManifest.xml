@@ -12,9 +12,13 @@
         android:theme="@style/Theme.GoMommy"
         tools:targetApi="31">
         <activity
+            android:name=".DueDateCalculator"
+            android:exported="false"
+            android:theme="@style/DueDateCalculator"/>
+        <activity
             android:name=".UserDueDate"
             android:exported="false"
-            android:theme="@style/UserDueDate"/>
+            android:theme="@style/UserDueDate" />
         <activity
             android:name=".Homepage"
             android:exported="false" />
