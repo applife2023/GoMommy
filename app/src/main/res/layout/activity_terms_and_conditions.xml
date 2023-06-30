@@ -17,43 +17,59 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/checkbox1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736" />
+        app:layout_constraintVertical_bias="0.705" />
 
-    <CheckBox
-        android:id="@+id/checkbox1"
-        android:layout_width="250dp"
+    <TextView
+        android:id="@+id/termsAndConditions"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:text="@string/i_agree_to_privacy_policy_and_terms_of_use"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:text="Privacy Policy and\nTerms of Use"
+        android:textColor="@color/gomommy_primary"
         android:textSize="16sp"
-        android:paddingStart="5dp"
-        android:gravity="top"
-        app:layout_constraintBottom_toTopOf="@+id/checkbox2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.866" />
+        app:layout_constraintTop_toBottomOf="@+id/checkbox2"
+        app:layout_constraintVertical_bias="0.21" />
 
     <CheckBox
         android:id="@+id/checkbox2"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
+        android:gravity="top"
+        android:paddingStart="5dp"
+        android:paddingEnd="10dp"
         android:text="@string/i_agree_to_processing_of_my_personal_health_data_for_providing_me_go_mommy_functions_see_more_in_privacy_policy"
         android:textSize="16sp"
-        android:paddingEnd="10dp"
-        android:paddingStart="5dp"
-        android:gravity="top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.539" />
+        app:layout_constraintVertical_bias="0.496" />
+
+    <CheckBox
+        android:id="@+id/checkbox1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="top"
+        android:paddingStart="5dp"
+        android:text="@string/i_agree_to_privacy_policy_and_terms_of_use"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/checkbox2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854" />
 
     <Button
         android:id="@+id/nextButton"
@@ -73,21 +89,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:rippleColor="@color/gomommy_secondary" />
-
-    <TextView
-        android:id="@+id/termsAndConditions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
-        android:text="Privacy Policy and\nTerms of Use"
-        android:textColor="@color/gomommy_primary"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkbox2"
-        app:layout_constraintVertical_bias="0.237" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
