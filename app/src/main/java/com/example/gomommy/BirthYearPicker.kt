@@ -34,7 +34,7 @@ class BirthYearPicker : AppCompatActivity() {
         npYear.displayedValues = buildDisplayValues(startYear, endYear)
         npYear.value = npYear.maxValue / 2 // Set initial value to the middle index
         npYear.wrapSelectorWheel = false
-        npYear.textSize = 55f
+        npYear.textSize = 40f
 
         npYear.setOnScrollListener { _, _ ->
             // Enable the Next button when the NumberPicker is scrolled
