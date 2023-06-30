@@ -19,11 +19,13 @@ class MomExperience : AppCompatActivity() {
             yesButton.setOnClickListener {
                 val intent = Intent(this@MomExperience, BirthYearPicker::class.java)
                 startActivity(intent)
+                finish()
             }
 
             noButton.setOnClickListener {
                 val intent = Intent(this@MomExperience, BirthYearPicker::class.java)
                 startActivity(intent)
+                finish()
             }
         }
     }
