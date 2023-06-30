@@ -75,7 +75,7 @@ class BirthYearPicker : AppCompatActivity() {
 
                 saveUserBirthYear()
                 readUserBirthYear()
-                val intent = Intent(this@BirthYearPicker, ProfileCreation::class.java)
+                val intent = Intent(this@BirthYearPicker, UserDueDate::class.java)
                 startActivity(intent)
             }
         }
