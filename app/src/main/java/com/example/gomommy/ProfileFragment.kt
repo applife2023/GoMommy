@@ -72,29 +72,13 @@ class ProfileFragment : Fragment() {
             }
     }
 
-    private fun readDueDate(){
-        dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
+    private fun readDueDate(parentNode: String, value: String){
+
+        dbRef.child(parentNode).child(value).get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
         }
 
-        dbRef.child("userProfile").child("birthYear").get().addOnSuccessListener {
-            Log.i("firebase", "Got value ${it.value}")
-        }.addOnFailureListener{
-            Log.e("firebase", "Error getting data", it)
-        }
-
-        dbRef.child("userProfile").child("userName").get().addOnSuccessListener {
-            Log.i("firebase", "Got value ${it.value}")
-        }.addOnFailureListener{
-            Log.e("firebase", "Error getting data", it)
-        }
-
-        dbRef.child("userProfile").child("userId").get().addOnSuccessListener {
-            Log.i("firebase", "Got value ${it.value}")
-        }.addOnFailureListener{
-            Log.e("firebase", "Error getting data", it)
-        }
     }
 }
