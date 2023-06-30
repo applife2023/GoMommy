@@ -4,7 +4,10 @@ import android.icu.text.SimpleDateFormat
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -25,6 +28,8 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityHomepageBinding
+    private var backPressedOnce = false
+    private var backPressedCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +88,27 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
     }
 
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            if (backPressedCount == 1) {
+                super.onBackPressed() // Exit the app
+            } else {
+                backPressedCount++
+
+                val toast = Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0) // Set toast position
+                toast.show()
+
+                // Reset the back pressed count after a certain duration (e.g., 2 seconds)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    backPressedCount = 0
+                }, 2000)
+            }
+        }
+    }
+
     private fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -101,13 +127,5 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            onBackPressedDispatcher.onBackPressed()
-        }
     }
 }
