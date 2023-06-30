@@ -88,6 +88,7 @@ class UserDueDate : AppCompatActivity() {
                 val intent = Intent(this@UserDueDate, ProfileCreation::class.java)
                 intent.putExtra("due_date", dueDate)
                 startActivity(intent)
+                finish()
 
                 Toast.makeText(this@UserDueDate, "Selected Due Date: $dueDate", Toast.LENGTH_SHORT).show()
                 // Add your desired logic for handling the selected due date here
