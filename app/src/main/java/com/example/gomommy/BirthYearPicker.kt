@@ -36,7 +36,7 @@ class BirthYearPicker : AppCompatActivity() {
             val currentYear = Year.now().value
             println(currentYear)
             val startYear = 1980
-            val endYear = currentYear - 13
+            val endYear = currentYear - 18
 
             npYear.minValue = 0
             npYear.maxValue = endYear - startYear + 1
@@ -62,6 +62,7 @@ class BirthYearPicker : AppCompatActivity() {
                 readUserBirthYear()
                 val intent = Intent(this@BirthYearPicker, UserDueDate::class.java)
                 startActivity(intent)
+                finish()
             }
         }
     }
