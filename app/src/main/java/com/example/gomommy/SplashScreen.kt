@@ -16,26 +16,24 @@ class SplashScreen : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Check if the user is logged in or has created an account
-        val sharedPrefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false)
+        // Delay using Handler to display the splash screen
+        Handler().postDelayed(
+            {
+                // Check if the user is logged in or has created an account
+                val sharedPrefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                val isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false)
 
-        // If the user is logged in, start the homepage activity
-        if (isLoggedIn) {
-            startActivity(Intent(this@SplashScreen, Homepage::class.java))
-            finish()
-        } else {
-            // Delay using Handler
-            Handler().postDelayed(
-                {
-                    // Start the login activity
+                // Redirect based on login status
+                if (isLoggedIn) {
+                    startActivity(Intent(this@SplashScreen, Homepage::class.java))
+                } else {
                     startActivity(Intent(this@SplashScreen, LoginAccount::class.java))
+                }
 
-                    // Close the splash activity
-                    finish()
-                },
-                splashDuration
-            )
-        }
+                // Close the splash activity
+                finish()
+            },
+            splashDuration
+        )
     }
 }
