@@ -35,4 +35,12 @@
     <string name="when_is_your_expected_due_date">When is your expected due date?</string>
     <string name="i_don_t_know_when_is_my_due_date">I don\'t know when is my due date</string>
     <string name="i_don_t_know_when_is_nmy_due_date">I don\'t know when is\nmy due date</string>
+    <string name="view_your_calendar">View your calendar</string>
+    <string name="stay_organized_and_keep_track_of_important_dates_and_milestones_throughout_your_pregnancy">Stay organized and keep track of important dates and milestones throughout your pregnancy.</string>
+    <string name="hospital_tagline">Feel confident knowing you have access to nearby healthcare options whenever you need them.</string>
+    <string name="know_the_hospitals_near_you">Know the hospitals near you</string>
+    <string name="tipsnadvice_desc">Our app offers a wealth of curated tips and advice tailored specifically to your stage of pregnancy.</string>
+    <string name="learn">Learn from the Tips and\nAdvice just for you</string>
+    <string name="know_the_hospitals_nnear_you">Know the hospitals \nnear you!</string>
+    <string name="scrollable_content">Scrollable content</string>
 </resources>
