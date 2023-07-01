@@ -5,8 +5,25 @@
     android:layout_height="match_parent"
     tools:context=".TipsAndAdviceFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/gradient_bg_x2" />
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+        
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tipsAndAdviceRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10mm"
+            android:layout_marginRight="5dp" />
+
+
 </FrameLayout>
