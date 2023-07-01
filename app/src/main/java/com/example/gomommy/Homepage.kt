@@ -1,5 +1,7 @@
 package com.example.gomommy
 
+import android.content.Context
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
@@ -21,11 +23,15 @@ import androidx.fragment.app.Fragment
 import com.example.gomommy.databinding.ActivityHomepageBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.util.Date
 import java.util.Locale
 
 class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityHomepageBinding
     private var backPressedOnce = false
@@ -33,6 +39,7 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        firebaseAuth = FirebaseAuth.getInstance()
         binding = ActivityHomepageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -123,9 +130,18 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
                 .replace(R.id.fragment_container, SettingsFragment()).commit()
             R.id.nav_about -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, AboutFragment()).commit()
-            R.id.nav_logout -> Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+            R.id.nav_logout -> userLogout()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+    private fun userLogout() {
+        Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+        firebaseAuth.signOut()
+        val intent = Intent(this@Homepage, LoginAccount::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }
