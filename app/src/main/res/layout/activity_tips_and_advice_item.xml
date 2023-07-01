@@ -51,10 +51,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="3dp"
                 android:text="What Happens and things to think about
                 when you're first pregnant"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="18sp"/>
 
         </LinearLayout>
 
