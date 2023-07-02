@@ -30,7 +30,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:iconifiedByDefault="false"
-                    app:queryBackground="transparent"
                     app:queryHint="Search here..." />
 
         </com.google.android.material.card.MaterialCardView>
