@@ -52,12 +52,12 @@ class DueDateCalculator: AppCompatActivity() {
             // Calculate due date based on the selected date
             val dueDate = calculateDueDate(selectedDate)
             // Display the due date in a toast message
-            val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
             val formattedDueDate = dateFormat.format(dueDate)
             val message = "Estimated due date: $formattedDueDate"
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-            saveDueDate(dueDate.toString())
+            saveDueDate(formattedDueDate)
             readDueDate()
             val intent = Intent(this, ProfileCreation::class.java)
             intent.putExtra("due_date", dueDate)
@@ -89,7 +89,8 @@ class DueDateCalculator: AppCompatActivity() {
         // Replace this with your actual calculation logic
         val daysToAdd = 280 // Assuming a pregnancy duration of 280 days
         val dueDateMillis = selectedDate + daysToAdd * 24 * 60 * 60 * 1000 // Add days in milliseconds
-
         return Date(dueDateMillis)
     }
+
+
 }
