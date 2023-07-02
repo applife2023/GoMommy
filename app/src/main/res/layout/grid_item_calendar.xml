@@ -9,8 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="10.5dp"
         android:gravity="center"
+        android:fontFamily="@font/poppins"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
