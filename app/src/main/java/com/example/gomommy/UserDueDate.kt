@@ -102,13 +102,18 @@ class UserDueDate : AppCompatActivity() {
         }
     }
 
-    private fun readDueDate(){
+    private fun readDueDate() {
         dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
-        }.addOnFailureListener{
+            val dueDate = it.value
+            displayDueDate(dueDate)
+        }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
         }
 
+    }
+    private fun displayDueDate(dueDate: Any?) {
+        println(dueDate)
     }
     private fun saveDueDate(dueDate: String) {
 
