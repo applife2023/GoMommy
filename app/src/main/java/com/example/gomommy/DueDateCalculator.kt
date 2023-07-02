@@ -2,14 +2,21 @@ package com.example.gomommy
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DueDateCalculator: AppCompatActivity() {
+
+    private lateinit var dbRef: DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var calendarView: CalendarView
     private lateinit var btnSelectDate: Button
 
@@ -17,6 +24,9 @@ class DueDateCalculator: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = FirebaseAuth.getInstance().currentUser?.uid
+        dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
         setContentView(R.layout.activity_due_date_calculator)
 
         // Initialize views
@@ -47,11 +57,31 @@ class DueDateCalculator: AppCompatActivity() {
             val message = "Estimated due date: $formattedDueDate"
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
+            saveDueDate(dueDate.toString())
+            readDueDate()
             val intent = Intent(this, ProfileCreation::class.java)
             intent.putExtra("due_date", dueDate)
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun readDueDate(){
+        dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
+        }
+
+    }
+    private fun saveDueDate(dueDate: String) {
+
+        val newKeyValuePair = HashMap<String, Any>()
+        newKeyValuePair["dueDate"] = dueDate
+
+        dbRef.child("userProfile").updateChildren(newKeyValuePair)
+            .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+            }
     }
 
     private fun calculateDueDate(selectedDate: Long): Date {
