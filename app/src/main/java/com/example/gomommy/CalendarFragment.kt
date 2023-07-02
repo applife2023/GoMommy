@@ -41,12 +41,13 @@ class CalendarFragment : Fragment() {
         calendarGridView = view.findViewById(R.id.calendarGridView)
         daysOfWeekGridView = view.findViewById(R.id.daysOfWeekGridView)
 
-        // Populate the Spinners with months and years
-        val monthSpinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, months)
-        monthSpinner.adapter = monthSpinnerAdapter
+        // Create custom spinner adapter for months
+        val customMonthSpinnerAdapter = CustomSpinnerAdapter(requireContext(), months)
+        monthSpinner.adapter = customMonthSpinnerAdapter
 
-        val yearSpinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, years)
-        yearSpinner.adapter = yearSpinnerAdapter
+        // Create custom spinner adapter for years
+        val customYearSpinnerAdapter = CustomSpinnerAdapter(requireContext(), years)
+        yearSpinner.adapter = customYearSpinnerAdapter
 
         // Set selection listeners for the Spinners
         monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -128,7 +129,7 @@ class CalendarFragment : Fragment() {
     }
 
     private inner class CalendarGridAdapter(context: Context, private val days: ArrayList<String>) :
-        ArrayAdapter<String>(context, R.layout.grid_item_calendar, days) {
+        ArrayAdapter<String>(context, 0, days) {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             var view = convertView
@@ -149,13 +150,15 @@ class CalendarFragment : Fragment() {
             val calendar = Calendar.getInstance()
             val currentDay = calendar.get(Calendar.DAY_OF_MONTH).toString()
             val currentMonth = calendar.get(Calendar.MONTH).toString()
-            val selectedMonth = monthSpinner.selectedItemPosition.toString()
-            val selectedYear = yearSpinner.selectedItem.toString()
+            val selectedMonth = months[monthSpinner.selectedItemPosition]
+            val selectedYear = years[yearSpinner.selectedItemPosition]
 
-            if (day.isNotEmpty() && day.toInt() == currentDay.toInt() && selectedMonth.toInt() == currentMonth.toInt() && selectedYear.toInt() == getCurrentYear().toInt()) {
-                viewHolder.dayTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.gomommy_primary))
+            if (day.isNotEmpty() && day.toInt() == currentDay.toInt() && selectedMonth == getCurrentMonth() && selectedYear == getCurrentYear()) {
+                viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_current_day)
+                viewHolder.dayTextView.setTextColor(Color.WHITE)
             } else {
-                viewHolder.dayTextView.setBackgroundColor(Color.TRANSPARENT)
+                viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background)
+                viewHolder.dayTextView.setTextColor(Color.BLACK)
             }
 
             viewHolder.dayTextView.text = day
@@ -166,5 +169,47 @@ class CalendarFragment : Fragment() {
         private inner class ViewHolder {
             lateinit var dayTextView: TextView
         }
+    }
+    private class CustomSpinnerAdapter(context: Context, private val items: Array<String>) :
+        ArrayAdapter<String>(context, R.layout.custom_spinner_item, items) {
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            return getCustomView(position, convertView, parent)
+        }
+
+        override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+            return getCustomView(position, convertView, parent)
+        }
+
+        private fun getCustomView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val view = convertView ?: LayoutInflater.from(context)
+                .inflate(R.layout.custom_spinner_item, parent, false)
+
+            val textView = view.findViewById<TextView>(android.R.id.text1)
+            textView.text = items[position]
+
+            return view
+        }
+    }
+}
+private class CustomSpinnerAdapter(context: Context, private val items: Array<String>) :
+    ArrayAdapter<String>(context, R.layout.custom_spinner_item, items) {
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        return getCustomView(position, convertView, parent)
+    }
+
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+        return getCustomView(position, convertView, parent)
+    }
+
+    private fun getCustomView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val view = convertView ?: LayoutInflater.from(context)
+            .inflate(R.layout.custom_spinner_item, parent, false)
+
+        val textView = view.findViewById<TextView>(android.R.id.text1)
+        textView.text = items[position]
+
+        return view
     }
 }
