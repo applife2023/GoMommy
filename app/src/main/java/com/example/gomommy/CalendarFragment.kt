@@ -3,6 +3,7 @@ package com.example.gomommy
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +14,24 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarFragment : Fragment() {
 
+    private lateinit var dbRef: DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var monthSpinner: Spinner
     private lateinit var yearSpinner: Spinner
     private lateinit var calendarGridView: GridView
     private lateinit var daysOfWeekGridView: GridView
+
 
     private val months = arrayOf(
         "January", "February", "March", "April", "May", "June",
@@ -36,10 +46,16 @@ class CalendarFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_calendar, container, false)
 
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = FirebaseAuth.getInstance().currentUser?.uid
+        dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
         monthSpinner = view.findViewById(R.id.monthSpinner)
         yearSpinner = view.findViewById(R.id.yearSpinner)
         calendarGridView = view.findViewById(R.id.calendarGridView)
         daysOfWeekGridView = view.findViewById(R.id.daysOfWeekGridView)
+        readDueDate()
+
+
 
         // Create custom spinner adapter for months
         val customMonthSpinnerAdapter = CustomSpinnerAdapter(requireContext(), months)
@@ -67,11 +83,13 @@ class CalendarFragment : Fragment() {
                 val selectedMonth = months[monthSpinner.selectedItemPosition]
                 val selectedYear = years[position]
                 updateCalendarGrid(selectedMonth, selectedYear)
+                readDueDate()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Do nothing
             }
+
         }
 
         // Initialize the calendar grid with the current month and year
@@ -153,6 +171,9 @@ class CalendarFragment : Fragment() {
             val selectedMonth = months[monthSpinner.selectedItemPosition]
             val selectedYear = years[yearSpinner.selectedItemPosition]
 
+            // Set different background color for the due date
+
+
             if (day.isNotEmpty() && day.toInt() == currentDay.toInt() && selectedMonth == getCurrentMonth() && selectedYear == getCurrentYear()) {
                 viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_current_day)
                 viewHolder.dayTextView.setTextColor(Color.WHITE)
@@ -191,6 +212,32 @@ class CalendarFragment : Fragment() {
             return view
         }
     }
+
+    private fun readDueDate() {
+
+        dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+            val dueDate = it.value
+            displayDueDate(dueDate)
+        }.addOnFailureListener {
+            Log.e("firebase", "Error getting data", it)
+        }
+
+    }
+
+    private fun displayDueDate(dueDate: Any?) {
+        val dueDate = dueDate.toString()
+        val parts = dueDate.split(" ")
+        println(parts)
+        val day = parts[0]
+        val month = parts[1]
+        val year = parts[2]
+
+        println(day)
+        println(month)
+        println(year)
+    }
+
 }
 private class CustomSpinnerAdapter(context: Context, private val items: Array<String>) :
     ArrayAdapter<String>(context, R.layout.custom_spinner_item, items) {
