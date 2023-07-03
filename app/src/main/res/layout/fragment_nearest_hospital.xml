@@ -31,6 +31,7 @@
         <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/search_view_bg"
             app:iconifiedByDefault="false"
             app:queryBackground="transparent"
             app:queryHint="Search here..." />
@@ -41,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tipsMaterialCardView"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
