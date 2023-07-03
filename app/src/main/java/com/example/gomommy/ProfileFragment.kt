@@ -38,6 +38,7 @@ class ProfileFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = FirebaseAuth.getInstance().currentUser?.uid
         dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
+        readUserProfile()
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -72,13 +73,23 @@ class ProfileFragment : Fragment() {
             }
     }
 
-    private fun readDueDate(parentNode: String, value: String){
+    private fun readUserProfile(){
 
-        dbRef.child(parentNode).child(value).get().addOnSuccessListener {
+        dbRef.child("userProfile").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
+            val value = it.value
+            displayUserProfile(value)
+
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
         }
 
     }
+    private fun displayUserProfile(userValue: Any?) {
+        val userValue = userValue as? Map<String, Any?>
+        if (userValue != null) {
+            println(userValue["userName"])
+        }
+    }
+
 }
