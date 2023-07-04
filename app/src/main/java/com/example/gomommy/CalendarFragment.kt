@@ -152,23 +152,32 @@ class CalendarFragment : Fragment() {
     }
 
     private fun displayDueDate(dueDate: Any?) {
-        val dueDate = dueDate.toString()
-        val parts = dueDate.split(" ")
+        val dueDateString = dueDate.toString()
+        val parts = dueDateString.split(" ")
         println(parts)
-        val day = parts[0]
-        val month = parts[1]
-        val year = parts[2]
+        if (parts.size >= 3) {
+            val day = parts[0]
+            val month = parts[1]
+            val year = parts[2]
 
-        println(day)
-        println(month)
-        println(year)
+            println(day)
+            println(month)
+            println(year)
 
-        val selectedMonth = months[monthSpinner.selectedItemPosition]
-        val selectedYear = years[yearSpinner.selectedItemPosition]
+            val selectedMonthPosition = monthSpinner.selectedItemPosition
+            val selectedYearPosition = yearSpinner.selectedItemPosition
 
-        if (month == selectedMonth && year == selectedYear) {
-            val adapter = calendarGridView.adapter as CalendarGridAdapter
-            adapter.updateDueDate(day)
+            if (selectedMonthPosition >= 0 && selectedMonthPosition < months.size &&
+                selectedYearPosition >= 0 && selectedYearPosition < years.size) {
+
+                val selectedMonth = months[selectedMonthPosition]
+                val selectedYear = years[selectedYearPosition]
+
+                if (month == selectedMonth && year == selectedYear) {
+                    val adapter = calendarGridView.adapter as CalendarGridAdapter
+                    adapter.updateDueDate(day)
+                }
+            }
         }
     }
 
