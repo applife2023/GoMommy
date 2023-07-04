@@ -202,15 +202,14 @@ class CalendarFragment : Fragment() {
 
                 if (day == currentDay && selectedMonth == getCurrentMonth() && selectedYear == getCurrentYear()) {
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_current_day)
-                    viewHolder.dayTextView.setTextColor(Color.WHITE)
+                    viewHolder.dayTextView.setTextColor(Color.BLACK)
                 } else if (day == dueDate) {
-                    viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_current_day)
+                    viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_due_date)
                     viewHolder.dayTextView.setTextColor(Color.WHITE)
                 } else {
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background)
                     viewHolder.dayTextView.setTextColor(Color.BLACK)
                 }
-
                 viewHolder.dayTextView.text = day
             } else {
                 viewHolder.dayTextView.setBackgroundResource(0) // Remove any background drawable
