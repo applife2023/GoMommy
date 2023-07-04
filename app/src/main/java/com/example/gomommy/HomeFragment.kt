@@ -1,31 +1,31 @@
 package com.example.gomommy
 
+import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.gomommy.databinding.FragmentHomeBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var dbRef: DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -34,27 +34,109 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser?.uid
+        dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
+
+        
+        readTimeStamp()
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
+
+    private fun readDueDate(timeStamp: String?) {
+        dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+            val dueDate = it.value as? String
+            displayRemainingDate(dueDate, timeStamp)
+        }.addOnFailureListener {
+            Log.e("firebase", "Error getting data", it)
+        }
     }
+
+
+    @SuppressLint("SetTextI18n")
+    private fun displayRemainingDate(dueDate: String?, timeStamp: String?) {
+        dueDate?.let {
+            val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+            val currentDate = Calendar.getInstance().time
+            val parseDueDate = dateFormat.parse(dueDate)
+            val parseTimeStamp = dateFormat.parse(timeStamp)
+
+            if (parseDueDate!=null){
+                val remainingDays = calculateRemainingDays(currentDate, parseDueDate, parseTimeStamp)
+                val remainingDaysString = remainingDays.toString()
+                val remainDaysTextView = ("Remaining days: $remainingDaysString")
+                binding.remainingDaysTextView.text = remainDaysTextView
+
+
+            }else {
+                println("Invalid due date format.")
+            }
+
+        }?: println("Due date not found.")
+    }
+
+    private fun calculateRemainingDays(currentDate:Date, dueDate:Date, timeStamp: Date): Long {
+        val currentTime = currentDate.time
+        val dueTime = dueDate.time
+        val timeStamp = timeStamp.time
+        val remainingTime = dueTime - currentTime
+        val remainingDay = remainingTime/ (1000 * 60 * 60 * 24)
+
+        val dayNTime = (dueTime - remainingTime) - (timeStamp)
+        println("due $dueTime")
+        println("remain $remainingTime")
+        println("current $currentTime")
+        val dayN = dayNTime/(1000 * 60 * 60 * 24)
+        displayDayN(dayN)
+        return remainingDay
+    }
+
+
+    private fun displayDayN(dayN: Long) {
+        val dayN = dayN.toString()
+        val dayNString = "Day $dayN"
+        binding.dayNumberTextView.text = dayNString
+    }
+
+    private fun readTimeStamp(){
+        dbRef.child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+            val timeStamp = it.value as? String
+            if (it.value != null){
+                timeStampChecker(true, timeStamp)
+                readDueDate(timeStamp)
+            }else{timeStampChecker(false, null)}
+        }.addOnFailureListener {
+            Log.e("firebase", "Error getting data", it)
+
+        }
+    }
+
+
+
+    private fun timeStampChecker(value: Boolean, timeStamp: String?){
+        if (value){
+            println("timestamp already exist: $timeStamp")
+        } else{
+            println("timestamp added")
+            saveTimeStamp()
+        }
+    }
+
+    private fun saveTimeStamp(){
+        val currentDate = SimpleDateFormat("dd MMMM YYYY", Locale.getDefault()).format(Date())
+        val newKeyValuePair = HashMap<String, Any>()
+        newKeyValuePair["firstDayTimeStamp"] = currentDate
+        dbRef.child("userProfile").updateChildren(newKeyValuePair)
+
+    }
+
 
 }

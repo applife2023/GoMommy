@@ -36,12 +36,6 @@ class CreateAccount : AppCompatActivity() {
         binding = ActivityCreateAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
-//        emailEditText = findViewById(R.id.createEmailEditText)
-//        usernameEditText = findViewById(R.id.createUsernameEditText)
-//        passwordEditText = findViewById(R.id.createPasswordEditText)
-//        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText)
-//        logInTextView = findViewById(R.id.logInTextView)
-//        createAccountButton = findViewById(R.id.createAccountButton)
         dbRef = FirebaseDatabase.getInstance().getReference("Users")
 
         with(binding) {
