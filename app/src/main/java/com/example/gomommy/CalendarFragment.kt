@@ -185,7 +185,7 @@ class CalendarFragment : Fragment() {
         context: Context,
         private val days: ArrayList<String>,
         private var dueDate: String
-        ) : ArrayAdapter<String>(context, 0, days) {
+    ) : ArrayAdapter<String>(context, 0, days) {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             var view = convertView
@@ -212,8 +212,11 @@ class CalendarFragment : Fragment() {
                 if (day == currentDay && selectedMonth == getCurrentMonth() && selectedYear == getCurrentYear()) {
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_current_day)
                     viewHolder.dayTextView.setTextColor(Color.BLACK)
-                } else if (day == dueDate) {
+                } else if (day == dueDate && dueDate.isNotEmpty()) {
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_due_date)
+                    viewHolder.dayTextView.setTextColor(Color.WHITE)
+                } else if (dueDate.isNotEmpty() && isDayPassed(day.toInt(), dueDate.toInt())) {
+                    viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_previous_day)
                     viewHolder.dayTextView.setTextColor(Color.WHITE)
                 } else {
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background)
@@ -230,6 +233,20 @@ class CalendarFragment : Fragment() {
             return view!!
         }
 
+        private fun isDayPassed(day: Int, dueDay: Int): Boolean {
+            val calendar = Calendar.getInstance()
+            val currentMonth = calendar.get(Calendar.MONTH).toString()
+            val selectedMonth = months[monthSpinner.selectedItemPosition]
+            val selectedYear = years[yearSpinner.selectedItemPosition]
+
+            if (selectedMonth == getCurrentMonth() && selectedYear == getCurrentYear()) {
+                val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+                return day != currentDay && day in (currentDay + 1)..dueDay
+            }
+
+            return false
+        }
+
         fun updateDueDate(day: String) {
             dueDate = day
             notifyDataSetChanged()
@@ -239,6 +256,7 @@ class CalendarFragment : Fragment() {
             lateinit var dayTextView: TextView
         }
     }
+
 
     private class CustomSpinnerAdapter(
         context: Context,
