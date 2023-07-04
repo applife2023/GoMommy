@@ -1,15 +1,13 @@
 package com.example.gomommy
 
+import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
-import android.icu.util.ULocale
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import com.example.gomommy.databinding.ActivityUserDueDateBinding
 import com.example.gomommy.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -42,34 +40,41 @@ class HomeFragment : Fragment() {
         val firebaseUser = firebaseAuth.currentUser?.uid
         dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
 
+        
+        readTimeStamp()
 
-        val currentDate = SimpleDateFormat("MMMM dd", Locale.getDefault()).format(Date())
-        binding.dayNumberTextView.text = currentDate
-
-        readDueDate()
 
         return binding.root
     }
 
-    private fun readDueDate() {
+
+
+    private fun readDueDate(timeStamp: String?) {
         dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
             val dueDate = it.value as? String
-            displayRemaingDate(dueDate)
+            displayRemainingDate(dueDate, timeStamp)
         }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
         }
     }
 
-    private fun displayRemaingDate(dueDate: String?) {
+
+    @SuppressLint("SetTextI18n")
+    private fun displayRemainingDate(dueDate: String?, timeStamp: String?) {
         dueDate?.let {
             val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
             val currentDate = Calendar.getInstance().time
             val parseDueDate = dateFormat.parse(dueDate)
+            val parseTimeStamp = dateFormat.parse(timeStamp)
 
             if (parseDueDate!=null){
-                val remainingDays = calculateRemainingDays(currentDate, parseDueDate)
-                println("Remaining days: $remainingDays")
+                val remainingDays = calculateRemainingDays(currentDate, parseDueDate, parseTimeStamp)
+                val remainingDaysString = remainingDays.toString()
+                val remainDaysTextView = ("Remaining days: $remainingDaysString")
+                binding.remainingDaysTextView.text = remainDaysTextView
+
+
             }else {
                 println("Invalid due date format.")
             }
@@ -77,12 +82,61 @@ class HomeFragment : Fragment() {
         }?: println("Due date not found.")
     }
 
-    private fun calculateRemainingDays(currentdate:Date, dueDate:Date): Long{
-        val currentTime = currentdate.time
+    private fun calculateRemainingDays(currentDate:Date, dueDate:Date, timeStamp: Date): Long {
+        val currentTime = currentDate.time
         val dueTime = dueDate.time
+        val timeStamp = timeStamp.time
         val remainingTime = dueTime - currentTime
-        return remainingTime / (1000 * 60 * 60 * 24)
+        val remainingDay = remainingTime/ (1000 * 60 * 60 * 24)
+
+        val dayNTime = (dueTime - remainingTime) - (timeStamp)
+        println("due $dueTime")
+        println("remain $remainingTime")
+        println("current $currentTime")
+        val dayN = dayNTime/(1000 * 60 * 60 * 24)
+        displayDayN(dayN)
+        return remainingDay
+    }
+
+
+    private fun displayDayN(dayN: Long) {
+        val dayN = dayN.toString()
+        val dayNString = "Day $dayN"
+        binding.dayNumberTextView.text = dayNString
+    }
+
+    private fun readTimeStamp(){
+        dbRef.child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+            val timeStamp = it.value as? String
+            if (it.value != null){
+                timeStampChecker(true, timeStamp)
+                readDueDate(timeStamp)
+            }else{timeStampChecker(false, null)}
+        }.addOnFailureListener {
+            Log.e("firebase", "Error getting data", it)
+
+        }
+    }
+
+
+
+    private fun timeStampChecker(value: Boolean, timeStamp: String?){
+        if (value){
+            println("timestamp already exist: $timeStamp")
+        } else{
+            println("timestamp added")
+            saveTimeStamp()
+        }
+    }
+
+    private fun saveTimeStamp(){
+        val currentDate = SimpleDateFormat("dd MMMM YYYY", Locale.getDefault()).format(Date())
+        val newKeyValuePair = HashMap<String, Any>()
+        newKeyValuePair["firstDayTimeStamp"] = currentDate
+        dbRef.child("userProfile").updateChildren(newKeyValuePair)
 
     }
+
 
 }
