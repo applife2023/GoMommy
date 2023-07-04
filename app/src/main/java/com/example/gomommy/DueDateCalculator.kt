@@ -25,7 +25,7 @@ class DueDateCalculator: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseAuth = FirebaseAuth.getInstance()
-        val firebaseUser = FirebaseAuth.getInstance().currentUser?.uid
+        val firebaseUser = firebaseAuth.currentUser?.uid
         dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
         setContentView(R.layout.activity_due_date_calculator)
 
