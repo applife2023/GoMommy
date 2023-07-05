@@ -1,6 +1,5 @@
 package com.example.gomommy
 
-import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
@@ -53,28 +52,27 @@ class HomeFragment : Fragment() {
         dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
             val dueDate = it.value as? String
-            displayRemainingDate(dueDate, timeStamp)
+            displayRemainingDate(dueDate)
+            displayDayN(timeStamp)
         }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
         }
     }
 
+    private fun getCurrentDate(): Long {
+        val currentDate = Calendar.getInstance().time
+        return currentDate.time
+    }
 
-    @SuppressLint("SetTextI18n")
-    private fun displayRemainingDate(dueDate: String?, timeStamp: String?) {
+    private fun displayRemainingDate(dueDate: String?) {
         dueDate?.let {
             val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-            val currentDate = Calendar.getInstance().time
             val parseDueDate = dateFormat.parse(dueDate)
-            val parseTimeStamp = dateFormat.parse(timeStamp)
-
             if (parseDueDate!=null){
-                val remainingDays = calculateRemainingDays(currentDate, parseDueDate, parseTimeStamp)
+                val remainingDays = calculateRemainingDays(parseDueDate)
                 val remainingDaysString = remainingDays.toString()
                 val remainDaysTextView = ("Remaining days: $remainingDaysString")
                 binding.remainingDaysTextView.text = remainDaysTextView
-
-
             }else {
                 println("Invalid due date format.")
             }
@@ -82,27 +80,27 @@ class HomeFragment : Fragment() {
         }?: println("Due date not found.")
     }
 
-    private fun calculateRemainingDays(currentDate:Date, dueDate:Date, timeStamp: Date): Long {
-        val currentTime = currentDate.time
+    private fun calculateRemainingDays(dueDate: Date): Long {
+        val currentTime = getCurrentDate()
         val dueTime = dueDate.time
-        val timeStamp = timeStamp.time
         val remainingTime = dueTime - currentTime
-        val remainingDay = remainingTime/ (1000 * 60 * 60 * 24)
-
-        val dayNTime = (dueTime - remainingTime) - (timeStamp)
-        println("due $dueTime")
-        println("remain $remainingTime")
-        println("current $currentTime")
-        val dayN = dayNTime/(1000 * 60 * 60 * 24)
-        displayDayN(dayN)
-        return remainingDay
+        return remainingTime / (1000 * 60 * 60 * 24)
     }
 
+    private fun displayDayN(timeStamp: String?) {
+        val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        val parseTimeStamp = dateFormat.parse(timeStamp)
 
-    private fun displayDayN(dayN: Long) {
-        val dayN = dayN.toString()
+        val dayN = calculateDayN(parseTimeStamp).toString()
         val dayNString = "Day $dayN"
         binding.dayNumberTextView.text = dayNString
+    }
+
+    private fun calculateDayN(timeStamp: Date): Long {
+        val currentTime = getCurrentDate()
+        val timeStamp = timeStamp.time
+        val dayNTime = currentTime - (timeStamp) + (1000 * 60 * 60 * 24)
+        return dayNTime / (1000 * 60 * 60 * 24)
     }
 
     private fun readTimeStamp(){
