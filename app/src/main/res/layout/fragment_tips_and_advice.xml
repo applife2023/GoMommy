@@ -7,14 +7,6 @@
     tools:context=".TipsAndAdviceFragment"
     android:layout_marginTop="70dp">
 
-        <ImageView
-            android:id="@+id/tipsBackground"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/gradient_bg_x2">
-
-        </ImageView>
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/tipsMaterialCardView"
             android:layout_width="match_parent"
