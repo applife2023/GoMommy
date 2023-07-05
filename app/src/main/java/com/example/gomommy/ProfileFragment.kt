@@ -1,5 +1,6 @@
 package com.example.gomommy
 
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import com.example.gomommy.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.time.LocalDate
 
 class ProfileFragment : Fragment() {
     private lateinit var  binding: FragmentProfileBinding
@@ -22,12 +24,12 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentProfileBinding.inflate(layoutInflater)
         firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = FirebaseAuth.getInstance().currentUser?.uid
         dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
@@ -38,17 +40,32 @@ class ProfileFragment : Fragment() {
         dbRef.child("userProfile").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
             val value = it.value
-            displayUserProfile(value)
+            mapUserProfile(value)
 
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
         }
 
     }
-    private fun displayUserProfile(userValue: Any?) {
+    private fun mapUserProfile(userValue: Any?) {
         val userValue = userValue as? Map<String, Any?>
         if (userValue != null) {
-            println(userValue["userName"])
+            displayUserProfile(userValue["userName"],userValue["birthYear"],userValue["dueDate"])
         }
+    }
+
+    private fun displayUserProfile(userName: Any?,birthYear: Any?, dueDate: Any?) {
+        val calendar = Calendar.getInstance()
+        val currentYear = calendar.get(Calendar.YEAR)
+        val birthYear = birthYear.toString().toInt()
+        val calculatedUserAge = currentYear - birthYear
+
+        val userUsername = "Username: $userName"
+        val userAge = "Age: $calculatedUserAge"
+        val userDueDate = "Estimated due date: $dueDate"
+
+        binding.userUsername.text = userUsername
+        binding.userAge.text = userAge
+        binding.userDueDate.text = userDueDate
     }
 }
