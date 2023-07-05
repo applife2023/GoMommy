@@ -2,6 +2,7 @@ package com.example.gomommy
 
 import android.content.Context
 import android.graphics.Color
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,6 +28,8 @@ class CalendarFragment : Fragment() {
     private lateinit var calendarGridView: GridView
     private lateinit var daysOfWeekGridView: GridView
     private var dueDate: String = ""
+    private var timeStamp: String = ""
+    private var currentDate: String = ""
 
 
     private val months = arrayOf(
@@ -86,6 +89,9 @@ class CalendarFragment : Fragment() {
         }
         // Read the due date from Firebase
         readDueDate()
+        // generate timestamp from Firebase
+        readTimeStamp()
+
 
         // Initialize the calendar grid with the current month and year
         val currentMonth = getCurrentMonth()
@@ -102,9 +108,10 @@ class CalendarFragment : Fragment() {
         daysOfWeekGridView.adapter = daysAdapter
 
         val days = getDaysForMonthYear(month, year)
-        val adapter = CalendarGridAdapter(requireContext(), days, dueDate)
+        val adapter = CalendarGridAdapter(requireContext(), days, dueDate, month, year)
         calendarGridView.adapter = adapter
     }
+
 
     private fun getDaysForMonthYear(month: String, year: String): ArrayList<String> {
         val days = ArrayList<String>()
@@ -181,10 +188,43 @@ class CalendarFragment : Fragment() {
         }
     }
 
+    private fun readTimeStamp(){
+        dbRef.child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+            val timeStamp = it.value as? String
+            if (it.value != null){
+                timeStampChecker(true, timeStamp)
+            }else{timeStampChecker(false, null)}
+        }.addOnFailureListener {
+            Log.e("firebase", "Error getting data", it)
+        }
+    }
+
+    private fun timeStampChecker(value: Boolean, timeStamp: String?){
+        if (value){
+            println("timestamp already exist: $timeStamp")
+        } else{
+            println("timestamp added")
+            saveTimeStamp()
+        }
+    }
+
+    private fun saveTimeStamp(){
+        val currentDate = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(Date())
+        timeStamp = currentDate
+        this.currentDate = currentDate
+
+        val newKeyValuePair = HashMap<String, Any>()
+        newKeyValuePair["firstDayTimeStamp"] = currentDate
+        dbRef.child("userProfile").updateChildren(newKeyValuePair)
+    }
+
     private inner class CalendarGridAdapter(
         context: Context,
         private val days: ArrayList<String>,
-        private var dueDate: String
+        private var dueDate: String,
+        private val month: String,
+        private val year: String
     ) : ArrayAdapter<String>(context, 0, days) {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -209,19 +249,20 @@ class CalendarFragment : Fragment() {
                 val selectedMonth = months[monthSpinner.selectedItemPosition]
                 val selectedYear = years[yearSpinner.selectedItemPosition]
 
-                if (day == currentDay && selectedMonth == getCurrentMonth() && selectedYear == getCurrentYear()) {
+                if (isDayPassed(day.toInt(), selectedMonth, selectedYear)) {
+                    viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_previous_day)
+                    viewHolder.dayTextView.setTextColor(Color.WHITE)
+                } else if (day == currentDay && selectedMonth == getCurrentMonth() && selectedYear == getCurrentYear()) {
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_current_day)
                     viewHolder.dayTextView.setTextColor(Color.BLACK)
                 } else if (day == dueDate && dueDate.isNotEmpty()) {
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_due_date)
                     viewHolder.dayTextView.setTextColor(Color.WHITE)
-                } else if (dueDate.isNotEmpty() && isDayPassed(day.toInt(), dueDate.toInt())) {
-                    viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_previous_day)
-                    viewHolder.dayTextView.setTextColor(Color.WHITE)
                 } else {
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background)
                     viewHolder.dayTextView.setTextColor(Color.BLACK)
                 }
+
                 viewHolder.dayTextView.text = day
             } else {
                 viewHolder.dayTextView.setBackgroundResource(0) // Remove any background drawable
@@ -233,15 +274,18 @@ class CalendarFragment : Fragment() {
             return view!!
         }
 
-        private fun isDayPassed(day: Int, dueDay: Int): Boolean {
+        private fun isDayPassed(day: Int, month: String, year: String): Boolean {
             val calendar = Calendar.getInstance()
+            val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
             val currentMonth = calendar.get(Calendar.MONTH).toString()
-            val selectedMonth = months[monthSpinner.selectedItemPosition]
-            val selectedYear = years[yearSpinner.selectedItemPosition]
+            val currentYear = calendar.get(Calendar.YEAR).toString()
 
-            if (selectedMonth == getCurrentMonth() && selectedYear == getCurrentYear()) {
-                val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-                return day != currentDay && day in (currentDay + 1)..dueDay
+            if (year == currentYear && months.indexOf(month) == calendar.get(Calendar.MONTH)) {
+                // Compare day values to determine if the day has passed
+                return day < currentDay
+            } else if (year.toInt() < currentYear.toInt() || (year.toInt() == currentYear.toInt() && months.indexOf(month) < calendar.get(Calendar.MONTH))) {
+                // All days in previous months or years are considered passed
+                return true
             }
 
             return false
@@ -256,7 +300,6 @@ class CalendarFragment : Fragment() {
             lateinit var dayTextView: TextView
         }
     }
-
 
     private class CustomSpinnerAdapter(
         context: Context,
