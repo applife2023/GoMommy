@@ -81,7 +81,7 @@ class UserDueDate : AppCompatActivity() {
                 val selectedMonth = monthPicker.value
                 val selectedYear = yearPicker.value
 
-                val dueDate = "$selectedDay ${monthNames[selectedMonth - 1]} $selectedYear"
+                val dueDate = "${monthNames[selectedMonth - 1]} $selectedDay $selectedYear"
                 saveDueDate(dueDate)
                 readDueDate()
 
