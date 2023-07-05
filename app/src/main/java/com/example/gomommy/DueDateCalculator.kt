@@ -52,7 +52,7 @@ class DueDateCalculator: AppCompatActivity() {
             // Calculate due date based on the selected date
             val dueDate = calculateDueDate(selectedDate)
             // Display the due date in a toast message
-            val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault())
             val formattedDueDate = dateFormat.format(dueDate)
             val message = "Estimated due date: $formattedDueDate"
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

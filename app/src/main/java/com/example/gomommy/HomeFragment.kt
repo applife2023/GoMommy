@@ -48,12 +48,12 @@ class HomeFragment : Fragment() {
 
 
 
-    private fun readDueDate(timeStamp: String?) {
+    private fun readDueDate() {
         dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
             val dueDate = it.value as? String
             displayRemainingDate(dueDate)
-            displayDayN(timeStamp)
+
         }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
         }
@@ -109,7 +109,8 @@ class HomeFragment : Fragment() {
             val timeStamp = it.value as? String
             if (it.value != null){
                 timeStampChecker(true, timeStamp)
-                readDueDate(timeStamp)
+                readDueDate()
+                displayDayN(timeStamp)
             }else{timeStampChecker(false, null)}
         }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
