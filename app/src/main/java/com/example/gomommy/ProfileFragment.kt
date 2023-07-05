@@ -61,7 +61,7 @@ class ProfileFragment : Fragment() {
         val calculatedUserAge = currentYear - birthYear
 
         val userUsername = "Username: $userName"
-        val userAge = "Age: $calculatedUserAge"
+        val userAge = "Age: $calculatedUserAge years old"
         val userDueDate = "Estimated due date: $dueDate"
 
         binding.userUsername.text = userUsername
