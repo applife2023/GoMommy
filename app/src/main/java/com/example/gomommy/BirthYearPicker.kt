@@ -86,11 +86,12 @@ class BirthYearPicker : AppCompatActivity() {
     private fun buildDisplayValues(startYear: Int, endYear: Int): Array<String> {
         val yearRange = ArrayList<String>()
         val selectOption = "Select"
-        val middleIndex = (endYear - startYear) / 2
 
         for (year in startYear..endYear) {
             yearRange.add(year.toString())
         }
+
+        val middleIndex = yearRange.size / 2
         yearRange.add(middleIndex, selectOption)
 
         return yearRange.toTypedArray()
