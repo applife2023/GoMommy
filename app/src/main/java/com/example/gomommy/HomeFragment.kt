@@ -117,8 +117,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-
     private fun timeStampChecker(value: Boolean, timeStamp: String?){
         if (value){
             println("timestamp already exist: $timeStamp")
@@ -133,8 +131,5 @@ class HomeFragment : Fragment() {
         val newKeyValuePair = HashMap<String, Any>()
         newKeyValuePair["firstDayTimeStamp"] = currentDate
         dbRef.child("userProfile").updateChildren(newKeyValuePair)
-
     }
-
-
 }
