@@ -215,7 +215,7 @@ class CalendarFragment : Fragment() {
 
 
     private fun saveTimeStamp() {
-        val currentDate = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault()).format(Date())
+        val currentDate = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(Date())
         timeStamp = currentDate
         this.currentDate = currentDate
 
@@ -286,13 +286,13 @@ class CalendarFragment : Fragment() {
                 return false
             }
 
-            val timeStampDateFormat = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault())
+            val timeStampDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
 
             // Get the current date
             val currentDate = timeStampDateFormat.format(Date())
 
             // Compare the selected date with the current date
-            val selectedDate = "$month $day $year"
+            val selectedDate = "$day $month $year"
             val startDate = timeStampDateFormat.parse(timeStamp)
             val endDate = timeStampDateFormat.parse(currentDate)
             val selectedDateTime = startDate?.time ?: 0
