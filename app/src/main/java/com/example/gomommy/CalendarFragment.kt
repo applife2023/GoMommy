@@ -162,15 +162,10 @@ class CalendarFragment : Fragment() {
     private fun displayDueDate(dueDate: Any?) {
         val dueDateString = dueDate.toString()
         val parts = dueDateString.split(" ")
-        println(parts)
         if (parts.size >= 3) {
             val day = parts[0]
             val month = parts[1]
             val year = parts[2]
-
-            println(day)
-            println(month)
-            println(year)
 
             val selectedMonthPosition = monthSpinner.selectedItemPosition
             val selectedYearPosition = yearSpinner.selectedItemPosition
@@ -178,16 +173,21 @@ class CalendarFragment : Fragment() {
             if (selectedMonthPosition >= 0 && selectedMonthPosition < months.size &&
                 selectedYearPosition >= 0 && selectedYearPosition < years.size
             ) {
-
                 val selectedMonth = months[selectedMonthPosition]
                 val selectedYear = years[selectedYearPosition]
 
+                val formattedDueDate = "$month $day, $year"
+
+                val estimatedDueDateTextView = view?.findViewById<TextView>(R.id.estDueDate)
                 if (month == selectedMonth && year == selectedYear) {
-                    adapter.updateDueDate(day)
+                    adapter.updateDueDate(formattedDueDate)
+                } else {
+                    estimatedDueDateTextView?.text = formattedDueDate
                 }
             }
         }
     }
+
 
     private fun readTimeStamp() {
         dbRef.child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener { dataSnapshot ->
@@ -215,7 +215,7 @@ class CalendarFragment : Fragment() {
 
 
     private fun saveTimeStamp() {
-        val currentDate = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(Date())
+        val currentDate = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault()).format(Date())
         timeStamp = currentDate
         this.currentDate = currentDate
 
@@ -286,13 +286,13 @@ class CalendarFragment : Fragment() {
                 return false
             }
 
-            val timeStampDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+            val timeStampDateFormat = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault())
 
             // Get the current date
             val currentDate = timeStampDateFormat.format(Date())
 
             // Compare the selected date with the current date
-            val selectedDate = "$day $month $year"
+            val selectedDate = "$month $day $year"
             val startDate = timeStampDateFormat.parse(timeStamp)
             val endDate = timeStampDateFormat.parse(currentDate)
             val selectedDateTime = startDate?.time ?: 0
