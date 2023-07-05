@@ -50,7 +50,10 @@ class DueDateCalculator: AppCompatActivity() {
 
         btnSelectDate.setOnClickListener {
             // Calculate due date based on the selected date
-            val dueDate = calculateDueDate(selectedDate)
+            val selectedCalendar = Calendar.getInstance()
+            selectedCalendar.timeInMillis = selectedDate
+            val dueDate = calculateDueDate(selectedCalendar.time)
+
             // Display the due date in a toast message
             val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
             val formattedDueDate = dateFormat.format(dueDate)
@@ -84,13 +87,24 @@ class DueDateCalculator: AppCompatActivity() {
             }
     }
 
-    private fun calculateDueDate(selectedDate: Long): Date {
-        // Perform your due date calculation based on the selectedDate
-        // Replace this with your actual calculation logic
-        val daysToAdd = 280 // Assuming a pregnancy duration of 280 days
-        val dueDateMillis = selectedDate + daysToAdd * 24 * 60 * 60 * 1000 // Add days in milliseconds
-        return Date(dueDateMillis)
-    }
+    private fun calculateDueDate(lastMenstruationDate: Date): Date {
+        val calendar = Calendar.getInstance()
+        calendar.time = lastMenstruationDate
 
+        // Add seven days
+        calendar.add(Calendar.DAY_OF_MONTH, 7)
+
+        // Subtract three months
+        calendar.add(Calendar.MONTH, -3)
+
+        // Check if the resulting date is in the past
+        val currentDate = Calendar.getInstance()
+        if (calendar.before(currentDate)) {
+            // Increment the year by 1
+            calendar.add(Calendar.YEAR, 1)
+        }
+
+        return calendar.time
+    }
 
 }
