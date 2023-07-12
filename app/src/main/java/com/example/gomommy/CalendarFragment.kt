@@ -2,7 +2,6 @@ package com.example.gomommy
 
 import android.content.Context
 import android.graphics.Color
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarFragment : Fragment() {
@@ -176,7 +176,8 @@ class CalendarFragment : Fragment() {
                 val selectedMonth = months[selectedMonthPosition]
                 val selectedYear = years[selectedYearPosition]
 
-                val formattedDueDate = "$month $day, $year"
+                val dateFormat = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault())
+                val formattedDueDate = dateFormat.format(dateFormat.parse("$day $month $year"))
 
                 val estimatedDueDateTextView = view?.findViewById<TextView>(R.id.estDueDate)
                 if (month == selectedMonth && year == selectedYear) {
@@ -253,7 +254,7 @@ class CalendarFragment : Fragment() {
                 val selectedMonth = months[monthSpinner.selectedItemPosition]
                 val selectedYear = years[yearSpinner.selectedItemPosition]
 
-                if (isDayPassed(day.toInt(), selectedMonth, selectedYear)) {
+                if (isDayPassed(selectedMonth, day.toInt(), selectedYear)) {
                     // Apply the passed date styling
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_previous_day)
                     viewHolder.dayTextView.setTextColor(Color.WHITE)
@@ -280,19 +281,19 @@ class CalendarFragment : Fragment() {
             return view!!
         }
 
-        private fun isDayPassed(day: Int, month: String, year: String): Boolean {
+        private fun isDayPassed(month: String, day: Int, year: String): Boolean {
             if (timeStamp.isNullOrEmpty()) {
                 // Handle the case when the timestamp is not available
                 return false
             }
 
-            val timeStampDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+            val timeStampDateFormat = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault())
 
             // Get the current date
             val currentDate = timeStampDateFormat.format(Date())
 
             // Compare the selected date with the current date
-            val selectedDate = "$day $month $year"
+            val selectedDate = "$month $day $year"
             val startDate = timeStampDateFormat.parse(timeStamp)
             val endDate = timeStampDateFormat.parse(currentDate)
             val selectedDateTime = startDate?.time ?: 0
@@ -302,7 +303,7 @@ class CalendarFragment : Fragment() {
             val selectedDateOnly = timeStampDateFormat.parse(selectedDate)
             val selectedDateOnlyTime = selectedDateOnly?.time ?: 0
 
-            if (selectedDateOnlyTime >= selectedDateTime && selectedDateOnlyTime < currentDateTime) {
+            if (selectedDateOnlyTime in selectedDateTime..currentDateTime) {
                 val formattedSelectedDate = timeStampDateFormat.format(selectedDateOnly)
                 Log.i("Marked Date", formattedSelectedDate)
                 return true
@@ -310,6 +311,7 @@ class CalendarFragment : Fragment() {
 
             return false
         }
+
 
         fun updateDueDate(day: String) {
             dueDate = day
