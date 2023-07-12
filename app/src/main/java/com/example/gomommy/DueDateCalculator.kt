@@ -13,7 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DueDateCalculator: AppCompatActivity() {
+class DueDateCalculator : AppCompatActivity() {
 
     private lateinit var dbRef: DatabaseReference
     private lateinit var firebaseAuth: FirebaseAuth
@@ -63,27 +63,28 @@ class DueDateCalculator: AppCompatActivity() {
             saveDueDate(formattedDueDate)
             readDueDate()
             val intent = Intent(this, ProfileCreation::class.java)
-            intent.putExtra("due_date", dueDate)
+            intent.putExtra("due_date", formattedDueDate) // Pass the formatted due date
             startActivity(intent)
             finish()
         }
     }
 
-    private fun readDueDate(){
+    private fun readDueDate() {
         dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
-        }.addOnFailureListener{
+            val dueDate = it.value as? String
+        }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
         }
-
     }
-    private fun saveDueDate(dueDate: String) {
 
+    private fun saveDueDate(dueDate: String) {
         val newKeyValuePair = HashMap<String, Any>()
         newKeyValuePair["dueDate"] = dueDate
 
         dbRef.child("userProfile").updateChildren(newKeyValuePair)
-            .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+            .addOnCompleteListener {
+                Toast.makeText(this, "Data stored successfully", Toast.LENGTH_LONG).show()
             }
     }
 
@@ -106,5 +107,4 @@ class DueDateCalculator: AppCompatActivity() {
 
         return calendar.time
     }
-
 }
