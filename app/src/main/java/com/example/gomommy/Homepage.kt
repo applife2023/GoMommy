@@ -126,8 +126,6 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         when (item.itemId) {
             R.id.nav_profile -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ProfileFragment()).commit()
-            R.id.nav_settings -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SettingsFragment()).commit()
             R.id.nav_about -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, AboutFragment()).commit()
             R.id.nav_logout -> userLogout()
@@ -143,5 +141,4 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         startActivity(intent)
         finish()
     }
-
 }
