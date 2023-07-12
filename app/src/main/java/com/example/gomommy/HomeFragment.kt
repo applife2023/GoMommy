@@ -24,7 +24,6 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
@@ -126,5 +125,16 @@ class HomeFragment : Fragment() {
         val newKeyValuePair = HashMap<String, Any>()
         newKeyValuePair["firstDayTimeStamp"] = currentDate
         dbRef.child("userProfile").updateChildren(newKeyValuePair)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Set the image resource for babyGrowthImageView
+        binding.babyGrowthImageView.setImageResource(R.drawable.img_first_2_weeks)
+
+        // Update the text for babyGrowthTextView and momHealthTextView
+        binding.babyGrowthTextView.text = "Baby's growth: Baby is but a glimmer in your eye. You're not pregnant yet at this stage of your journey. In fact, you probably have your period; the symptoms you’re experiencing are a result of PMS, not pregnancy."
+        binding.momHealthTextView.text = "Mommy's changes: You can expect to experience your typical menstrual symptoms including bleeding, cramping, sore breasts, mood swings, etc."
     }
 }
