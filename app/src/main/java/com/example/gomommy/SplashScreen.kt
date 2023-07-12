@@ -10,7 +10,7 @@ import com.example.gomommy.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
     private lateinit var binding: ActivitySplashScreenBinding
-    private val splashDuration: Long = 3000 // 3 seconds
+    private val splashDuration: Long = 2000 // 3 seconds
     private val isFirstTimeKey = "isFirstTime"
     private val hasCreatedAccountKey = "hasCreatedAccount"
     private val isLoggedInKey = "isLoggedIn"
