@@ -106,24 +106,36 @@ class UserDueDate : AppCompatActivity() {
         dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener {
             Log.i("firebase", "Got value ${it.value}")
             val dueDate = it.value
-            displayDueDate(dueDate)
+            displayDueDate(dueDate.toString())
         }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
         }
-
     }
+
     private fun displayDueDate(dueDate: Any?) {
-        println(dueDate)
-    }
-    private fun saveDueDate(dueDate: String) {
+        val dueDateString = dueDate.toString()
+        val parts = dueDateString.split(" ")
+        if (parts.size >= 3) {
+            val day = parts[1]
+            val month = parts[0]
+            val year = parts[2]
 
+            val formattedDueDate = "$month $day, $year"
+
+            println(formattedDueDate)
+        }
+    }
+
+    private fun saveDueDate(dueDate: String) {
         val newKeyValuePair = HashMap<String, Any>()
         newKeyValuePair["dueDate"] = dueDate
 
         dbRef.child("userProfile").updateChildren(newKeyValuePair)
-            .addOnCompleteListener{ Toast.makeText(this,"data stored sucessfully", Toast.LENGTH_LONG).show()
+            .addOnCompleteListener {
+                Toast.makeText(this, "Data stored successfully", Toast.LENGTH_LONG).show()
             }
     }
+
     private fun getCurrentYear(): Int {
         val calendar = java.util.Calendar.getInstance()
         return calendar.get(java.util.Calendar.YEAR)
