@@ -84,7 +84,7 @@ class TipsAndAdviceFragment : Fragment() {
             getString(R.string.tipsItemTitleTextView_7),
             getString(R.string.tipsItemTitleTextView_8),
             getString(R.string.tipsItemTitleTextView_9),
-            getString(R.string.tipsItemTitleTextView_10),
+            getString(R.string.tipsItemTitleTextView_10)
 
 
         )
@@ -99,7 +99,21 @@ class TipsAndAdviceFragment : Fragment() {
             getString(R.string.tipsItemDescTextView_7),
             getString(R.string.tipsItemDescTextView_8),
             getString(R.string.tipsItemDescTextView_9),
-            getString(R.string.tipsItemDescTextView_10),
+            getString(R.string.tipsItemDescTextView_10)
+
+        )
+        
+        tipsItemSourceTextView = arrayOf(
+            getString(R.string.tipsItemSourceTextView_1),
+            getString(R.string.tipsItemSourceTextView_2),
+            getString(R.string.tipsItemSourceTextView_3),
+            getString(R.string.tipsItemSourceTextView_4),
+            getString(R.string.tipsItemSourceTextView_5),
+            getString(R.string.tipsItemSourceTextView_6),
+            getString(R.string.tipsItemSourceTextView_7),
+            getString(R.string.tipsItemSourceTextView_8),
+            getString(R.string.tipsItemSourceTextView_9),
+            getString(R.string.tipsItemSourceTextView_10)
 
         )
 
