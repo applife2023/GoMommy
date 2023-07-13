@@ -2,6 +2,7 @@ package com.example.gomommy
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.icu.text.SimpleDateFormat
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
@@ -135,6 +136,13 @@ class Homepage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
     }
 
     private fun userLogout() {
+        // Reset the isLoggedOut flag to true
+        val sharedPrefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPrefs.edit()
+        editor.putBoolean("isLoggedOut", true)
+        editor.apply()
+
+        // Perform logout actions
         Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
         firebaseAuth.signOut()
         val intent = Intent(this@Homepage, LoginAccount::class.java)
