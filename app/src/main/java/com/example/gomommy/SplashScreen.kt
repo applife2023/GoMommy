@@ -39,13 +39,27 @@ class SplashScreen : AppCompatActivity() {
                     // Redirect to the introduction or onboarding activity
                     startActivity(Intent(this@SplashScreen, WelcomeUser::class.java))
                 } else {
-                    // Check if the user has created an account
-                    if (hasCreatedAccount) {
+                    // Check if the user has logged out
+                    val isLoggedOut = sharedPrefs.getBoolean(isLoggedOutKey, false)
+                    if (isLoggedOut) {
+                        // Reset the isLoggedOut flag to false
+                        val editor: SharedPreferences.Editor = sharedPrefs.edit()
+                        editor.putBoolean(isLoggedOutKey, false)
+                        editor.apply()
+
                         // Redirect to the login activity
                         startActivity(Intent(this@SplashScreen, LoginAccount::class.java))
                     } else {
-                        // Redirect to the account creation activity
-                        startActivity(Intent(this@SplashScreen, LoginAccount::class.java))
+                        // Check if the user is logged in or has created an account
+                        val isLoggedIn = sharedPrefs.getBoolean(isLoggedInKey, false)
+
+                        if (isLoggedIn || hasCreatedAccount) {
+                            // Redirect to the homepage
+                            startActivity(Intent(this@SplashScreen, Homepage::class.java))
+                        } else {
+                            // Redirect to the login activity
+                            startActivity(Intent(this@SplashScreen, LoginAccount::class.java))
+                        }
                     }
                 }
 
