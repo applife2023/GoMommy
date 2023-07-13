@@ -1,11 +1,10 @@
 package com.example.gomommy
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.gomommy.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -15,24 +14,22 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-
 class HomeFragment : Fragment() {
     private lateinit var dbRef: DatabaseReference
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var binding: FragmentHomeBinding
 
+    private val shimmerDuration = 2000L // Duration of shimmer animation in milliseconds
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser?.uid
@@ -48,7 +45,7 @@ class HomeFragment : Fragment() {
             val dueDate = snapshot.value as? String
             displayRemainingDate(dueDate)
         }.addOnFailureListener { exception ->
-            Log.e("firebase", "Error getting data", exception)
+            // Handle the failure case
         }
     }
 
@@ -66,8 +63,11 @@ class HomeFragment : Fragment() {
                 val remainingDaysString = remainingDays.toString()
                 val remainDaysTextView = "Remaining days: $remainingDaysString"
                 binding.remainingDaysTextView.text = remainDaysTextView
+
+                // Show the content views when the data is ready
+                showContent()
             } else {
-                println("Invalid due date format.")
+                // Handle the case of an invalid due date format
             }
         } ?: println("Due date not found.")
     }
@@ -95,7 +95,6 @@ class HomeFragment : Fragment() {
         return dayNTime / (1000 * 60 * 60 * 24)
     }
 
-
     private fun readTimeStamp() {
         dbRef.child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener { snapshot ->
             val timeStamp = snapshot.value as? String
@@ -107,7 +106,7 @@ class HomeFragment : Fragment() {
                 timeStampChecker(false, null)
             }
         }.addOnFailureListener { exception ->
-            Log.e("firebase", "Error getting data", exception)
+            // Handle the failure case
         }
     }
 
@@ -127,6 +126,52 @@ class HomeFragment : Fragment() {
         dbRef.child("userProfile").updateChildren(newKeyValuePair)
     }
 
+    private fun startShimmerAnimation() {
+        binding.shimmerLayout.startShimmer()
+        binding.shimmerLayout.tag = System.currentTimeMillis()
+    }
+
+    private fun stopShimmerAnimation() {
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
+    }
+
+    private fun showContent() {
+        binding.contentLayout.visibility = View.VISIBLE
+    }
+
+    private fun hideContent() {
+        binding.contentLayout.visibility = View.INVISIBLE
+    }
+
+    private fun simulateDataLoading() {
+        val shimmerStartTime = binding.shimmerLayout.tag as? Long ?: 0L
+        val elapsedTime = System.currentTimeMillis() - shimmerStartTime
+        val remainingTime = shimmerDuration - elapsedTime
+
+        // Delay the display of content by 0.005 seconds (500 milliseconds)
+        val delayDuration = 1000L
+
+        if (remainingTime <= delayDuration) {
+            // If the remaining time is less than the delay duration,
+            // immediately stop shimmer animation and show content
+            stopShimmerAnimation()
+            // Add your actual data and update the UI here
+            // For example:
+            binding.dayNumberTextView.text = "Day 1"
+            showContent()
+        } else {
+            // Simulate data loading delay
+            binding.root.postDelayed({
+                stopShimmerAnimation()
+                // Add your actual data and update the UI here
+                // For example:
+                binding.dayNumberTextView.text = "Day 1"
+                showContent()
+            }, delayDuration)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -134,7 +179,18 @@ class HomeFragment : Fragment() {
         binding.babyGrowthImageView.setImageResource(R.drawable.img_first_2_weeks)
 
         // Update the text for babyGrowthTextView and momHealthTextView
-        binding.babyGrowthTextView.text = "Baby's growth: Baby is but a glimmer in your eye. You're not pregnant yet at this stage of your journey. In fact, you probably have your period; the symptoms you’re experiencing are a result of PMS, not pregnancy."
-        binding.momHealthTextView.text = "Mommy's changes: You can expect to experience your typical menstrual symptoms including bleeding, cramping, sore breasts, mood swings, etc."
+        binding.babyGrowthTextView.text =
+            "Baby's growth: Baby is but a glimmer in your eye. You're not pregnant yet at this stage of your journey. In fact, you probably have your period; the symptoms you’re experiencing are a result of PMS, not pregnancy."
+        binding.momHealthTextView.text =
+            "Mommy's changes: You can expect to experience your typical menstrual symptoms including bleeding, cramping, sore breasts, mood swings, etc."
+
+        // Hide the content views initially
+        hideContent()
+
+        // Start shimmer animation
+        startShimmerAnimation()
+
+        // Simulate data loading delay and stop shimmer animation
+        simulateDataLoading()
     }
 }
