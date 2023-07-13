@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+
 
 /**
  * A simple [Fragment] subclass.
@@ -20,6 +23,14 @@ class TipsAndAdviceFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var adapter: TipsItemAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var tipsItemArrayList: ArrayList<tipsItem>
+
+    lateinit var tipsItemTitleTextView: Array<String>
+    lateinit var tipsItemDescTextView: Array<String>
+    lateinit var tipsItemSourceTextView: Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,4 +67,42 @@ class TipsAndAdviceFragment : Fragment() {
                 }
             }
     }
+
+
+
+    private fun dataInitialize(){
+
+        tipsItemArrayList = arrayListOf<tipsItem>()
+
+        tipsItemTitleTextView = arrayOf(
+            getString(R.string.tipsItemTitleTextView_1),
+            getString(R.string.tipsItemTitleTextView_2),
+            getString(R.string.tipsItemTitleTextView_3),
+            getString(R.string.tipsItemTitleTextView_4),
+            getString(R.string.tipsItemTitleTextView_5),
+            getString(R.string.tipsItemTitleTextView_6),
+            getString(R.string.tipsItemTitleTextView_7),
+            getString(R.string.tipsItemTitleTextView_8),
+            getString(R.string.tipsItemTitleTextView_9),
+            getString(R.string.tipsItemTitleTextView_10),
+
+
+        )
+
+        tipsItemDescTextView = arrayOf(
+            getString(R.string.tipsItemDescTextView_1),
+            getString(R.string.tipsItemDescTextView_2),
+            getString(R.string.tipsItemDescTextView_3),
+            getString(R.string.tipsItemDescTextView_4),
+            getString(R.string.tipsItemDescTextView_5),
+            getString(R.string.tipsItemDescTextView_6),
+            getString(R.string.tipsItemDescTextView_7),
+            getString(R.string.tipsItemDescTextView_8),
+            getString(R.string.tipsItemDescTextView_9),
+            getString(R.string.tipsItemDescTextView_10),
+
+        )
+
+    }
+
 }
