@@ -153,20 +153,12 @@ class HomeFragment : Fragment() {
         val delayDuration = 1000L
 
         if (remainingTime <= delayDuration) {
-            // If the remaining time is less than the delay duration,
-            // immediately stop shimmer animation and show content
             stopShimmerAnimation()
-            // Add your actual data and update the UI here
-            // For example:
-            binding.dayNumberTextView.text = "Day 1"
             showContent()
         } else {
             // Simulate data loading delay
             binding.root.postDelayed({
                 stopShimmerAnimation()
-                // Add your actual data and update the UI here
-                // For example:
-                binding.dayNumberTextView.text = "Day 1"
                 showContent()
             }, delayDuration)
         }
