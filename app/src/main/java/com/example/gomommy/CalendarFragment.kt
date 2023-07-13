@@ -189,7 +189,6 @@ class CalendarFragment : Fragment() {
         }
     }
 
-
     private fun readTimeStamp() {
         dbRef.child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener { dataSnapshot ->
             Log.i("firebase", "Got value ${dataSnapshot.value}")
@@ -258,7 +257,7 @@ class CalendarFragment : Fragment() {
                     // Apply the passed date styling
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_previous_day)
                     viewHolder.dayTextView.setTextColor(Color.WHITE)
-                    Log.d("CalendarFragment", "Marked as passed date: $day $selectedMonth $selectedYear")
+                    Log.d("CalendarFragment", "Marked as passed date: $selectedMonth $day $selectedYear")
                 } else if (day == currentDay && selectedMonth == getCurrentMonth() && selectedYear == getCurrentYear()) {
                     viewHolder.dayTextView.setBackgroundResource(R.drawable.circle_background_current_day)
                     viewHolder.dayTextView.setTextColor(Color.BLACK)

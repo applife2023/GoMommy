@@ -40,8 +40,7 @@
                         android:layout_gravity="center"
                         android:layout_width="250dp"
                         android:layout_height="250dp"
-                        android:layout_marginBottom="75dp"
-                        android:src="@drawable/status_container"/>
+                        android:layout_marginBottom="75dp"/>
 
                     <TextView
                         android:id="@+id/dayNumberTextView"
@@ -98,6 +97,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginTop="10dp"
                             android:text="Baby's growth:"
                             android:fontFamily="@font/poppins"
@@ -109,6 +109,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="7dp"
                             android:text="Mommy's changes:"
                             android:fontFamily="@font/poppins"
                             android:textSize="12sp" />
