@@ -40,18 +40,18 @@ class TipsItemAdapter(private var tipsItemList: ArrayList<tipsItem>) : RecyclerV
     override fun onBindViewHolder(holder: TipsItemViewHolder, position: Int) {
 
         // Get the item at the current position
-        val item = tipsItemList[position]
+        val tipsItem = tipsItemList[position]
 
         // Bind the item data to the views in the item layout
-        holder.tipsItemTitleTextView.text = item.itemTitle
-        holder.tipsItemDescTextView.text = item.itemDesc
-        holder.tipsItemSourceTextView.text = item.itemSource
+        holder.tipsItemTitleTextView.text = tipsItem.itemTitle
+        holder.tipsItemDescTextView.text = tipsItem.itemDesc
+        holder.tipsItemSourceTextView.text = tipsItem.itemSource
 
 
     }
 
-    fun filterList(filteredList: ArrayList<tipsItem>) {
+    /*fun filterList(filteredList: ArrayList<tipsItem>) {
         tipsItemList = filteredList
         notifyDataSetChanged()
-    }
+    }*/
 }
