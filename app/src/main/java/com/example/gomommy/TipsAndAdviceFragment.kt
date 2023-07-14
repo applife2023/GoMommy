@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.SearchView
+import java.util.Locale.filter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +31,8 @@ class TipsAndAdviceFragment : Fragment() {
     private lateinit var adapter: TipsItemAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var tipsItemArrayList: ArrayList<tipsItem>
+    private lateinit var originalTipsItemList: ArrayList<tipsItem>
+    private lateinit var searchView: SearchView
 
     lateinit var itemTitle: Array<String>
     lateinit var itemDesc: Array<String>
@@ -40,6 +44,12 @@ class TipsAndAdviceFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
+        tipsItemArrayList = ArrayList()
+        adapter = TipsItemAdapter(tipsItemArrayList)
+        originalTipsItemList = ArrayList(tipsItemArrayList) // Store the original list
+
     }
 
     override fun onCreateView(
@@ -80,12 +90,29 @@ class TipsAndAdviceFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         adapter = TipsItemAdapter(tipsItemArrayList)
         recyclerView.adapter = adapter
+
+
+        //search
+        searchView = view.findViewById(R.id.tipsSearchView)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter.filter(newText)
+
+                return true
+            }
+        })
     }
+
 
 
 
     private fun dataInitialize(){
 
+        tipsItemArrayList = ArrayList()
         tipsItemArrayList = arrayListOf<tipsItem>()
 
         itemTitle = arrayOf(
