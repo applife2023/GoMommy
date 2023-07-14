@@ -1,6 +1,7 @@
 package com.example.gomommy
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,9 +30,9 @@ class TipsAndAdviceFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var tipsItemArrayList: ArrayList<tipsItem>
 
-    lateinit var tipsItemTitleTextView: Array<String>
-    lateinit var tipsItemDescTextView: Array<String>
-    lateinit var tipsItemSourceTextView: Array<String>
+    lateinit var itemTitle: Array<String>
+    lateinit var itemDesc: Array<String>
+    lateinit var itemSource: Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,48 +88,60 @@ class TipsAndAdviceFragment : Fragment() {
 
         tipsItemArrayList = arrayListOf<tipsItem>()
 
-        tipsItemTitleTextView = arrayOf(
-            getString(R.string.tipsItemTitleTextView_1),
-            getString(R.string.tipsItemTitleTextView_2),
-            getString(R.string.tipsItemTitleTextView_3),
-            getString(R.string.tipsItemTitleTextView_4),
-            getString(R.string.tipsItemTitleTextView_5),
-            getString(R.string.tipsItemTitleTextView_6),
-            getString(R.string.tipsItemTitleTextView_7),
-            getString(R.string.tipsItemTitleTextView_8),
-            getString(R.string.tipsItemTitleTextView_9),
-            getString(R.string.tipsItemTitleTextView_10)
+        itemTitle = arrayOf(
+            getString(R.string.itemTitle_1),
+            getString(R.string.itemTitle_2),
+            getString(R.string.itemTitle_3),
+            getString(R.string.itemTitle_4),
+            getString(R.string.itemTitle_5),
+            getString(R.string.itemTitle_6),
+            getString(R.string.itemTitle_7),
+            getString(R.string.itemTitle_8),
+            getString(R.string.itemTitle_9),
+            getString(R.string.itemTitle_10)
 
 
         )
 
-        tipsItemDescTextView = arrayOf(
-            getString(R.string.tipsItemDescTextView_1),
-            getString(R.string.tipsItemDescTextView_2),
-            getString(R.string.tipsItemDescTextView_3),
-            getString(R.string.tipsItemDescTextView_4),
-            getString(R.string.tipsItemDescTextView_5),
-            getString(R.string.tipsItemDescTextView_6),
-            getString(R.string.tipsItemDescTextView_7),
-            getString(R.string.tipsItemDescTextView_8),
-            getString(R.string.tipsItemDescTextView_9),
-            getString(R.string.tipsItemDescTextView_10)
+        itemDesc= arrayOf(
+            getString(R.string.itemDesc_1),
+            getString(R.string.itemDesc_2),
+            getString(R.string.itemDesc_3),
+            getString(R.string.itemDesc_4),
+            getString(R.string.itemDesc_5),
+            getString(R.string.itemDesc_6),
+            getString(R.string.itemDesc_7),
+            getString(R.string.itemDesc_8),
+            getString(R.string.itemDesc_9),
+            getString(R.string.itemDesc_10)
 
         )
 
-        tipsItemSourceTextView = arrayOf(
-            getString(R.string.tipsItemSourceTextView_1),
-            getString(R.string.tipsItemSourceTextView_2),
-            getString(R.string.tipsItemSourceTextView_3),
-            getString(R.string.tipsItemSourceTextView_4),
-            getString(R.string.tipsItemSourceTextView_5),
-            getString(R.string.tipsItemSourceTextView_6),
-            getString(R.string.tipsItemSourceTextView_7),
-            getString(R.string.tipsItemSourceTextView_8),
-            getString(R.string.tipsItemSourceTextView_9),
-            getString(R.string.tipsItemSourceTextView_10)
+        itemSource = arrayOf(
+            getString(R.string.itemSource_1),
+            getString(R.string.itemSource_2),
+            getString(R.string.itemSource_3),
+            getString(R.string.itemSource_4),
+            getString(R.string.itemSource_5),
+            getString(R.string.itemSource_6),
+            getString(R.string.itemSource_7),
+            getString(R.string.itemSource_8),
+            getString(R.string.itemSource_9),
+            getString(R.string.itemSource_10)
 
         )
+
+        for (i in itemTitle.indices) {
+            val title = itemTitle[i]
+            val desc = itemDesc[i]
+            val source = itemSource[i]
+
+            val tipsItem = tipsItem(title, desc, source)
+            tipsItemArrayList.add(tipsItem)
+
+            // Log the data for verification
+            Log.d("TipsAndAdviceFragment", "Title: $title, Desc: $desc, Source: $source")
+        }
 
     }
 
