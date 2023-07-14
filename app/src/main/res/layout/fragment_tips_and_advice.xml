@@ -39,12 +39,11 @@
 
     <ImageView
         android:id="@+id/tipsContainer"
-        android:layout_width="370dp"
-        android:layout_height="212dp"
-        android:layout_alignParentEnd="true"
+        android:layout_width="match_parent"
+        android:layout_height="211dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="16dp"
-        android:layout_alignWithParentIfMissing="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:src="@drawable/gradient_bg_x3">
 
 
@@ -57,8 +56,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="55dp"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
             android:layout_marginLeft="30dp"
             android:src="@drawable/img_tipsbulb" />
 
@@ -68,8 +67,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="0dp"
             android:text="Tips!"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="17sp"
+            android:fontFamily="@font/poppins_bold" />
 
     </LinearLayout>
     <LinearLayout
@@ -87,8 +86,9 @@
             android:layout_marginRight="30dp"
             android:text="Tips Title here "
             android:textAlignment="center"
-            android:fontFamily="@font/poppins_bold"
-            android:textSize="20sp" />
+            android:textColor="@color/dark_gray"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tipsDesc"
@@ -97,8 +97,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/dark_gray"
             android:text="Tips Description here will be in accordance to the calendar..."
-            android:textSize="17sp" />
+            android:textSize="13sp" />
 
     </LinearLayout>
 
