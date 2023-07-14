@@ -125,7 +125,19 @@ class TipsAndAdviceFragment : Fragment() {
             getString(R.string.itemTitle_7),
             getString(R.string.itemTitle_8),
             getString(R.string.itemTitle_9),
-            getString(R.string.itemTitle_10)
+            getString(R.string.itemTitle_10),
+            getString(R.string.itemTitle_11),
+            getString(R.string.itemTitle_12),
+            getString(R.string.itemTitle_13),
+            getString(R.string.itemTitle_14),
+            getString(R.string.itemTitle_15),
+            getString(R.string.itemTitle_16),
+            getString(R.string.itemTitle_17),
+            getString(R.string.itemTitle_18),
+            getString(R.string.itemTitle_19),
+            getString(R.string.itemTitle_20),
+            getString(R.string.itemTitle_21),
+            getString(R.string.itemTitle_22)
 
 
         )
@@ -140,7 +152,20 @@ class TipsAndAdviceFragment : Fragment() {
             getString(R.string.itemDesc_7),
             getString(R.string.itemDesc_8),
             getString(R.string.itemDesc_9),
-            getString(R.string.itemDesc_10)
+            getString(R.string.itemDesc_10),
+            getString(R.string.itemDesc_11),
+            getString(R.string.itemDesc_12),
+            getString(R.string.itemDesc_13),
+            getString(R.string.itemDesc_14),
+            getString(R.string.itemDesc_15),
+            getString(R.string.itemDesc_16),
+            getString(R.string.itemDesc_17),
+            getString(R.string.itemDesc_18),
+            getString(R.string.itemDesc_19),
+            getString(R.string.itemDesc_20),
+            getString(R.string.itemDesc_21),
+            getString(R.string.itemDesc_22)
+
 
         )
 
@@ -154,7 +179,20 @@ class TipsAndAdviceFragment : Fragment() {
             getString(R.string.itemSource_7),
             getString(R.string.itemSource_8),
             getString(R.string.itemSource_9),
-            getString(R.string.itemSource_10)
+            getString(R.string.itemSource_10),
+            getString(R.string.itemSource_11),
+            getString(R.string.itemSource_12),
+            getString(R.string.itemSource_13),
+            getString(R.string.itemSource_14),
+            getString(R.string.itemSource_15),
+            getString(R.string.itemSource_16),
+            getString(R.string.itemSource_17),
+            getString(R.string.itemSource_18),
+            getString(R.string.itemSource_19),
+            getString(R.string.itemSource_20),
+            getString(R.string.itemSource_21),
+            getString(R.string.itemSource_22)
+
 
         )
 
