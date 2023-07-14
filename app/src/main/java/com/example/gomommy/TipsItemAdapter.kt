@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.util.Locale
 
 class TipsItemAdapter(private var tipsItemList: ArrayList<tipsItem>) : RecyclerView.Adapter<TipsItemAdapter.TipsItemViewHolder>() {
+
+    private var originalTipsItemList: ArrayList<tipsItem> = ArrayList(tipsItemList)
 
     //Define a ViewHolder to hold the views for each item in the RecyclerView
     class TipsItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,6 +51,21 @@ class TipsItemAdapter(private var tipsItemList: ArrayList<tipsItem>) : RecyclerV
         holder.tipsItemSourceTextView.text = tipsItem.itemSource
 
 
+    }
+
+    fun filter(query: String) {
+        tipsItemList.clear()
+        if (query.isEmpty()) {
+            tipsItemList.addAll(originalTipsItemList)
+        } else {
+            val filterPattern = query.toLowerCase(Locale.getDefault()).trim()
+            for (item in originalTipsItemList) {
+                if (item.itemTitle.toLowerCase(Locale.getDefault()).contains(filterPattern)) {
+                    tipsItemList.add(item)
+                }
+            }
+        }
+        notifyDataSetChanged()
     }
 
     /*fun filterList(filteredList: ArrayList<tipsItem>) {
