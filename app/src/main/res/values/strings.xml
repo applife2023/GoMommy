@@ -70,4 +70,5 @@
     <string name="learn">Learn from the Tips and\nAdvice just for you</string>
     <string name="know_the_hospitals_nnear_you">Know the hospitals \nnear you!</string>
     <string name="scrollable_content">Scrollable content</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
