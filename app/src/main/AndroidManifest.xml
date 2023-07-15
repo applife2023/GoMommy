@@ -29,7 +29,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAAE0TUGw0zT6e3uNxwQsWVdC2fQraLaNY" />
+            android:value="AIzaSyAjn11pLMAZ02UHMOtG_vsxURo_5k3RgLs" />
         <activity
             android:name=".DueDateCalculator"
             android:exported="false"
