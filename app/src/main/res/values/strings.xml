@@ -120,5 +120,6 @@
     <string name="itemSource_8">https://www.nhs.uk/pregnancy/keeping-well/sex/</string>
     <string name="itemSource_9">https://www.nhs.uk/pregnancy/keeping-well/travelling/</string>
     <string name="itemSource_10">https://www.nhs.uk/pregnancy/keeping-well/your-health-at-work/</string>
+    <string name="google_maps_key">AIzaSyAjn11pLMAZ02UHMOtG_vsxURo_5k3RgLs</string>
 
 </resources>
