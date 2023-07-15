@@ -84,7 +84,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="Tips Title here "
+            android:text="Place to give birth "
             android:textAlignment="center"
             android:textColor="@color/dark_gray"
             android:fontFamily="@font/poppins_semibold"
@@ -100,7 +100,7 @@
             android:textAlignment="center"
             android:fontFamily="@font/poppins"
             android:textColor="@color/dark_gray"
-            android:text="Tips Description here will be in accordance to the calendar..."
+            android:text="Possible places to give birth: at home, a midwife-led unit (birth centre) or a hospital – your options will depend on where you live and whether you or your baby have any health problems or other needs."
             android:textSize="13sp" />
 
     </LinearLayout>
