@@ -6,10 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import java.util.Calendar
+import java.util.Date
 import java.util.Locale.filter
+import java.util.concurrent.TimeUnit
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,11 +35,18 @@ class TipsAndAdviceFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var dbRef: DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
+
     private lateinit var adapter: TipsItemAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var tipsItemArrayList: ArrayList<tipsItem>
     private lateinit var originalTipsItemList: ArrayList<tipsItem>
     private lateinit var searchView: SearchView
+    //Weekly Tips And Advice
+    private lateinit var weekTextView: TextView
+    private lateinit var infoTextView: TextView
+    private lateinit var dueDate: Date
 
     lateinit var itemTitle: Array<String>
     lateinit var itemDesc: Array<String>
@@ -45,11 +59,13 @@ class TipsAndAdviceFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-
+        //SearchView and RecyclerView
         tipsItemArrayList = ArrayList()
         adapter = TipsItemAdapter(tipsItemArrayList)
         originalTipsItemList = ArrayList(tipsItemArrayList) // Store the original list
 
+        // Initialize dbRef
+        dbRef = FirebaseDatabase.getInstance().reference
     }
 
     override fun onCreateView(
@@ -57,7 +73,81 @@ class TipsAndAdviceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tips_and_advice, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_tips_and_advice, container, false)
+
+        // Initialize the TextViews
+        weekTextView = rootView.findViewById(R.id.tipsTitle)
+        infoTextView = rootView.findViewById(R.id.tipsDesc)
+
+        //Retrieve dueDate from Firebase database
+        readDueDate()
+
+        return rootView
+    }
+
+
+    private fun displayCurrentWeek() {
+        val calendar = Calendar.getInstance()
+        val currentDate = calendar.time
+
+        // Calculate the difference between the current date and the due date
+        val differenceInMillis = dueDate.time - currentDate.time
+        val weeksDifference = TimeUnit.MILLISECONDS.toDays(differenceInMillis) / 7
+
+        // Display the current week of pregnancy
+        weekTextView.text = getString(R.string.week_of_pregnancy, weeksDifference)
+
+        // Display the information based on the current week
+        val infoResourceId = when (weeksDifference.toInt()) {
+            1, 2, 3 -> R.string.tips_week_1_to_3
+            4 -> R.string.tips_week_4
+            5 -> R.string.tips_week_5
+            6 -> R.string.tips_week_6
+            7 -> R.string.tips_week_7
+            8 -> R.string.tips_week_8
+            9 -> R.string.tips_week_9
+            10 -> R.string.tips_week_10
+            // Add cases for other weeks up to 40
+            else -> R.string.info_default
+        }
+        infoTextView.text = getString(infoResourceId)
+    }
+
+
+    private fun displayCurrentWeek(dueDate: Any?) {
+        if (dueDate != null) {
+            val calendar = Calendar.getInstance()
+            val currentDate = calendar.time
+
+            val differenceInMillis = (dueDate as Long) - currentDate.time
+            val weeksDifference = TimeUnit.MILLISECONDS.toDays(differenceInMillis) / 7
+
+            weekTextView.text = getString(R.string.week_of_pregnancy, weeksDifference)
+
+            val infoResourceId = when (weeksDifference.toInt()) {
+                1, 2, 3 -> R.string.tips_week_1_to_3
+                4 -> R.string.tips_week_4
+                5 -> R.string.tips_week_5
+                6 -> R.string.tips_week_6
+                7 -> R.string.tips_week_7
+                8 -> R.string.tips_week_8
+                9 -> R.string.tips_week_9
+                10 -> R.string.tips_week_10
+                // Add cases for other weeks up to 40
+                else -> R.string.info_default
+            }
+            infoTextView.text = getString(infoResourceId)
+        }
+    }
+
+    private fun readDueDate() {
+        dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener { dataSnapshot ->
+            Log.i("firebase", "Got value ${dataSnapshot.value}")
+            val dueDate = dataSnapshot.value
+            displayCurrentWeek(dueDate)
+        }.addOnFailureListener { exception ->
+            Log.e("firebase", "Error getting data", exception)
+        }
     }
 
     companion object {
