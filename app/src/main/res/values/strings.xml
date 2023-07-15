@@ -147,6 +147,19 @@
     <string name="itemSource_21">https://www.nhs.uk/pregnancy/keeping-well/flu-jab/</string>
     <string name="itemSource_22">https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/</string>
 
+    <!-- Strings used for weekly tips -->
+    <string name="week_of_pregnancy">%d weeks pregnant</string>
+
+    <string name="tips_week_1_to_3">Take a folic acid supplement of 400 micrograms a day while you are trying to get pregnant and until the 12th week of pregnancy. Take a vitamin D supplement of 10 micrograms a day. Avoid some food to protect against infections</string>
+    <string name="tips_week_4">In the first 4 weeks of pregnancy, you probably will not notice any symptoms. The first thing you may notice is that your period does not arrive, or you have other signs and symptoms of pregnancy, such as breast tenderness.</string>
+    <string name="tips_week_5">This is the time of the first missed period, when most women are only just beginning to think they may be pregnant. Antenatal care( also called pregnancy or maternity care) is the care you get from midwives and doctors during your pregnancy to make sure you and your baby are as well as possible.</string>
+    <string name="tips_week_6">It is normal to feel a range of emotions in pregnancy and everyone’s experience is different. A healthy diet in pregnancy, having foods that are nutritious and safe to eat, is important for the well being of you and your baby.</string>
+    <string name="tips_week_7">You may have bleeding or sore gums when you’re pregnant. Good mouth hygiene and regular dental care, to keep your teeth and gums as healthy as possible, is the best way to avoid or care for gum problems.</string>
+    <string name="tips_week_8">Always mention any bleeding in pregnancy to your midwife or GP, particularly if it continues and you get stomach pain.</string>
+    <string name="tips_week_9">During this time your breasts will have got bigger, so consider wearing a supportive bra. You may also find that your emotions vary – you feel happy one moment and sad next time. Do not worry-these feelings are normal and should settle down. It is normal to have more vaginal discharge when you’re pregnant.</string>
+    <string name="tips_week_10">Pregnant women and their babies are at higher risk from flu (influenza) and whooping cough (pertussis). You’re advised to have a flu vaccination in pregnancy and whooping cough vaccination in pregnancy to protect you and your baby. Possible places to give birth: at home, a midwife-led unit (birth centre) or a hospital – your options will depend on where you live and whether you or your baby have any health problems or other needs.</string>
+
+    <string name="info_default">Stopping smoking is one of the best things you can do for your baby’s health</string>
 
 
 </resources>
