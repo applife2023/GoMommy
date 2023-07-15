@@ -302,14 +302,15 @@ class CalendarFragment : Fragment() {
             val selectedDateOnly = timeStampDateFormat.parse(selectedDate)
             val selectedDateOnlyTime = selectedDateOnly?.time ?: 0
 
-            if (selectedDateOnlyTime in selectedDateTime..currentDateTime) {
+            if (selectedDateOnlyTime in selectedDateTime until currentDateTime) {
                 val formattedSelectedDate = timeStampDateFormat.format(selectedDateOnly)
                 Log.i("Marked Date", formattedSelectedDate)
-                return true
+                return true // Return true to indicate it's a passed date
             }
 
-            return false
+            return false // Return false to indicate it's not a passed date
         }
+
 
 
         fun updateDueDate(day: String) {

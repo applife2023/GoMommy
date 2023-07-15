@@ -10,10 +10,11 @@ import com.example.gomommy.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
     private lateinit var binding: ActivitySplashScreenBinding
-    private val splashDuration: Long = 2000 // 3 seconds
+    private val splashDuration: Long = 2000 // 2 seconds
     private val isFirstTimeKey = "isFirstTime"
     private val hasCreatedAccountKey = "hasCreatedAccount"
     private val isLoggedInKey = "isLoggedIn"
+    private val isLoggedOutKey = "isLoggedOut"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,25 +39,27 @@ class SplashScreen : AppCompatActivity() {
                     // Redirect to the introduction or onboarding activity
                     startActivity(Intent(this@SplashScreen, WelcomeUser::class.java))
                 } else {
-                    // Check if the user is logged in or has created an account
-                    val isLoggedIn = sharedPrefs.getBoolean(isLoggedInKey, false)
-                    val isLoggedOut = sharedPrefs.getBoolean("isLoggedOut", false)
-
-                    // Redirect based on login and logout status
+                    // Check if the user has logged out
+                    val isLoggedOut = sharedPrefs.getBoolean(isLoggedOutKey, false)
                     if (isLoggedOut) {
-                        // Redirect to the login activity
-                        startActivity(Intent(this@SplashScreen, LoginAccount::class.java))
-                    } else if (isLoggedIn || hasCreatedAccount) {
-                        // Set the isLoggedIn flag to true
+                        // Reset the isLoggedOut flag to false
                         val editor: SharedPreferences.Editor = sharedPrefs.edit()
-                        editor.putBoolean(isLoggedInKey, true)
+                        editor.putBoolean(isLoggedOutKey, false)
                         editor.apply()
 
-                        // Redirect to the homepage
-                        startActivity(Intent(this@SplashScreen, Homepage::class.java))
-                    } else {
                         // Redirect to the login activity
                         startActivity(Intent(this@SplashScreen, LoginAccount::class.java))
+                    } else {
+                        // Check if the user is logged in or has created an account
+                        val isLoggedIn = sharedPrefs.getBoolean(isLoggedInKey, false)
+
+                        if (isLoggedIn || hasCreatedAccount) {
+                            // Redirect to the homepage
+                            startActivity(Intent(this@SplashScreen, Homepage::class.java))
+                        } else {
+                            // Redirect to the login activity
+                            startActivity(Intent(this@SplashScreen, LoginAccount::class.java))
+                        }
                     }
                 }
 
