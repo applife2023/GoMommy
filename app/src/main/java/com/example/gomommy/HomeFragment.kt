@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.gomommy.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -54,29 +56,52 @@ class HomeFragment : Fragment() {
     }
 
     private fun showNoInternetDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("No Internet Connection")
-            .setMessage("Please check your internet connection and try again.")
+        val dialogView = layoutInflater.inflate(R.layout.custom_dialog_no_internet, null)
+        val dialogTitleTextView = dialogView.findViewById<TextView>(R.id.dialogTitleTextView)
+        val dialogMessageTextView = dialogView.findViewById<TextView>(R.id.dialogMessageTextView)
+        val retryButton = dialogView.findViewById<Button>(R.id.retryButton)
+        val exitButton = dialogView.findViewById<Button>(R.id.exitButton)
+
+        dialogTitleTextView.text = "No Internet Connection"
+        dialogMessageTextView.text = "Please check your internet connection and try again."
+
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
             .setCancelable(false)
-            .setPositiveButton("Retry") { _, _ ->
-                if (isConnectedToInternet()) {
-                    firebaseAuth = FirebaseAuth.getInstance()
-                    val firebaseUser = firebaseAuth.currentUser?.uid
-                    dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
 
-                    readTimeStamp()
-                } else {
-                    showNoInternetDialog()
-                }
-            }
-            .setNegativeButton("Exit") { _, _ ->
-                activity?.finish()
-            }
-
-        val dialog = builder.create()
+        val dialog = dialogBuilder.create()
         dialog.show()
-    }
 
+        // Apply the custom button background programmatically
+        retryButton.setBackgroundResource(R.drawable.gradient_bg)
+        exitButton.setBackgroundResource(R.drawable.gradient_bg)
+
+        // Customize other button attributes as needed
+        retryButton.setTextColor(resources.getColor(R.color.white))
+        exitButton.setTextColor(resources.getColor(R.color.white))
+
+        // Set click listeners for the buttons
+        retryButton.setOnClickListener {
+            if (isConnectedToInternet()) {
+                // Internet connection is available, perform the necessary actions
+                firebaseAuth = FirebaseAuth.getInstance()
+                val firebaseUser = firebaseAuth.currentUser?.uid
+                dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
+
+                readTimeStamp()
+            } else {
+                // Internet connection is still not available, show the dialog again
+                showNoInternetDialog()
+            }
+            dialog.dismiss()
+        }
+
+        exitButton.setOnClickListener {
+            // Exit the activity or perform any other action
+            activity?.finish()
+            dialog.dismiss()
+        }
+    }
 
     private fun readDueDate() {
         dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
