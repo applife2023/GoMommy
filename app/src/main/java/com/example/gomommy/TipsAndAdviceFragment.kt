@@ -183,18 +183,18 @@ class TipsAndAdviceFragment : Fragment() {
 
 
         //search
-        searchView = view.findViewById(R.id.tipsSearchView)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                adapter.filter(newText)
-
-                return true
-            }
-        })
+//        searchView = view.findViewById(R.id.tipsSearchView)
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                adapter.filter(newText)
+//
+//                return true
+//            }
+//        })
     }
 
 

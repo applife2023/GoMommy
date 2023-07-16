@@ -5,117 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TipsAndAdviceFragment"
-    android:layout_marginTop="70dp">
-
-
-    <ImageView
-        android:id="@+id/tipsBg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/gradient_bg_x2"/>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/tipsMaterialCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="12dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/tipsSearchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/search_view_bg"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search here..." />
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <ImageView
-        android:id="@+id/tipsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="211dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/gradient_bg_x3">
-
-
-    </ImageView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="30dp"
-            android:src="@drawable/img_tipsbulb" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="0dp"
-            android:text="Tips!"
-            android:textSize="17sp"
-            android:fontFamily="@font/poppins_bold" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tipsTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:text="Place to give birth "
-            android:textAlignment="center"
-            android:textColor="@color/dark_gray"
-            android:fontFamily="@font/poppins_semibold"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tipsDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:textAlignment="center"
-            android:fontFamily="@font/poppins"
-            android:textColor="@color/dark_gray"
-            android:text="Possible places to give birth: at home, a midwife-led unit (birth centre) or a hospital – your options will depend on where you live and whether you or your baby have any health problems or other needs."
-            android:textSize="13sp" />
-
-    </LinearLayout>
+    android:layout_marginTop="60dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tipsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tipsMaterialCardView"
-        android:layout_marginTop="236dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipsContainer"
-        tools:listitem="@layout/activity_tips_and_advice_item"/>
+        tools:listitem="@layout/activity_tips_and_advice_item" />
 
 </RelativeLayout>

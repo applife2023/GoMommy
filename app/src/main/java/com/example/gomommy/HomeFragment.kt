@@ -1,5 +1,9 @@
 package com.example.gomommy
 
+import android.app.AlertDialog
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,24 +25,58 @@ class HomeFragment : Fragment() {
 
     private val shimmerDuration = 2000L // Duration of shimmer animation in milliseconds
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        firebaseAuth = FirebaseAuth.getInstance()
-        val firebaseUser = firebaseAuth.currentUser?.uid
-        dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
+        if (isConnectedToInternet()) {
+            firebaseAuth = FirebaseAuth.getInstance()
+            val firebaseUser = firebaseAuth.currentUser?.uid
+            dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
 
-        readTimeStamp()
+            readTimeStamp()
+        } else {
+            showNoInternetDialog()
+        }
 
         return binding.root
     }
+
+    private fun isConnectedToInternet(): Boolean {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            ?: false
+    }
+
+    private fun showNoInternetDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("No Internet Connection")
+            .setMessage("Please check your internet connection and try again.")
+            .setCancelable(false)
+            .setPositiveButton("Retry") { _, _ ->
+                if (isConnectedToInternet()) {
+                    firebaseAuth = FirebaseAuth.getInstance()
+                    val firebaseUser = firebaseAuth.currentUser?.uid
+                    dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
+
+                    readTimeStamp()
+                } else {
+                    showNoInternetDialog()
+                }
+            }
+            .setNegativeButton("Exit") { _, _ ->
+                activity?.finish()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 
     private fun readDueDate() {
         dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->

@@ -5,12 +5,9 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.gomommy.databinding.ActivityBirthYearPickerBinding
-import com.example.gomommy.databinding.ActivityUserDueDateBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
