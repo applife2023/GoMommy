@@ -92,6 +92,14 @@ class NearestHospitalFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
+    private fun addHospitalMarkers(places: List<com.example.gomommy.model.Place>) {
+        for (place in places) {
+            val markerOptions = MarkerOptions()
+                .position(place.geometry.location.latLng)
+                .title(place.name)
+            mMap.addMarker(markerOptions)
+        }
+    }
 
 
     private fun getCurrentLocation(onSuccess: (Location) -> Unit) {
