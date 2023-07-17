@@ -2,7 +2,7 @@
 
 package com.example.gomommy.api
 
-import com.google.android.libraries.places.api.model.Place
+import com.example.gomommy.model.Place
 import com.google.gson.annotations.SerializedName
 
 /**
