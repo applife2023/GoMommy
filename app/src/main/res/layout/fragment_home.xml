@@ -32,16 +32,18 @@
                         android:id="@+id/statusContainerImageView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:scaleType="fitXY"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:src="@drawable/status_container"/>
+                        android:src="@drawable/content_bg_main"/>
 
                     <ImageView
                         android:id="@+id/babyGrowthImageView"
                         android:layout_gravity="center"
                         android:layout_width="250dp"
                         android:layout_height="250dp"
-                        android:layout_marginBottom="75dp"/>
+                        android:layout_marginBottom="75dp"
+                        android:elevation="5dp"/>
 
                     <TextView
                         android:id="@+id/dayNumberTextView"
