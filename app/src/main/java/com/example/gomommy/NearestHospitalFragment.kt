@@ -19,6 +19,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import retrofit2.Call
@@ -97,6 +99,7 @@ class NearestHospitalFragment : Fragment(), OnMapReadyCallback {
             val markerOptions = MarkerOptions()
                 .position(place.geometry.location.latLng)
                 .title(place.name)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_hospital_location))
             mMap.addMarker(markerOptions)
         }
     }
@@ -111,6 +114,14 @@ class NearestHospitalFragment : Fragment(), OnMapReadyCallback {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+            // Ensure that the fragment is attached to the activity before requesting permissions
+            if (isAdded) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    LOCATION_PERMISSION_REQUEST_CODE
+                )
+            }
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -122,12 +133,28 @@ class NearestHospitalFragment : Fragment(), OnMapReadyCallback {
                     location?.let {
                         onSuccess(location)
                         val currentLatLng = LatLng(location.latitude, location.longitude)
-                        mMap.addMarker(MarkerOptions().position(currentLatLng).title("Current Location"))
+                        mMap.addMarker(
+                            MarkerOptions()
+                                .position(currentLatLng)
+                                .title("Current Location")
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_current_location))
+                        )
+                        mMap.addCircle(
+                            CircleOptions()
+                                .center(currentLatLng)
+                                .radius(1300.0) // Set the radius in meters (you can adjust this value as needed)
+                                .strokeWidth(3f)
+                                .strokeColor(ContextCompat.getColor(requireContext(), R.color.gomommy_primary))
+                                .fillColor(ContextCompat.getColor(requireContext(), R.color.gomommy_secondary_low_op))
+                        )
+
+                        // Move the camera to show the circle and nearby hospitals
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM))
                     }
                 }
         }
     }
+
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 100
