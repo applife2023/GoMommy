@@ -55,9 +55,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //Import the BoM for the Firebase Platform
-    implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
+    implementation(platform('com.google.firebase:firebase-bom:32.2.0'))
     //Add the dependency for the Firebase Authentication Library
-    implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:22.1.0'
     //Add the dependency for the Google Play services library and specify its version
     implementation "com.google.android.gms:play-services-auth:20.6.0"
 
@@ -71,12 +71,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.android.volley:volley:1.2.1'
-    implementation 'com.google.maps.android:maps-utils-ktx:0.2'
+    implementation 'com.google.maps.android:maps-utils-ktx:3.4.0'
 
-    implementation "com.squareup.retrofit2:retrofit:2.7.1"
-    implementation "com.squareup.retrofit2:converter-gson:2.7.1"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.0.0"
-
-
-
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
 }
