@@ -121,8 +121,6 @@
     <string name="itemDesc_21">It is recommended that all pregnant women have the flu vaccine, whatever stage of pregnancy they are at. It is free for pregnant women.</string>
     <string name="itemDesc_22">Whooping cough (pertussis) rates have risen sharply in recent years and babies who are too young to start their vaccinations are at greatest risk. Young babies with whooping cough are often very unwell and most will be admitted to hospital because of their illness. When whooping cough is particularly severe, they can die. Pregnant women can help protect their babies by getting vaccinated – ideally from 16 weeks up to 32 weeks pregnant. If for any reason you miss having the vaccine, you can still have it up until you go into labour.</string>
 
-
-
     <!-- tipsItemSourceTextView -->
     <string name="itemSource_1">https://www.nhs.uk/pregnancy/keeping-well/have-a-healthy-diet/</string>
     <string name="itemSource_2">https://www.nhs.uk/pregnancy/keeping-well/vegetarian-or-vegan-and-pregnant/</string>
@@ -134,6 +132,8 @@
     <string name="itemSource_8">https://www.nhs.uk/pregnancy/keeping-well/sex/</string>
     <string name="itemSource_9">https://www.nhs.uk/pregnancy/keeping-well/travelling/</string>
     <string name="itemSource_10">https://www.nhs.uk/pregnancy/keeping-well/your-health-at-work/</string>
+
+
     <string name="google_maps_key">AIzaSyAjn11pLMAZ02UHMOtG_vsxURo_5k3RgLs</string>
     <string name="retry">Retry</string>
     <string name="exit">Exit</string>
