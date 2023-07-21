@@ -104,7 +104,6 @@ class NearestHospitalFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
     private fun getCurrentLocation(onSuccess: (Location) -> Unit) {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -154,7 +153,6 @@ class NearestHospitalFragment : Fragment(), OnMapReadyCallback {
                 }
         }
     }
-
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 100
