@@ -2,6 +2,7 @@
 <resources>
     <color name="gomommy_primary">#FE5065</color>
     <color name="gomommy_secondary">#FFA89B</color>
+    <color name="gomommy_secondary_low_op">#61FFA89B</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="disabled_btn">#D2D1D1</color>
