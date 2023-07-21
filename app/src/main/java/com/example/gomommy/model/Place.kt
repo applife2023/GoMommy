@@ -1,5 +1,3 @@
-
-
 package com.example.gomommy.model
 
 import com.google.android.gms.maps.model.LatLng
