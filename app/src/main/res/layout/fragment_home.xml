@@ -42,7 +42,7 @@
                         android:layout_gravity="center"
                         android:layout_width="250dp"
                         android:layout_height="250dp"
-                        android:layout_marginBottom="75dp"
+                        android:layout_marginBottom="50dp"
                         android:elevation="5dp"/>
 
                     <TextView
@@ -52,27 +52,42 @@
                         android:layout_gravity="top|center"
                         android:gravity="center"
                         android:text="Day n"
-                        android:layout_margin="15dp"
+                        android:layout_margin="20dp"
                         android:textColor="@color/white"
                         android:fontFamily="@font/poppins_semibold"
                         android:textSize="14sp" />
 
+                    <TextView
+                        android:id="@+id/remainingDaysTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="center"
+                        android:text="Remaining Days:"
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                 </FrameLayout>
 
-                <TextView
-                    android:id="@+id/remainingDaysTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|bottom"
-                    android:fontFamily="@font/poppins"
-                    android:gravity="center"
-                    android:text="Remaining Days:"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:layout_marginBottom="167dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <TextView-->
+<!--                    android:id="@+id/babyAgeTextView"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center|bottom"-->
+<!--                    android:fontFamily="@font/poppins"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Your:"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:layout_marginBottom="167dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
                 <FrameLayout
                     android:id="@+id/descriptionLayout"
