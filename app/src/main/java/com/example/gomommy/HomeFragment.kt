@@ -273,7 +273,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Set the image resource for babyGrowthImageView
-        binding.babyGrowthImageView.setImageResource(R.drawable.img_first_2_weeks)
+        binding.babyGrowthImageView.setImageResource(R.drawable.weeks_1n2)
 
         // Update the text for babyGrowthTextView and momHealthTextView
         binding.babyGrowthTextView.text =
