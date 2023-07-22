@@ -135,14 +135,14 @@ class NearestHospitalFragment : Fragment(), OnMapReadyCallback {
                         mMap.addMarker(
                             MarkerOptions()
                                 .position(currentLatLng)
-                                .title("Current Location")
+                                .title("My Location")
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_current_location))
                         )
                         mMap.addCircle(
                             CircleOptions()
                                 .center(currentLatLng)
-                                .radius(1300.0) // Set the radius in meters (you can adjust this value as needed)
-                                .strokeWidth(3f)
+                                .radius(1200.0) // Set the radius in meters (you can adjust this value as needed)
+                                .strokeWidth(2f)
                                 .strokeColor(ContextCompat.getColor(requireContext(), R.color.gomommy_primary))
                                 .fillColor(ContextCompat.getColor(requireContext(), R.color.gomommy_secondary_low_op))
                         )
