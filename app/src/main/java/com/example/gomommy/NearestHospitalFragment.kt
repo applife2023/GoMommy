@@ -141,7 +141,7 @@ class NearestHospitalFragment : Fragment(), OnMapReadyCallback {
                         mMap.addCircle(
                             CircleOptions()
                                 .center(currentLatLng)
-                                .radius(1200.0) // Set the radius in meters (you can adjust this value as needed)
+                                .radius(1250.0) // Set the radius in meters (you can adjust this value as needed)
                                 .strokeWidth(2f)
                                 .strokeColor(ContextCompat.getColor(requireContext(), R.color.gomommy_primary))
                                 .fillColor(ContextCompat.getColor(requireContext(), R.color.gomommy_secondary_low_op))
