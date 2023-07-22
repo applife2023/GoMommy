@@ -176,7 +176,7 @@ class HomeFragment : Fragment() {
             babyAgeInDays = ageInDays
             babyAgeInMonths = calculateMonths(ageInWeeks)
 
-            displayBabyGrowthImage(differenceDays.toInt())
+            displayBabyGrowthImage(ageInWeeks.toInt())
 
             val dayNString = "Week $ageInWeeks, Day $ageInDays"
             binding.dayNumberTextView.text = dayNString
@@ -276,18 +276,22 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun displayBabyGrowthImage(dayN: Int) {
-        println(dayN)
-        val imageResourceId = when (dayN) {
-            in 1..6 -> R.drawable.baby_growth_week_1n6days // Set the appropriate image resource for weeks 1 to 12
-            in 7..14 -> R.drawable.baby_growth_week_2 // Set the appropriate image resource for weeks 13 to 24
-            in 15..22 -> R.drawable.baby_growth_week_3 // Set the appropriate image resource for weeks 25 to 36
-            in 23..200 -> R.drawable.baby_growth_week_20 // Set the appropriate image resource for weeks 37 to 280 (full-term)
-            else -> R.drawable.baby_growth_week_40 // Set a default image resource for any invalid weeks value
+    private fun displayBabyGrowthImage(ageInWeeks: Int) {
+
+        val imageResourceId = when (ageInWeeks) {
+            in 2..22 -> "baby_growth_week_${ageInWeeks}"
+            else -> "baby_growth_week_1n6days" // Set a default image resource for any invalid weeks value
         }
 
+// Now, you can use the imageResourceId to get the actual resource ID based on its name, assuming you're using resources stored in the 'res/drawable' folder.
+        val actualResourceId = this@HomeFragment.resources.getIdentifier(
+            imageResourceId,
+            "drawable",
+            requireContext().packageName
+        )
 
-        binding.babyGrowthImageView.setImageResource(imageResourceId)
+
+        binding.babyGrowthImageView.setImageResource(actualResourceId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
