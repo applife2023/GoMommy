@@ -148,8 +148,8 @@ class HomeFragment : Fragment() {
 
     private fun displayDayN(timeStamp: String?, dueDate: String?) {
         val dateFormat = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault())
-        val parseTimeStamp = dateFormat.parse(timeStamp)
-        val parseDueDate = dateFormat.parse(dueDate)
+        val parseTimeStamp = timeStamp?.let { dateFormat.parse(it) }
+        val parseDueDate = dueDate?.let { dateFormat.parse(it) }
 
         if (parseTimeStamp != null && parseDueDate != null) {
             val dayN = calculateDayN(parseTimeStamp).toString()
