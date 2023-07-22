@@ -156,10 +156,15 @@ class HomeFragment : Fragment() {
             val remainingDays = calculateRemainingDays(parseDueDate)
             val differenceDays = 280 - remainingDays
 
+            println(dayN)
+
             val (weeks, days) = calculateWeeksAndDays(dayN.toLong())
+
+            println(weeks)
 
             var ageInWeeks = weeks + differenceDays / 7
             var ageInDays = days + differenceDays % 7
+
 
             if (ageInDays < 0) {
                 ageInWeeks--
@@ -170,6 +175,8 @@ class HomeFragment : Fragment() {
             babyAgeInWeeks = ageInWeeks
             babyAgeInDays = ageInDays
             babyAgeInMonths = calculateMonths(ageInWeeks)
+
+            displayBabyGrowthImage(differenceDays.toInt())
 
             val dayNString = "Week $ageInWeeks, Day $ageInDays"
             binding.dayNumberTextView.text = dayNString
@@ -269,11 +276,25 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun displayBabyGrowthImage(dayN: Int) {
+        println(dayN)
+        val imageResourceId = when (dayN) {
+            in 1..6 -> R.drawable.baby_growth_week_1n6days // Set the appropriate image resource for weeks 1 to 12
+            in 7..14 -> R.drawable.baby_growth_week_2 // Set the appropriate image resource for weeks 13 to 24
+            in 15..22 -> R.drawable.baby_growth_week_3 // Set the appropriate image resource for weeks 25 to 36
+            in 23..200 -> R.drawable.baby_growth_week_20 // Set the appropriate image resource for weeks 37 to 280 (full-term)
+            else -> R.drawable.baby_growth_week_40 // Set a default image resource for any invalid weeks value
+        }
+
+
+        binding.babyGrowthImageView.setImageResource(imageResourceId)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Set the image resource for babyGrowthImageView
-        binding.babyGrowthImageView.setImageResource(R.drawable.weeks_1n2)
+//        binding.babyGrowthImageView.setImageResource(R.drawable.weeks_1n2)
 
         // Update the text for babyGrowthTextView and momHealthTextView
         binding.babyGrowthTextView.text =
