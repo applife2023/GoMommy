@@ -27,6 +27,10 @@ class HomeFragment : Fragment() {
 
     private val shimmerDuration = 2000L // Duration of shimmer animation in milliseconds
 
+    var babyAgeInDays: Long = 0
+    var babyAgeInWeeks: Long = 0
+    var babyAgeInMonths: Long = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -117,6 +121,13 @@ class HomeFragment : Fragment() {
         return currentDate.time
     }
 
+    private fun calculateRemainingDays(dueDate: Date): Long {
+        val currentTime = getCurrentDate()
+        val dueTime = dueDate.time
+        val remainingTime = dueTime - currentTime
+        return remainingTime / (1000 * 60 * 60 * 24)
+    }
+
     private fun displayRemainingDate(dueDate: String?) {
         dueDate?.let {
             val dateFormat = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault())
@@ -135,20 +146,47 @@ class HomeFragment : Fragment() {
         } ?: println("Due date not found.")
     }
 
-    private fun calculateRemainingDays(dueDate: Date): Long {
-        val currentTime = getCurrentDate()
-        val dueTime = dueDate.time
-        val remainingTime = dueTime - currentTime
-        return remainingTime / (1000 * 60 * 60 * 24)
-    }
-
-    private fun displayDayN(timeStamp: String?) {
+    private fun displayDayN(timeStamp: String?, dueDate: String?) {
         val dateFormat = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault())
         val parseTimeStamp = dateFormat.parse(timeStamp)
+        val parseDueDate = dateFormat.parse(dueDate)
 
-        val dayN = calculateDayN(parseTimeStamp).toString()
-        val dayNString = "Day $dayN"
-        binding.dayNumberTextView.text = dayNString
+        if (parseTimeStamp != null && parseDueDate != null) {
+            val dayN = calculateDayN(parseTimeStamp).toString()
+            val remainingDays = calculateRemainingDays(parseDueDate)
+            val differenceDays = 280 - remainingDays
+
+            val (weeks, days) = calculateWeeksAndDays(dayN.toLong())
+
+            var ageInWeeks = weeks + differenceDays / 7
+            var ageInDays = days + differenceDays % 7
+
+            if (ageInDays < 0) {
+                ageInWeeks--
+                ageInDays += 7
+            }
+
+            // Update public variables with the calculated values
+            babyAgeInWeeks = ageInWeeks
+            babyAgeInDays = ageInDays
+            babyAgeInMonths = calculateMonths(ageInWeeks)
+
+            val dayNString = "Week $ageInWeeks, Day $ageInDays"
+            binding.dayNumberTextView.text = dayNString
+        } else {
+            // Handle the case of invalid date format
+        }
+    }
+
+    // Calculate baby's age in months based on weeks
+    private fun calculateMonths(weeks: Long): Long {
+        return weeks / 4 // Assuming one month has 4 weeks
+    }
+
+    private fun calculateWeeksAndDays(dayN: Long): Pair<Long, Long> {
+        val weeks = dayN / 7
+        val remainingDays = dayN % 7
+        return Pair(weeks, remainingDays)
     }
 
     private fun calculateDayN(timeStamp: Date): Long {
@@ -164,7 +202,11 @@ class HomeFragment : Fragment() {
             if (timeStamp != null) {
                 timeStampChecker(true, timeStamp)
                 readDueDate()
-                displayDayN(timeStamp)
+                // Call readDueDate() first to get the dueDate value
+                dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
+                    val dueDate = snapshot.value as? String
+                    displayDayN(timeStamp, dueDate)
+                }
             } else {
                 timeStampChecker(false, null)
             }
