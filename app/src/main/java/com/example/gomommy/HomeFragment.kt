@@ -298,7 +298,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun displayBabyGrowthTxt(ageInWeeks: Int){
-        dbRef.child("Description").child("baby_growth_week_$ageInWeeks").child("babyGrowth").get().addOnSuccessListener { snapshot ->
+        val babyGrowthStr = when (ageInWeeks) {
+            in 2..22 -> "baby_growth_week_${ageInWeeks}"
+            else -> "baby_growth_week_1n6days" // Set a default image resource for any invalid weeks value
+        }
+        dbRef.child("Description").child(babyGrowthStr).child("babyGrowth").get().addOnSuccessListener { snapshot ->
             val babyGrowth = snapshot.value as? String
             binding.babyGrowthTextView.text = babyGrowth
         }
