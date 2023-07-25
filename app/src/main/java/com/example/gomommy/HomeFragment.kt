@@ -40,9 +40,9 @@ class HomeFragment : Fragment() {
         if (isConnectedToInternet()) {
             firebaseAuth = FirebaseAuth.getInstance()
             val firebaseUser = firebaseAuth.currentUser?.uid
-            dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
+            dbRef = FirebaseDatabase.getInstance().reference
 
-            readTimeStamp()
+            readTimeStamp(firebaseUser)
         } else {
             showNoInternetDialog()
         }
@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
                 val firebaseUser = firebaseAuth.currentUser?.uid
                 dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
 
-                readTimeStamp()
+                readTimeStamp(firebaseUser)
             } else {
                 // Internet connection is still not available, show the dialog again
                 showNoInternetDialog()
@@ -107,8 +107,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun readDueDate() {
-        dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
+    private fun readDueDate(firebaseUser: String?) {
+        dbRef.child("Users/$firebaseUser").child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
             val dueDate = snapshot.value as? String
             displayRemainingDate(dueDate)
         }.addOnFailureListener { exception ->
@@ -156,11 +156,10 @@ class HomeFragment : Fragment() {
             val remainingDays = calculateRemainingDays(parseDueDate)
             val differenceDays = 280 - remainingDays
 
-            println(dayN)
 
             val (weeks, days) = calculateWeeksAndDays(dayN.toLong())
 
-            println(weeks)
+
 
             var ageInWeeks = weeks + differenceDays / 7
             var ageInDays = days + differenceDays % 7
@@ -177,6 +176,8 @@ class HomeFragment : Fragment() {
             babyAgeInMonths = calculateMonths(ageInWeeks)
 
             displayBabyGrowthImage(ageInWeeks.toInt())
+            displayBabyGrowthTxt(ageInWeeks.toInt())
+            displayMomHealthTxt(ageInWeeks.toInt())
 
             val dayNString = "Week $ageInWeeks, Day $ageInDays"
             binding.dayNumberTextView.text = dayNString
@@ -184,6 +185,8 @@ class HomeFragment : Fragment() {
             // Handle the case of invalid date format
         }
     }
+
+
 
     // Calculate baby's age in months based on weeks
     private fun calculateMonths(weeks: Long): Long {
@@ -203,14 +206,14 @@ class HomeFragment : Fragment() {
         return dayNTime / (1000 * 60 * 60 * 24)
     }
 
-    private fun readTimeStamp() {
-        dbRef.child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener { snapshot ->
+    private fun readTimeStamp(firebaseUser: String?) {
+        dbRef.child("Users/$firebaseUser").child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener { snapshot ->
             val timeStamp = snapshot.value as? String
             if (timeStamp != null) {
                 timeStampChecker(true, timeStamp)
-                readDueDate()
+                readDueDate(firebaseUser)
                 // Call readDueDate() first to get the dueDate value
-                dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
+                dbRef.child("Users/$firebaseUser").child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
                     val dueDate = snapshot.value as? String
                     displayDayN(timeStamp, dueDate)
                 }
@@ -294,17 +297,22 @@ class HomeFragment : Fragment() {
         binding.babyGrowthImageView.setImageResource(actualResourceId)
     }
 
+    private fun displayBabyGrowthTxt(ageInWeeks: Int){
+        dbRef.child("Description").child("baby_growth_week_$ageInWeeks").child("babyGrowth").get().addOnSuccessListener { snapshot ->
+            val babyGrowth = snapshot.value as? String
+            binding.babyGrowthTextView.text = babyGrowth
+        }
+    }
+
+    private fun displayMomHealthTxt(ageInWeeks: Int){
+        dbRef.child("Description").child("baby_growth_week_$ageInWeeks").child("momHealth").get().addOnSuccessListener { snapshot ->
+            val momHealth = snapshot.value as? String
+            binding.momHealthTextView.text = momHealth
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Set the image resource for babyGrowthImageView
-//        binding.babyGrowthImageView.setImageResource(R.drawable.weeks_1n2)
-
-        // Update the text for babyGrowthTextView and momHealthTextView
-        binding.babyGrowthTextView.text =
-            "Baby's growth: Baby is but a glimmer in your eye. You're not pregnant yet at this stage of your journey. In fact, you probably have your period; the symptoms you’re experiencing are a result of PMS, not pregnancy."
-        binding.momHealthTextView.text =
-            "Mommy's changes: You can expect to experience your typical menstrual symptoms including bleeding, cramping, sore breasts, mood swings, etc."
 
         // Hide the content views initially
         hideContent()
@@ -316,3 +324,4 @@ class HomeFragment : Fragment() {
         simulateDataLoading()
     }
 }
+
