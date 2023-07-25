@@ -31,12 +31,12 @@ class HomeFragment : Fragment() {
     var babyAgeInWeeks: Long = 0
     var babyAgeInMonths: Long = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+    private var isFragmentAttached: Boolean = false
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        isFragmentAttached = true
 
+        // Move the code that requires context to onAttach() method
         if (isConnectedToInternet()) {
             firebaseAuth = FirebaseAuth.getInstance()
             val firebaseUser = firebaseAuth.currentUser?.uid
@@ -46,6 +46,18 @@ class HomeFragment : Fragment() {
         } else {
             showNoInternetDialog()
         }
+
+    }
+    override fun onDetach() {
+        super.onDetach()
+        isFragmentAttached = false
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -281,6 +293,8 @@ class HomeFragment : Fragment() {
 
     private fun displayBabyGrowthImage(ageInWeeks: Int) {
 
+        if (!isFragmentAttached) return
+
         val imageResourceId = when (ageInWeeks) {
             in 2..22 -> "baby_growth_week_${ageInWeeks}"
             else -> "baby_growth_week_1n6days" // Set a default image resource for any invalid weeks value
@@ -293,6 +307,7 @@ class HomeFragment : Fragment() {
             requireContext().packageName
         )
 
+        if (!isFragmentAttached) return
 
         binding.babyGrowthImageView.setImageResource(actualResourceId)
     }
