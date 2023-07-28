@@ -311,8 +311,6 @@ class CalendarFragment : Fragment() {
             return false // Return false to indicate it's not a passed date
         }
 
-
-
         fun updateDueDate(day: String) {
             dueDate = day
             notifyDataSetChanged()
