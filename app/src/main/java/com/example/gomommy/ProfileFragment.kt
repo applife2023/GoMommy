@@ -7,12 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.gomommy.databinding.ActivityUserDueDateBinding
 import com.example.gomommy.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.time.LocalDate
 
 class ProfileFragment : Fragment() {
     private lateinit var  binding: FragmentProfileBinding
@@ -60,12 +58,8 @@ class ProfileFragment : Fragment() {
         val birthYear = birthYear.toString().toInt()
         val calculatedUserAge = currentYear - birthYear
 
-        val userUsername = "Username: $userName"
-        val userAge = "Age: $calculatedUserAge years old"
-        val userDueDate = "Estimated due date: \n$dueDate"
-
-        binding.userUsername.text = userUsername
-        binding.userAge.text = userAge
-        binding.userDueDate.text = userDueDate
+        binding.userUsername.text = userName.toString().capitalize()
+        binding.userAge.text = calculatedUserAge.toString()
+        binding.userDueDate.text = dueDate.toString()
     }
 }
