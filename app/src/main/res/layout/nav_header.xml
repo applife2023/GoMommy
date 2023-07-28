@@ -9,26 +9,28 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="250dp"
+        android:layout_width="220dp"
         android:layout_height="250dp"
         android:src="@drawable/img_at"
         android:layout_marginTop="50dp"/>
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Go Mommy"-->
-<!--        android:fontFamily="@font/poppins_semibold"-->
-<!--        android:textColor="@color/gomommy_primary"-->
-<!--        android:textStyle="bold"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Go Mommy"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/gomommy_primary"
+        android:textStyle="bold"/>
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="contact@gomommy.com"-->
-<!--        android:fontFamily="@font/poppins"-->
-<!--        android:textColor="@color/gomommy_primary"-->
-<!--        android:textSize="14sp"-->
-<!--        android:layout_marginBottom="16dp"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="contact@gomommy.com"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/gomommy_primary"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"/>
 
 </LinearLayout>
