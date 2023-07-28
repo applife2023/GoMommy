@@ -32,6 +32,7 @@
                 android:textSize="16sp" />
 
             <LinearLayout
+                android:id="@+id/dietLayout"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_row="1"
@@ -321,6 +322,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:layout_marginBottom="50dp"
                     android:background="@drawable/gradient_bg_x3"
                     android:elevation="5dp">
 
