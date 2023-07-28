@@ -48,11 +48,11 @@ class ProfileFragment : Fragment() {
     private fun mapUserProfile(userValue: Any?) {
         val userValue = userValue as? Map<String, Any?>
         if (userValue != null) {
-            displayUserProfile(userValue["userName"],userValue["birthYear"],userValue["dueDate"])
+            displayUserProfile(userValue["userName"],userValue["birthYear"],userValue["dueDate"],userValue["firstDayTimeStamp"])
         }
     }
 
-    private fun displayUserProfile(userName: Any?,birthYear: Any?, dueDate: Any?) {
+    private fun displayUserProfile(userName: Any?, birthYear: Any?, dueDate: Any?, userFirstDay: Any?) {
         val calendar = Calendar.getInstance()
         val currentYear = calendar.get(Calendar.YEAR)
         val birthYear = birthYear.toString().toInt()
@@ -61,5 +61,6 @@ class ProfileFragment : Fragment() {
         binding.userUsername.text = userName.toString().capitalize()
         binding.userAge.text = calculatedUserAge.toString()
         binding.userDueDate.text = dueDate.toString()
+        binding.userFirstDayText.text = userFirstDay.toString()
     }
 }
