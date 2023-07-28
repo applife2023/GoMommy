@@ -119,6 +119,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginTop="10dp"
                             android:text="Baby's growth:"
+                            android:maxLines="4"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppins"
                             android:textSize="12sp" />
 
@@ -131,6 +133,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginTop="7dp"
                             android:text="Mommy's changes:"
+                            android:maxLines="4"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppins"
                             android:textSize="12sp" />
                     </LinearLayout>
