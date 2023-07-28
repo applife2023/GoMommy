@@ -223,7 +223,7 @@ class HomeFragment : Fragment() {
         dbRef.child("Users/$firebaseUser").child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener { snapshot ->
             val timeStamp = snapshot.value as? String
             if (timeStamp != null) {
-                timeStampChecker(true, timeStamp)
+                timeStampChecker(true, timeStamp, firebaseUser)
                 readDueDate(firebaseUser)
                 // Call readDueDate() first to get the dueDate value
                 dbRef.child("Users/$firebaseUser").child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
@@ -231,27 +231,27 @@ class HomeFragment : Fragment() {
                     displayDayN(timeStamp, dueDate)
                 }
             } else {
-                timeStampChecker(false, null)
+                timeStampChecker(false, null, firebaseUser)
             }
         }.addOnFailureListener { exception ->
             // Handle the failure case
         }
     }
 
-    private fun timeStampChecker(value: Boolean, timeStamp: String?) {
+    private fun timeStampChecker(value: Boolean, timeStamp: String?, firebaseUser: String?) {
         if (value) {
             println("timestamp already exists: $timeStamp")
         } else {
             println("timestamp added")
-            saveTimeStamp()
+            saveTimeStamp(firebaseUser)
         }
     }
 
-    private fun saveTimeStamp() {
+    private fun saveTimeStamp(firebaseUser: String?) {
         val currentDate = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault()).format(Date())
         val newKeyValuePair = HashMap<String, Any>()
         newKeyValuePair["firstDayTimeStamp"] = currentDate
-        dbRef.child("userProfile").updateChildren(newKeyValuePair)
+        dbRef.child("Users/$firebaseUser").child("userProfile").updateChildren(newKeyValuePair)
     }
 
     private fun startShimmerAnimation() {
