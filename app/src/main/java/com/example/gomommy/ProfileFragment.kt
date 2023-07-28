@@ -61,6 +61,6 @@ class ProfileFragment : Fragment() {
         binding.userUsername.text = userName.toString().capitalize()
         binding.userAge.text = calculatedUserAge.toString()
         binding.userDueDate.text = dueDate.toString()
-        binding.userFirstDayText.text = userFirstDay.toString()
+        binding.userTimeStamp.text = userFirstDay.toString()
     }
 }
