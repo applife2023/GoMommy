@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.gomommy.databinding.FragmentHomeBinding
@@ -32,21 +31,33 @@ class HomeFragment : Fragment() {
     var babyAgeInWeeks: Long = 0
     var babyAgeInMonths: Long = 0
 
+    private var isFragmentAttached: Boolean = false
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        isFragmentAttached = true
+
+        // Move the code that requires context to onAttach() method
+        if (isConnectedToInternet()) {
+            firebaseAuth = FirebaseAuth.getInstance()
+            val firebaseUser = firebaseAuth.currentUser?.uid
+            dbRef = FirebaseDatabase.getInstance().reference
+
+            readTimeStamp(firebaseUser)
+        } else {
+            showNoInternetDialog()
+        }
+
+    }
+    override fun onDetach() {
+        super.onDetach()
+        isFragmentAttached = false
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        if (isConnectedToInternet()) {
-            firebaseAuth = FirebaseAuth.getInstance()
-            val firebaseUser = firebaseAuth.currentUser?.uid
-            dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
-
-            readTimeStamp()
-        } else {
-            showNoInternetDialog()
-        }
 
         return binding.root
     }
@@ -93,7 +104,7 @@ class HomeFragment : Fragment() {
                 val firebaseUser = firebaseAuth.currentUser?.uid
                 dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
 
-                readTimeStamp()
+                readTimeStamp(firebaseUser)
             } else {
                 // Internet connection is still not available, show the dialog again
                 showNoInternetDialog()
@@ -108,8 +119,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun readDueDate() {
-        dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
+    private fun readDueDate(firebaseUser: String?) {
+        dbRef.child("Users/$firebaseUser").child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
             val dueDate = snapshot.value as? String
             displayRemainingDate(dueDate)
         }.addOnFailureListener { exception ->
@@ -157,11 +168,10 @@ class HomeFragment : Fragment() {
             val remainingDays = calculateRemainingDays(parseDueDate)
             val differenceDays = 280 - remainingDays
 
-            println(dayN)
 
             val (weeks, days) = calculateWeeksAndDays(dayN.toLong())
 
-            println(weeks)
+
 
             var ageInWeeks = weeks + differenceDays / 7
             var ageInDays = days + differenceDays % 7
@@ -178,6 +188,8 @@ class HomeFragment : Fragment() {
             babyAgeInMonths = calculateMonths(ageInWeeks)
 
             displayBabyGrowthImage(ageInWeeks.toInt())
+            displayBabyGrowthTxt(ageInWeeks.toInt())
+            displayMomHealthTxt(ageInWeeks.toInt())
 
             val dayNString = "Week $ageInWeeks, Day $ageInDays"
             binding.dayNumberTextView.text = dayNString
@@ -185,6 +197,8 @@ class HomeFragment : Fragment() {
             // Handle the case of invalid date format
         }
     }
+
+
 
     // Calculate baby's age in months based on weeks
     private fun calculateMonths(weeks: Long): Long {
@@ -204,14 +218,14 @@ class HomeFragment : Fragment() {
         return dayNTime / (1000 * 60 * 60 * 24)
     }
 
-    private fun readTimeStamp() {
-        dbRef.child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener { snapshot ->
+    private fun readTimeStamp(firebaseUser: String?) {
+        dbRef.child("Users/$firebaseUser").child("userProfile").child("firstDayTimeStamp").get().addOnSuccessListener { snapshot ->
             val timeStamp = snapshot.value as? String
             if (timeStamp != null) {
                 timeStampChecker(true, timeStamp)
-                readDueDate()
+                readDueDate(firebaseUser)
                 // Call readDueDate() first to get the dueDate value
-                dbRef.child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
+                dbRef.child("Users/$firebaseUser").child("userProfile").child("dueDate").get().addOnSuccessListener { snapshot ->
                     val dueDate = snapshot.value as? String
                     displayDayN(timeStamp, dueDate)
                 }
@@ -279,6 +293,8 @@ class HomeFragment : Fragment() {
 
     private fun displayBabyGrowthImage(ageInWeeks: Int) {
 
+        if (!isFragmentAttached) return
+
         val imageResourceId = when (ageInWeeks) {
             in 2..22 -> "baby_growth_week_${ageInWeeks}"
             else -> "baby_growth_week_1n6days" // Set a default image resource for any invalid weeks value
@@ -291,14 +307,12 @@ class HomeFragment : Fragment() {
             requireContext().packageName
         )
 
+        if (!isFragmentAttached) return
 
         binding.babyGrowthImageView.setImageResource(actualResourceId)
     }
 
-<<<<<<< Updated upstream
-=======
-
-    private fun displayBabyGrowthTxt(ageInWeeks: Int) {
+    private fun displayBabyGrowthTxt(ageInWeeks: Int){
         val babyGrowthStr = when (ageInWeeks) {
             in 2..22 -> "baby_growth_week_${ageInWeeks}"
             else -> "baby_growth_week_1n6days" // Set a default image resource for any invalid weeks value
@@ -306,15 +320,10 @@ class HomeFragment : Fragment() {
         dbRef.child("Description").child(babyGrowthStr).child("babyGrowth").get().addOnSuccessListener { snapshot ->
             val babyGrowth = snapshot.value as? String
             binding.babyGrowthTextView.text = babyGrowth
-
-            // Set click listener for the TextView to show full text in dialog box
-            binding.babyGrowthTextView.setOnClickListener {
-                showFullTextDialog("Baby's growth", babyGrowth)
-            }
         }
     }
 
-    private fun displayMomHealthTxt(ageInWeeks: Int) {
+    private fun displayMomHealthTxt(ageInWeeks: Int){
         val momHealthStr = when (ageInWeeks) {
             in 2..22 -> "baby_growth_week_${ageInWeeks}"
             else -> "baby_growth_week_1n6days" // Set a default image resource for any invalid weeks value
@@ -322,47 +331,11 @@ class HomeFragment : Fragment() {
         dbRef.child("Description").child(momHealthStr).child("momHealth").get().addOnSuccessListener { snapshot ->
             val momHealth = snapshot.value as? String
             binding.momHealthTextView.text = momHealth
-
-            // Set click listener for the TextView to show full text in dialog box
-            binding.momHealthTextView.setOnClickListener {
-                showFullTextDialog("Mommy's changes", momHealth)
-            }
         }
     }
 
-    private fun showFullTextDialog(title: String, fullText: String?) {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_full_text, null)
-        val fullTextTextView = dialogView.findViewById<TextView>(R.id.fullTextTextView)
-        val closeButton = dialogView.findViewById<ImageView>(R.id.closeButton)
-
-        fullTextTextView.text = fullText
-
-        val dialogBuilder = AlertDialog.Builder(requireContext(), R.style.CustomDialogStyle2)
-            .setView(dialogView)
-
-        val dialog = dialogBuilder.create()
-
-        // Set a click listener for the close button (X mark)
-        closeButton.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        // Show the dialog
-        dialog.show()
-    }
-
->>>>>>> Stashed changes
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Set the image resource for babyGrowthImageView
-//        binding.babyGrowthImageView.setImageResource(R.drawable.weeks_1n2)
-
-        // Update the text for babyGrowthTextView and momHealthTextView
-        binding.babyGrowthTextView.text =
-            "Baby's growth: Baby is but a glimmer in your eye. You're not pregnant yet at this stage of your journey. In fact, you probably have your period; the symptoms you’re experiencing are a result of PMS, not pregnancy."
-        binding.momHealthTextView.text =
-            "Mommy's changes: You can expect to experience your typical menstrual symptoms including bleeding, cramping, sore breasts, mood swings, etc."
 
         // Hide the content views initially
         hideContent()
@@ -374,3 +347,4 @@ class HomeFragment : Fragment() {
         simulateDataLoading()
     }
 }
+
