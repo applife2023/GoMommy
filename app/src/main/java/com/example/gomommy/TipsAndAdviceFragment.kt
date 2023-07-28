@@ -84,12 +84,12 @@ class TipsAndAdviceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         dataInitialize()
 
-        val layoutManager = LinearLayoutManager(context)
-        recyclerView = view.findViewById(R.id.tipsRecyclerView)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
-        adapter = TipsItemAdapter(tipsItemArrayList)
-        recyclerView.adapter = adapter
+//        val layoutManager = LinearLayoutManager(context)
+//        recyclerView = view.findViewById(R.id.tipsRecyclerView)
+//        recyclerView.layoutManager = layoutManager
+//        recyclerView.setHasFixedSize(true)
+//        adapter = TipsItemAdapter(tipsItemArrayList)
+//        recyclerView.adapter = adapter
 
 
         //search
