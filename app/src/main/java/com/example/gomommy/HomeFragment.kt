@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.gomommy.databinding.FragmentHomeBinding
@@ -294,6 +295,63 @@ class HomeFragment : Fragment() {
         binding.babyGrowthImageView.setImageResource(actualResourceId)
     }
 
+<<<<<<< Updated upstream
+=======
+
+    private fun displayBabyGrowthTxt(ageInWeeks: Int) {
+        val babyGrowthStr = when (ageInWeeks) {
+            in 2..22 -> "baby_growth_week_${ageInWeeks}"
+            else -> "baby_growth_week_1n6days" // Set a default image resource for any invalid weeks value
+        }
+        dbRef.child("Description").child(babyGrowthStr).child("babyGrowth").get().addOnSuccessListener { snapshot ->
+            val babyGrowth = snapshot.value as? String
+            binding.babyGrowthTextView.text = babyGrowth
+
+            // Set click listener for the TextView to show full text in dialog box
+            binding.babyGrowthTextView.setOnClickListener {
+                showFullTextDialog("Baby's growth", babyGrowth)
+            }
+        }
+    }
+
+    private fun displayMomHealthTxt(ageInWeeks: Int) {
+        val momHealthStr = when (ageInWeeks) {
+            in 2..22 -> "baby_growth_week_${ageInWeeks}"
+            else -> "baby_growth_week_1n6days" // Set a default image resource for any invalid weeks value
+        }
+        dbRef.child("Description").child(momHealthStr).child("momHealth").get().addOnSuccessListener { snapshot ->
+            val momHealth = snapshot.value as? String
+            binding.momHealthTextView.text = momHealth
+
+            // Set click listener for the TextView to show full text in dialog box
+            binding.momHealthTextView.setOnClickListener {
+                showFullTextDialog("Mommy's changes", momHealth)
+            }
+        }
+    }
+
+    private fun showFullTextDialog(title: String, fullText: String?) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_full_text, null)
+        val fullTextTextView = dialogView.findViewById<TextView>(R.id.fullTextTextView)
+        val closeButton = dialogView.findViewById<ImageView>(R.id.closeButton)
+
+        fullTextTextView.text = fullText
+
+        val dialogBuilder = AlertDialog.Builder(requireContext(), R.style.CustomDialogStyle2)
+            .setView(dialogView)
+
+        val dialog = dialogBuilder.create()
+
+        // Set a click listener for the close button (X mark)
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
+    }
+
+>>>>>>> Stashed changes
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
