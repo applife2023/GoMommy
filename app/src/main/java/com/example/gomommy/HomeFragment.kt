@@ -324,7 +324,7 @@ class HomeFragment : Fragment() {
 
             // Set click listener for the TextView to show full text in dialog box
             binding.babyGrowthTextView.setOnClickListener {
-                showFullTextDialog("Baby's growth", babyGrowth)
+                showFullTextDialog(babyGrowth)
             }
         }
     }
@@ -340,12 +340,12 @@ class HomeFragment : Fragment() {
 
             // Set click listener for the TextView to show full text in dialog box
             binding.momHealthTextView.setOnClickListener {
-                showFullTextDialog("Mommy's changes", momHealth)
+                showFullTextDialog(momHealth)
             }
         }
     }
 
-    private fun showFullTextDialog(title: String, fullText: String?) {
+    private fun showFullTextDialog(fullText: String?) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_full_text, null)
         val fullTextTextView = dialogView.findViewById<TextView>(R.id.fullTextTextView)
 
