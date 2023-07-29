@@ -77,19 +77,24 @@
             android:textSize="14sp" />
 
         <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@drawable/profile_gradient_bg">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/gradient_bg_x3"
+                android:elevation="5dp">
 
                 <TextView
                     android:id="@+id/userAge"
@@ -98,7 +103,6 @@
                     android:layout_columnWeight="1"
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="center"
-                    android:text="Age"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
             </RelativeLayout>
@@ -118,19 +122,24 @@
             android:textSize="14sp" />
 
         <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@drawable/profile_gradient_bg">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/gradient_bg_x3"
+                android:elevation="5dp">
 
 
                 <TextView
@@ -140,7 +149,7 @@
                     android:layout_gravity="center|center_horizontal"
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="center"
-                    android:text="duedate: "
+                    android:padding="8dp"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -160,19 +169,24 @@
             android:textSize="14sp" />
 
         <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_column="2"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@drawable/profile_gradient_bg">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/gradient_bg_x3"
+                android:elevation="5dp">
 
                 <TextView
                     android:id="@+id/userTimeStamp"
@@ -181,7 +195,7 @@
                     android:layout_gravity="center|center_horizontal"
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="center"
-                    android:text="duedate: "
+                    android:padding="8dp"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </RelativeLayout>

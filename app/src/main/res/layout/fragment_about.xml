@@ -17,10 +17,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="Go Mommy app is AppLife's product that aims to accompany moms and expectant moms and those who are trying to conceive and help them on their motherhood journey. From calendar tracker to stage-by-stage guidance and health facts and trivia about their ovulation cycle, overall pregnancy, and even after childbirth.
-\n\nAppLife's name signifies cheerfulness and joy of expecting a child. It indicates the advocate of the project to support and guide women to protect the most gracious gift, “Life”.
-
-AppLife is a company composed of young enthusiast developers named: Adrian Esguerra, Christian Kevin De Vega, Maria Bernadete Baroto, and Sunshine Richmer Palahang. We are dedicated to creating valuable products that fill the gap and create bridges to a livelier life and vibrant community."
+            android:text="@string/about_us_texts"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

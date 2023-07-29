@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.NumberPicker
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -85,7 +84,7 @@ class UserDueDate : AppCompatActivity() {
                 saveDueDate(dueDate)
                 readDueDate()
 
-                val intent = Intent(this@UserDueDate, ProfileCreation::class.java)
+                val intent = Intent(this@UserDueDate, HowManyDaysPregnant::class.java)
                 intent.putExtra("due_date", dueDate)
                 startActivity(intent)
                 finish()
