@@ -11,7 +11,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class DueDateCalculator : AppCompatActivity() {
 
@@ -62,7 +64,7 @@ class DueDateCalculator : AppCompatActivity() {
 
             saveDueDate(formattedDueDate)
             readDueDate()
-            val intent = Intent(this, ProfileCreation::class.java)
+            val intent = Intent(this, HowManyDaysPregnant::class.java)
             intent.putExtra("due_date", formattedDueDate) // Pass the formatted due date
             startActivity(intent)
             finish()
