@@ -32,6 +32,7 @@ class ProfileFragment : Fragment() {
         val firebaseUser = FirebaseAuth.getInstance().currentUser?.uid
         dbRef = FirebaseDatabase.getInstance().getReference("Users/$firebaseUser")
         readUserProfile()
+        readLoginCredentials()
     }
 
     private fun readUserProfile(){
@@ -45,6 +46,19 @@ class ProfileFragment : Fragment() {
         }
 
     }
+
+    private fun readLoginCredentials(){
+        dbRef.child("loginCredentials").child("email").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+            val value = it.value
+            binding.userEmail.text = value.toString()
+
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
+        }
+
+    }
+
     private fun mapUserProfile(userValue: Any?) {
         val userValue = userValue as? Map<String, Any?>
         if (userValue != null) {
