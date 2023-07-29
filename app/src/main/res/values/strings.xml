@@ -122,17 +122,16 @@
     <string name="itemDesc_22">Whooping cough (pertussis) rates have risen sharply in recent years and babies who are too young to start their vaccinations are at greatest risk. Young babies with whooping cough are often very unwell and most will be admitted to hospital because of their illness. When whooping cough is particularly severe, they can die. Pregnant women can help protect their babies by getting vaccinated – ideally from 16 weeks up to 32 weeks pregnant. If for any reason you miss having the vaccine, you can still have it up until you go into labour.</string>
 
     <!-- tipsItemSourceTextView -->
-    <string name="itemSource_1">https://www.nhs.uk/pregnancy/keeping-well/have-a-healthy-diet/</string>
-    <string name="itemSource_2">https://www.nhs.uk/pregnancy/keeping-well/vegetarian-or-vegan-and-pregnant/</string>
-    <string name="itemSource_3">https://www.nhs.uk/pregnancy/keeping-well/foods-to-avoid/</string>
-    <string name="itemSource_4">https://www.nhs.uk/pregnancy/keeping-well/vitamins-supplements-and-nutrition/</string>
-    <string name="itemSource_5">https://www.nhs.uk/pregnancy/keeping-well/exercise/</string>
-    <string name="itemSource_6">https://www.nhs.uk/pregnancy/keeping-well/mental-health/</string>
-    <string name="itemSource_7">https://www.nhs.uk/pregnancy/keeping-well/depression/</string>
-    <string name="itemSource_8">https://www.nhs.uk/pregnancy/keeping-well/sex/</string>
-    <string name="itemSource_9">https://www.nhs.uk/pregnancy/keeping-well/travelling/</string>
-    <string name="itemSource_10">https://www.nhs.uk/pregnancy/keeping-well/your-health-at-work/</string>
-
+    <string name="itemSource_1">Read more: www.nhs.uk/pregnancy</string>
+    <string name="itemSource_2">Read more: www.nhs.uk/pregnancy</string>
+    <string name="itemSource_3">Read more: www.nhs.uk/pregnancy</string>
+    <string name="itemSource_4">Read more: www.nhs.uk/pregnancy</string>
+    <string name="itemSource_5">Read more: www.nhs.uk/pregnancy</string>
+    <string name="itemSource_6">Read more: www.nhs.uk/pregnancy</string>
+    <string name="itemSource_7">Read more: www.nhs.uk/pregnancy</string>
+    <string name="itemSource_8">Read more: www.nhs.uk/pregnancy</string>
+    <string name="itemSource_9">Read more: www.nhs.uk/pregnancy</string>
+    <string name="itemSource_10">Read more: www.nhs.uk/pregnancy</string>
 
     <string name="google_maps_key">AIzaSyAjn11pLMAZ02UHMOtG_vsxURo_5k3RgLs</string>
     <string name="retry">Retry</string>
