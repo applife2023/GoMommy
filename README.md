@@ -26,4 +26,4 @@ Applife's first project is Go Mommy. Go Mommy app is a platform that aims to acc
 6. That's it! You can now use our application!
 
 ## User manual
-You can find the user manual named: User-Manual-Go-Mommy.docx
+You can find the user manual named: User-Manual-Go-Mommy.pdf
