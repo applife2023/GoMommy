@@ -44,7 +44,7 @@ class ProfileCreation: AppCompatActivity() {
                 }
             }
             // Progress reached 100%, start the new activity
-            val intent = Intent(this@ProfileCreation, OfficialWelcome::class.java)
+            val intent = Intent(this@ProfileCreation, HowManyDaysPregnant::class.java)
             startActivity(intent)
             finish()
         }).start()
