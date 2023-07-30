@@ -9,15 +9,14 @@ Applife's first project is Go Mommy. Go Mommy app is a platform that aims to acc
 ## Features
 
 - Create/Log-in user account
-- Input your credentials
-- Input your due date, if you do'nt no your due date, the app will guide you.
-- Calendar tracking
-- Find hospitals near your current location
-- Browse Tips and advice for your pregnancy
+- Input user credentials
+- Input user due date, if the user don't know her due date, the app will guide.
+- Calendar tracking, marking passed days from the beginning of tracking.
+- Find hospitals near your current location.
+- Browse Tips and advice for your pregnancy.
 
 
 ## How to install
-To run the H2gether app locally, follow these steps:
 
 1. Clone the repository: `https://github.com/applife2023/GoMommy`
 2. Open the project in your device using Android Studio.
