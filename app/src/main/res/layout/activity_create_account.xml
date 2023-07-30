@@ -43,48 +43,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.273" />
-
-    <EditText
-        android:id="@+id/createPasswordEditText"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:autofillHints="password"
-        android:background="@drawable/custom_edit_text"
-        android:fontFamily="@font/poppins_medium"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:paddingStart="5dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.434" />
-
-    <EditText
-        android:id="@+id/createEmailEditText"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:autofillHints="username"
-        android:background="@drawable/custom_edit_text"
-        android:fontFamily="@font/poppins_medium"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:paddingStart="5dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.361" />
+        app:layout_constraintVertical_bias="0.301" />
 
     <Button
         android:id="@+id/createAccountButton"
@@ -104,23 +63,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.682" />
-
-    <TextView
-        android:id="@+id/orTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:text="@string/or"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/googleSignUp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
+        app:layout_constraintVertical_bias="0.71" />
 
     <ToggleButton
         android:id="@+id/showPasswordToggleButton"
@@ -171,19 +114,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.532" />
+        app:layout_constraintVertical_bias="0.561" />
 
     <TextView
         android:id="@+id/passwordMismatchTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/poppins"
         android:gravity="center"
         android:text="@string/password_does_not_match"
         android:textColor="#FF0000"
         android:textSize="12sp"
         android:visibility="invisible"
-        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -191,26 +134,46 @@
         app:layout_constraintTop_toBottomOf="@+id/confirmPasswordEditText"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/googleSignUp"
+    <EditText
+        android:id="@+id/createPasswordEditText"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="25dp"
-        android:background="@drawable/btn_gradientbg"
-        android:enabled="false"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/create_with_google"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
+        android:autofillHints="password"
+        android:background="@drawable/custom_edit_text"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingStart="5dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.823" />
+        app:layout_constraintVertical_bias="0.463" />
+
+    <EditText
+        android:id="@+id/createEmailEditText"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:autofillHints="username"
+        android:background="@drawable/custom_edit_text"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:paddingStart="5dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.389" />
 
     <TextView
         android:id="@+id/alreadyHaveAnAccountText"
@@ -218,13 +181,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/already_have_an_account"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/googleSignUp" />
+        tools:layout_editor_absoluteY="597dp" />
 
     <TextView
         android:id="@+id/logInTextView"
@@ -233,10 +195,10 @@
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/poppins_medium"
+        android:padding="13dp"
         android:text="@string/log_in"
         android:textColor="@color/gomommy_primary"
         android:textSize="15sp"
-        android:padding="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
